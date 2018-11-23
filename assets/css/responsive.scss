@@ -1,0 +1,307 @@
+
+@media screen and (max-width: 638px) and (min-width: 0px){
+	.banner-top .title{
+		padding: 0 30px;
+		font-size: 18px;
+	}
+
+	.logo-nav{
+		text-align: center;
+		float: none;
+		&:after{
+			margin: 0 auto;
+			left: -3px;
+		}
+	}
+
+	.menu-nav ul{
+		float: none;
+		width: 350px;
+		margin: 0 auto;
+	}
+
+	.menu-nav{
+		position: relative;
+	}
+
+	.banner-top{
+		margin-top: 0px;
+	}
+
+	.section-2 .section-image{
+		width: 70%;
+		margin: 0 auto;
+		float: none;
+		img{
+			width: 100%;
+		}
+	}
+
+	.section-2 .section-caption{
+		width: 70%;
+		margin: 0 auto;		
+		margin-top: 30px;
+		float: none;
+	}
+
+	.section-2 .caption-body .row{
+		width: 100%;
+		margin-top: 20px;
+		.row-grid{
+			width: 33.333%;
+			font-size: 14px;
+		}
+	}
+
+	.section-2 .caption-body{
+		margin-top: 40px;
+	}
+
+	.section-1 .row{
+		width: 400px;
+		padding: 0px 50px;
+		.box-grid{
+			width: 100%;
+		}
+	}
+
+	.section-3 .photo-galery .row{
+		width: 200px;
+	}
+
+	.section-5 .testimoni .row{
+		width: 280px;
+	} 
+
+	.section-5 .testimoni .row .box-grid{
+		float: none;
+		width: 100%;
+	}
+
+	.section-5 .testimoni .testi-container{
+		width: 250px;
+		margin: 0 auto; 
+	}
+
+	.section-5 .testimoni .testi-container .testi-img{
+		margin: 0 auto;
+		float: none;
+		width: 100px;
+	}
+
+	.section-5 .testimoni .testi-container .testi-arrow{
+		float: none;
+		margin:  0 auto;
+	}
+
+	.section-5 .testimoni .testi-container .testi-arrow::before {
+		top: -8px;
+		right: 15px;
+		border-left: 15px solid transparent;
+		border-right: 15px solid transparent;
+		border-top: 15px solid #ff6969;
+	}
+
+	.section-5 .testimoni .testi-container .testi-body{
+		width: 250px;
+		height: auto;
+		overflow: visible;
+		margin-left: 0px;
+	}
+
+	.section-5 .testimoni .row .button-testi button,
+	.section-5 .testimoni .row .button-testi{
+		width: 250px;
+	}
+
+	.section-4 .row{
+		width: 300px; 
+	}
+
+	.section-4 .row .form-hubungi{
+		float: none;
+		width: 100%;
+		padding: 0px;
+	}
+
+	.section-4 .row .form-hubungi .form-input input[type="text"],
+	.section-4 .row .form-hubungi .form-input textarea{
+	 	width: 254px; 
+	}
+}
+
+@media screen and (max-width: 480px) and (min-width: 0px){
+	.section-1 .row{
+		width: 100%;
+		padding: 0px 10px;
+	}
+}
+
+@media screen and (max-width: 768px) and (min-width: 638px) {
+	.section-2 .section-image{
+		width: 500px;
+		margin: 0 auto;
+		float: none;
+		img{
+			width: 500px;
+		}
+	}
+
+	.section-2 .section-caption{
+		width: 500px;
+		margin: 0 auto;
+		margin-top: 30px;
+		float: none;
+	}
+
+	.section-1 .row{
+		width: 650px;
+		padding: 0px;
+		padding: 30px 0px;
+		.box-grid{
+			width: 50%;
+		}
+	}
+
+	.section-3 .photo-galery .row{
+		width: 412px;
+	}
+
+	.section-5 .testimoni .row{
+		width: 500px;
+	} 
+
+	.section-5 .testimoni .row .box-grid{
+		float: none;
+		width: 100%;
+	}
+
+	.section-5 .testimoni .testi-container{
+		width: 500px;
+		margin: 0 auto; 
+	}
+	
+	.section-4 .row{
+		width: 600px; 
+	}
+
+	.section-4 .row .form-hubungi .form-input input[type="text"],
+	 .section-4 .row .form-hubungi .form-input textarea{
+	 	width: 200px; 
+	 }
+}
+
+@media screen and (max-width: 980px) and (min-width: 768px){
+	.section-1 .row{
+		width: 760px;
+		padding: 30px 50px;
+	}
+
+	.section-1 .row .box-grid{
+		width: 50%;
+	}
+
+	.section-2 .section-image{
+		width: 700px;
+		margin: 0 auto;
+		float: none;
+	}
+
+	.section-2 .section-caption{
+		width: 700px;
+		margin: 0 auto;		
+		margin-top: 30px;
+		float: none;
+	}
+
+	 .section-3 .photo-galery .row{
+	 	width: 618px;
+	 }
+
+	 .section-5 .testimoni .row{
+		width: 760px;
+	} 
+
+	.section-5 .testimoni .row .box-grid{
+		float: none;
+		width: 100%;
+	}
+
+	.section-5 .testimoni .testi-container{
+		width: 500px;
+		margin: 0 auto; 
+	}
+
+	
+}
+
+@media screen and (max-width: 1150px) and (min-width: 980px){
+	.section-1 .row{
+		width: 900px;
+	}
+
+	.section-2 .caption-body .row .row-grid .logo{
+		font-size: 30px;
+	}
+
+	.section-2 .section-image{
+		max-width: 480px;
+	}
+	.section-2 .section-image img{
+		width: 100%;
+	}
+
+	.section-2 .section-caption{
+		width: 430px;
+	}
+
+	.section-2 .caption-body{
+		margin-top: 40px;
+	}
+
+	.section-2 .caption-body .row{
+		width: 350px;
+		margin-top: 20px;
+	}
+
+	 .section-3 .photo-galery .row{
+	 	width: 618px;
+	 }
+
+	.section-5 .testimoni .row{
+		width: 900px;
+	} 
+
+	.section-5 .testimoni .testi-container .testi-body{
+		width: 290px;
+	}
+}
+
+
+@media screen and (min-width: 1150px) and (max-width: 1280px){
+	.section-2 .section-image{
+		max-width: 650px;
+	}
+	.section-2 .section-image img{
+		width: 100%;
+	}
+
+	.section-2 .section-caption{
+		width: 430px;
+	}
+
+	.section-2 .caption-body{
+		margin-top: 40px;
+	}
+
+	.section-2 .caption-body .row{
+		width: 350px;
+		margin-top: 20px;
+	}
+}
+
+@media screen and (min-width: 1280px){
+	.container{
+		width: 1200px;	
+	}
+}

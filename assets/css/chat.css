@@ -1,0 +1,104 @@
+.pesan .box-chat {
+        background: #fff;
+        border: 0px solid #bcbcbc;
+        padding: 20px;
+        height: 350px;
+        overflow: auto; }
+        .wrap-chat:after{
+          content: " ";
+          display: block;
+          clear: both;
+        }
+        .pesan .box-chat span.admin {
+          background: #fff;
+          color: #b10d0d;
+          border-radius: 3px;
+          padding: 0px 3px;
+          margin-right: 5px;
+        }
+        .pesan .box-chat .chat {
+          padding: 10px;
+          border: 1px solid;
+          margin-bottom: 20px;
+          border-radius: 15px;
+          width: 500px;
+          font-size: 13px;
+          position: relative; }
+          .pesan .box-chat .chat .user {
+            font-weight: 700;
+            margin-bottom: 10px; }
+          .pesan .box-chat .chat .dibaca {
+            position: absolute;
+            left: -40px;
+            bottom: 5px;
+            font-size: 10px;
+            color: #999; }
+          .pesan .box-chat .chat:hover .tanggal {
+            opacity: 1;
+            transition: opacity .3s ease; }
+          .pesan .box-chat .chat .tanggal {
+            position: absolute;
+            right: 10px;
+            top: 4px;
+            font-size: 10px;
+            background: #333;
+            color: #fff;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            opacity: 0; }
+        .pesan .box-chat .left {
+          float: left;
+          background: #eee;
+          border-color: #ddd; }
+        .pesan .box-chat .right {
+          float: right;
+          background: #ababab;
+          border-color: #868686;
+          color: #fff; }
+        .pesan .box-chat .me {
+          background: #91d8f5;
+          border-color: #4eb4e4;
+          color: #333;
+        }
+      .pesan .pesan-box {
+        display: block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        position: relative;
+        border: 2px solid #bcbcbc;
+        background: #eee;
+        color: #333; }
+        .pesan .pesan-box:hover {
+          background: #e1e1e1; }
+        .pesan .pesan-box.unread {
+          background: #fff; }
+          .pesan .pesan-box.unread:hover {
+            background: #eee; }
+        .pesan .pesan-box .title {
+          font-weight: 700;
+          margin-bottom: 10px; }
+          .pesan .pesan-box .title .count {
+            background: red;
+            margin-left: 5px;
+            border-radius: 3px;
+            color: #fff;
+            padding: 0 3px;
+            font-size: 12px;
+            font-weight: 700; }
+        .pesan .pesan-box .date {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          font-size: 12px; }
+        .pesan .pesan-box .pratinjau {
+          font-size: 14px;
+          color: #888; }
+      .pesan .text-box {
+        border: 2px solid #bcbcbc;
+        border-top: none;
+        height: 100px; }
+        textarea.form-control {
+          resize: none;
+        .pesan .text-box button {
+          float: right; }
