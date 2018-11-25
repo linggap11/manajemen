@@ -51,7 +51,7 @@
         </div><!-- /.box-header -->
         <div class="box-body">
           <select class="list-pelanggan form-control" id="list_pelanggan">
-            <option value="">Pilih Pelanggan</option>  
+            <option value="0">Pilih Pelanggan</option>  
             <?php foreach ($list_pelanggan as $list) { ?>
               <option <?php echo ($pelanggan->id == $list->id) ? 'selected' : '' ; ?> value="<?php echo $list->id; ?>"><?php echo $list->nama; ?></option>  
             <?php } ?>
@@ -134,9 +134,14 @@
   $('#id').val(id);
   
   $(document).ready(function() {
+
+    $('#tabel_pengiriman_by_pelanggan').DataTable({
+
+    });
     // get data pengiriman by pelanggan
    $('#list_pelanggan').change(function() {
     var id_pelanggan = $('#list_pelanggan').val();
+    if (id_pelanggan == "0") { return false}
     var table = $('#tabel_pengiriman_by_pelanggan').DataTable( {
        "bDestroy": true,
        "ajax": {
