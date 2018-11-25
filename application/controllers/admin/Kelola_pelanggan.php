@@ -21,7 +21,6 @@ class Kelola_pelanggan extends CI_Controller {
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
 		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 		    );
- 
 		$data['result'] = $this->model_pelanggan->show();
 		$data['curr_page'] = ($offset != '') ? $offset + 1: 1;
 		$data['query'] = '';

@@ -39,7 +39,7 @@ class Model_produk extends CI_Model {
 	}
 
 	public function search_sales($keyword) {
-		$query = $this->db->query("SELECT * FROM sales WHERE nama LIKE '%$keyword%'");
+		$query = $this->db->query("SELECT * FROM sales WHERE nama LIKE '%$keyword%' AND status='FREE'");
     return $query->result();
 	}
 
@@ -125,5 +125,76 @@ class Model_produk extends CI_Model {
 		$this->db->select('pengiriman.*');
 		return $this->db->get('pengiriman')->result();	
 	} 
+
+
+	public function get_produk_id() {
+		$query = $this->db->query("SELECT id FROM produk ORDER BY id DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['id'];
+    } else {
+      return '0';
+    }
+	}
+	public function get_pelanggan_id() {
+		$query = $this->db->query("SELECT id FROM pelanggan ORDER BY id DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['id'];
+    } else {
+      return '0';
+    }
+	}
+	public function get_pengiriman_id() {
+		$query = $this->db->query("SELECT id FROM pengiriman ORDER BY id DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['id'];
+    } else {
+      return '0';
+    }
+	}
+
+	public function get_no_pengiriman() {
+		$query = $this->db->query("SELECT no_pengiriman FROM pengiriman ORDER BY no_pengiriman DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['no_pengiriman'];
+    } else {
+      return 'SHIPMNT000000';
+    }
+	}
+
+	public function get_transaksi_id() {
+		$query = $this->db->query("SELECT id FROM transaksi ORDER BY id DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['id'];
+    } else {
+      return '0';
+    }
+	}
+
+	public function get_no_bukti() {
+		$query = $this->db->query("SELECT no_bukti FROM transaksi ORDER BY no_bukti DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['no_bukti'];
+    } else {
+      return '2018/09/414';
+    }
+	}
 
 }

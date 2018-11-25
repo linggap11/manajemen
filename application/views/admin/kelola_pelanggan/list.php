@@ -6,7 +6,6 @@
             <li class="active"> <i class="fa fa-users"></i> List Pelanggan </li> 
           </ol>
         </section>
-
         <!-- Main content -->
         <section class="content">
         
@@ -30,8 +29,6 @@
                                     <th>No Telpon</th> 
                                     <th width="15%">Alamat</th>                                     
                                     <th>Kode Pos</th> 
-                                    <th>Kecamatan</th>
-                                    <th>Kelurahan</th>
                                     <th width="15%" class="text-center">Jumlah Produk </th> 
                                     <th width="20%">Action</th>
                                 </tr>
@@ -42,9 +39,7 @@
                                     <td><?php echo $res->nama;?></td> 
                                     <td><?php echo $res->no_telp;?></td> 
                                     <td><?php echo $res->alamat;?></td> 
-                                    <td><?php echo $res->kode_pos;?></td> 
-                                    <td><?php echo $res->kecamatan;?></td> 
-                                    <td><?php echo $res->kelurahan;?></td>                                   
+                                    <td><?php echo $res->kode_pos;?></td>                                  
                                     <td class="text-center">
                                         <span class="label label-info">
                                             <?php echo $this->model_produk->countListHargaByPelangganID($res->id);?>

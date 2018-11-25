@@ -10,7 +10,6 @@
           <a href="<?php echo site_url('admin/kelola_admin/edit/') . $this->session->admin_id ?>"><i class="fa fa-gear text-green"></i> Kelola profil</a>
         </div>
       </div> 
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu tree"> 
 
@@ -26,6 +25,20 @@
         <li <?php echo ($menu == 'kelola_pelanggan') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pelanggan' . get_url_cache()) ?>"><i class="fa fa-users"></i> <span>Kelola Pelanggan</span></a></li> 
 
         <li <?php echo ($menu == 'kelola_pengiriman') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pengiriman' . get_url_cache()) ?>"><i class="fa fa-money"></i> <span>Kelola Pengiriman</span></a></li> 
+
+         <li class="treeview <?php echo ($menu == 'laporan_pengiriman' || $menu == 'laporan_pemesanan') ? 'active' : '';?>">
+         <a href="#">
+           <i class="fa fa-file"></i> <span>Kelola Laporan</span>
+           <span class="pull-right-container">
+             <i class="fa fa-angle-left pull-right"></i>
+           </span>
+         </a>
+         <ul class="treeview-menu">   
+           
+           <li <?php echo ($menu == 'laporan_pengiriman') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/Laporan/laporan_pengiriman' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Laporan Pengiriman</span></a></li>  
+           <li <?php echo ($menu == 'laporan_pemesanan') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/Laporan/laporan_pemesanan' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Laporan Pemesanan</span></a></li>  
+         </ul>
+       </li>
 
       </ul>
       <!-- /.sidebar-menu -->

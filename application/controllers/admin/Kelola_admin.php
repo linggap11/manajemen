@@ -20,11 +20,7 @@ class Kelola_admin extends CI_Controller {
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
 		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 		    );
- 
 		$data['result'] = $this->model_admin->show();
-		$data['curr_page'] = ($offset != '') ? $offset + 1: 1;
-		$data['query'] = '';
-
 		$this->load->view('admin/layout/header', array('title' => 'Kelola Admin', 'menu' => 'kelola_admin', 'css' => $css));
 		$this->load->view('admin/kelola_admin/list', $data);
 	}

@@ -22,6 +22,8 @@ class Kelola_produk extends CI_Controller {
 			foreach ($result as $row)
 					$arr_result[] = $row->nama;
 					echo json_encode($arr_result);
+			} else {
+					echo json_encode(['data'=> "Tidak Ada Sales"]);
 			}
 		}
 	}
@@ -56,33 +58,7 @@ class Kelola_produk extends CI_Controller {
 		echo json_encode($value);
 	}
 
-	public function simpan_pengiriman() {
-		$no_pengiriman = $this->input->post('no_pengiriman');
-		$id_produk = $this->input->post('kode_produk');
-		$id_sales = $this->input->post('id_sales');
-		$alamat = $this->input->post('alamat');
-		$berat = $this->input->post('berat');
-		$harga = $this->input->post('subtotal');
-		$biaya_tambahan = $this->input->post('biaya_tambahan');
-		$pelanggan_id = $this->input->post('id_pelanggan');
-
-		foreach ($no_pengiriman as $idx => $kode) {
-			$data = array(
-				'no_pengiriman' => $no_pengiriman[$idx],
-				'alamat' => $alamat[$idx],
-				'berat' => $berat[$idx],
-				'harga' => $harga[$idx],
-				'biaya_tambahan' => $biaya_tambahan[$idx],
-				'produk_id' => $id_produk[$idx],
-				'pelanggan_id' => $pelanggan_id,
-				'sales_id' => $id_sales[$idx]
-			);
-
-
-			$this->model_produk->insertPengiriman($data);
-		}
-		redirect('admin/kelola_pelanggan/produk/'.$pelanggan_id,'refresh');
-	}
+	
 
 	public function surat_jalan($no_pengiriman, $pelanggan_id) {
 		echo $no_pengiriman;

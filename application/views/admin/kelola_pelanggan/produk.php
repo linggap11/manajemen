@@ -2,6 +2,25 @@
    th {
     text-align: center;
    }
+   .hr-flex {
+    border-top: 1px dashed #d8d8d8;
+    color: #ffffff;
+    background-color: #ffffff;
+    height: 1px;
+    margin: 10px 0;
+    display: block;
+    flex: 1;
+  }
+
+  .panel-menu {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+
+  .text-info {
+    color: #069d9f;
+  }
  </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -26,7 +45,7 @@
           </h3>
 
           <div class="box-tools">          
-          <a href="#tambah" onclick="showTable()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Tambah Pengiriman</a> 
+          <a href="<?= base_url('admin/kelola_pengiriman') ?>" onclick="" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Tambah Pengiriman</a> 
           </div>
            
         </div><!-- /.box-header -->
@@ -51,14 +70,6 @@
               <div class="col-md-2"><strong>Kode Pos</strong></div>
               <div class="col-md-4"> : <?php echo $pelanggan->kode_pos; ?></div>
             </div>
-            <div class="row data-user">
-              <div class="col-md-2"><strong>Kelurahan</strong></div>
-              <div class="col-md-4"> : <?php echo $pelanggan->kelurahan; ?></div>
-          </div> 
-            <div class="row data-user">
-              <div class="col-md-2"><strong>Kecamatan</strong></div>
-              <div class="col-md-4"> : <?php echo $pelanggan->kecamatan; ?></div>
-          </div> 
        </div>
        <table id="tabel_pengiriman_by_pelanggan" class="table table-bordered table-striped">
                 <thead>
@@ -86,8 +97,7 @@
                           <td>'.$wow->berat.'</td>
                           <td>'.$wow->harga.'</td>
                           <td>
-                               <a href="'.base_url().'admin/Kelola_produk/surat_jalan/'.$wow->no_pengiriman.'/'.$wow->pelanggan_id.'" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Surat Jalan</a>
-                               <a href="'.base_url().'admin/Kelola_produk/batal/'.$wow->no_pengiriman.'/'.$wow->pelanggan_id.'" class="btn btn-danger btn_hapus btn-xs"><i class="fa fa-trash"></i> Batal</a>
+                               <a href="'.base_url().'admin/Kelola_pengiriman/print_surat_jalan/'.$wow->no_pengiriman.'" target="_blank" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Surat Jalan</a>
                           </td>
                         </tr>
                         ';
@@ -104,92 +114,6 @@
         <div class="box-footer clearfix" > 
         </div>
       </div>
-    </section>
-      <section class="content" id="tambah">
-      <!-- Default box -->
-      <div class="box box-red" id="hidden_section" >
-        <center><h3>Tambah Pengiriman Baru</h3></center>
-        <div class="box-header with-border">
-       <div class="col-lg-12">
-          <form action="<?php echo base_url('admin/Kelola_produk/simpan_pengiriman') ?>" onsubmit="return checkSales()" method="post" accept-charset="utf-8">
-            <div class="form-group">
-            <div id="tabelProduk" class="col-sm-12 no-more-tables">
-                <table id="tabelProduknya" class="table table-hover table-bordered">
-                    <thead class="cf">
-                      <tr>
-                        <th style="width:3%" align="center">#</th>
-                        <th style="width:10%">No Pengiriman</th>
-                        <th style="width:10%">Sales</th>
-                        <th style="width:15%">Produk</th>
-                        <th style="width:20%">Alamat</th>
-                        <th style="width:7%">Berat (Kg)</th>
-                        <th style="width:10%">Harga (Rp)</th>
-                        <th style="width:10%">Biaya Tambahan (Rp)</th>
-                        <th style="width:15%">Total (Rp)</th>
-                        <th style="width:5%"></th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbody_pemesanan">
-                      <tr id="tr1">
-                        <td align="center" data-title="#">1</td>
-                        <td data-title="No Pengiriman*">
-                          <input type="text" id="no_pengiriman1" name="no_pengiriman[]" class="no_pengiriman form-control" required="">
-                        </td>
-                        <td data-title="Sales*">
-                          <div class="input-group">
-                            <input type="text" class="sales form-control" placeholder="Sales" id="sales1" name="sales[]">
-                          </div>
-                          <input type="hidden" class="id_sales form-control" id="id_sales1" name="id_sales[]">
-                        </td>
-                        <td data-title="Produk*">
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Produk" id="cari_produk1" name="nama_produk[]">
-                          </div>
-                          <input type="hidden" class="form-control"  onchange="hitungSubTotal(1)" id="kode_produk1" name="kode_produk[]">
-                          <input type="hidden" class="form-control" id="id_pelanggan" name="id_pelanggan">
-                        </td>
-                        <td data-title="">
-                          <textarea id="alamat1" name="alamat[]" class="form-control" required=""></textarea>
-                        </td>
-                        <td data-title="">
-                          <input type="text" style="text-align: center" onchange="hitungSubTotal(1)" id="berat1" name="berat[]" min="1" value="1" class="form-control" required="">
-                        </td>
-                        <td data-title="">
-                          <input type="text" id="harga1" name="harga[]" onchange="hitungSubTotal(1)" readonly="" class="form-control" >
-                        </td>
-                        <td data-title="">
-                          <input type="text" value="0" min="0" id="biaya_tambahan1"  onchange="hitungSubTotal(1)" name="biaya_tambahan[]" class="form-control" required="">
-                        </td>
-                        <td data-title="">
-                          <input type="text" id="subtotal1" name="subtotal[]" class="subtotal form-control" readonly>
-                        </td>
-                        <td data-title="">
-                          <a href="javascript:void(0);" onclick="T_removeElement_awal();" class="btn btn-danger" id="del_row1">
-                          <i class="glyphicon glyphicon-minus"></i>
-                          </a>
-                        </td>
-                    </tr>
-                  </tbody>
-                  <tfoot class="cf">
-                    <tr>
-                      <th></th>
-                      <th colspan="4" rowspan="2"><center><strong>TOTAL BIAYA PENGIRIMAN</strong></center></th>
-                      <th colspan="4"><input type="text" id="total_pengiriman" class="form-control" value="Rp. 0" readonly="" name="total_pengiriman"></th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <div class="form-group col-md-12"><button type="button" class="btn btn-warning" onclick="addPengiriman();" id="add_rowProduk"><i class="glyphicon glyphicon-plus"></i>Tambah Pengiriman Lain</button></div>
-           </div>
-           <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary pull-right"><i class="simpan glyphicon glyphicon-save"></i> Simpan</button>
-            </div>
-        </div>            
-          </form>
-        </div>
-      </div>
-    </section>
       <!-- /.box -->
         
       <a href="<?php  echo base_url('admin/kelola_pelanggan') ?>" class="btn btn-xs btn-default" href=""><i class="fa fa-long-arrow-left"></i> Kembali Ke list pelanggan</a>
@@ -205,10 +129,9 @@
 <?php $this->load->view('admin/layout/footer'); ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-
 <script type="text/javascript">
-  var id_pelanggan = $('#list_pelanggan').val();
-  $('#id_pelanggan').val(id_pelanggan);
+  var id = $('#list_pelanggan').val();
+  $('#id').val(id);
   
   $(document).ready(function() {
     // get data pengiriman by pelanggan
@@ -388,27 +311,16 @@
  $('#button_surat_jalan').click(function() {
 
  })
- function hitungSubTotal(i) {
-    $('#harga'+i+', #berat'+i+', #biaya_tambahan'+i+'').change(function(){
-        var harga = parseInt($('#harga'+i+'').val());
-        var berat = parseInt($('#berat'+i+'').val());
-        var biaya_tambahan = parseInt($('#biaya_tambahan'+i+'').val());
+ function hitungTotal(i) {
+    var harga = parseInt($('#harga'+i+'').val());
+    var berat = parseInt($('#berat'+i+'').val());
+    var biaya_tambahan = parseInt($('#biaya_tambahan'+i+'').val());
 
-        var sub_total = (harga * berat) + biaya_tambahan;
-        $('#subtotal'+i+'').val(sub_total)
-        totalAll();
-     });
+    var sub_total = (harga * berat) + biaya_tambahan;
+    $('#total'+i+'').val(parseInt(sub_total));
  }
 
- function totalAll() {
-    var jumlah_tot=0;
-    $('.subtotal').each(function(i,e) {
-        var amt = $(this).val();
-        jumlah_tot += parseFloat(amt);        
-    });
-    console.log(jumlah_tot);
-    $('#total_pengiriman').val('Rp. '+jumlah_tot);
- }
+ 
 
  function checkSales() {
     var idx = {};
@@ -432,7 +344,7 @@
     }
  }
 
- $("#sales1").autocomplete({
+ $("#cari_sales1").autocomplete({
     autoFocus: true,
     source: "<?php echo site_url('admin/Kelola_produk/get_sales/?');?>",
     select: function (e, ui) {
@@ -441,6 +353,7 @@
       $.get("<?php echo site_url('admin/Kelola_produk/get_data_sales_bynama/'); ?>"+nama_sales, function(respon) {
         var data = JSON.parse(respon);
         $('#id_sales1').val(data.id);
+        $('#no_kendaraan1').val(data.plat_nomor);
       });
     },
     messages: {
@@ -466,7 +379,6 @@
           $('#harga1').val(data.harga);
           $('#kode_produk1').val(data.id);
           $('#subtotal1').val(data.harga);
-          totalAll();
         }
        })
     },
@@ -482,64 +394,19 @@
 
  var count_id = 1;
 
-  function T_removeElement_awal() {
-    if($('#tbody_pemesanan').children('tr').length > 1) {
-      document.getElementById('tbody_pemesanan').removeChild(document.getElementById('tr1'));
-    } else {
-      alert("Tidak Ada Form Yang Di Hapus ");
-    }
-  }
 
   function T_removeElement(i) {
-    if($('#tbody_pemesanan').children('tr').length > 1) {
-      document.getElementById('tbody_pemesanan').removeChild(document.getElementById('tr' + i));
-      count_id--;
-      sumall();
-    } else {
-      alert("Tidak Ada Form Yang Di Hapus ");
-    }
+    $('#add'+i).remove();
+    count_id--;
   }
+
 
   function addPengiriman() {
     count_id++;
 
-    var objNewDiv = document.createElement('tr');
-    objNewDiv.setAttribute('id', 'tr' + count_id);
-    objNewDiv.innerHTML = '<td align="center">'+count_id+'</td>';
-    objNewDiv.innerHTML += '<td data-title="No Pengiriman*"> <input type="text" id="no_pengiriman'+count_id+'" name="no_pengiriman[]" class="no_pengiriman form-control"> </td></td> <td data-title="Sales*"> <div class="input-group"> <input type="text" class="sales form-control" placeholder="Sales" id="sales'+count_id+'" name="sales[]"> </div><input type="hidden" class="form-control" id="id_sales'+count_id+'" name="id_sales[]"> </td> <td data-title="Produk*"> <div class="input-group"> <span class="input-group-addon"><i class="fa fa-search"></i></span> <input type="text" class="form-control" placeholder="Produk" onchange="hitungSubTotal('+count_id+')"  id="cari_produk'+count_id+'" name="nama_produk[]"> </div> <input type="hidden" class="form-control" id="kode_produk'+count_id+'" name="kode_produk[]"> </td> <td data-title=""> <textarea id="alamat'+count_id+'" name="alamat[]" class="form-control"></textarea> </td> <td data-title=""><input type="text" style="text-align: center" onchange="hitungSubTotal('+count_id+')" id="berat'+count_id+'" name="berat[]" min="1" value="1" class="form-control" required=""></td> <td data-title=""><input type="text" id="harga'+count_id+'" name="harga[]" onchange="hitungSubTotal('+count_id+')" readonly="" class="form-control">  </td> <td data-title=""> <input type="text" onchange="hitungSubTotal('+count_id+')" id="biaya_tambahan'+count_id+'" name="biaya_tambahan[]" value="0" class="form-control"> </td><td data-title=""><input type="text" id="subtotal'+count_id+'" name="subtotal[]" class="subtotal form-control" readonly></td>';
-    objNewDiv.innerHTML += '<td><a href="javascript:void(0);" onclick="T_removeElement('+count_id+');" class="btn btn-danger" id="del_row'+count_id+'"><i class="glyphicon glyphicon-minus"></i></a></td></tr>';
-    document.getElementById('tbody_pemesanan').appendChild(objNewDiv);
+    $('#transaksi_lain').append('<div id="add'+count_id+'"><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Nama Pelanggan</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="nama_pelanggan'+count_id+'" class="form-control" name="nama_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="nohape">No Telp</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="telp_pelanggan'+count_id+'" class="form-control" name="telp_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Alamat</label> <div class="col-sm-7"> <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat'+count_id+'" name="alamat[]" class="form-control" rows="5"></textarea> <span id="charNum"></span> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="kodepos">Kode Pos</label> <div class="col-sm-7"> <input type="text" id="kode_pos1" class="form-control" name="kode_pos[]"> </div></div></div></div></div><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Nama Produk</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="nama_produk'+count_id+'" class="form-control" name="nama_produk[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Deskripsi</label> <div class="col-sm-7"> <textarea placeholder="" id="deskripsi_produk'+count_id+'" name="deskripsi_produk[]" class="form-control" rows="2"></textarea> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Harga (Rp)</label> <div class="col-sm-7"> <input type="text" required onkeyup="hitungTotal('+count_id+')" value="0" id="harga'+count_id+'" class="form-control" name="harga[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Berat (Kg)</label> <div class="col-sm-7"> <input type="text" id="berat'+count_id+'" required value="1" onkeyup="hitungTotal('+count_id+')" class="form-control" name="berat[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Tambahan (Rp)</label> <div class="col-sm-7"> <input type="text" value="0" required onkeyup="hitungTotal('+count_id+')" id="biaya_tambahan'+count_id+'" class="form-control" name="biaya_tambahan[]"> </div></div><div class="form-group"><label class="col-sm-4 control-label" for="">Total (Rp)</label><div class="col-sm-7"><input type="text" id="total'+count_id+'" readonly class="form-control" name="total[]"></div></div></div></div><div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <input type="hidden" name="sales_id[]" id="sales_id'+count_id+'"> <label class="col-sm-4 control-label" for="">Sales</label> <div class="col-sm-7"> <div class="input-group"> <span class="input-group-addon"><i class="fa fa-search"></i></span> <input type="text" placeholder="Cari Sales" id="cari_sales'+count_id+'" class="form-control" name="cari_sales[]" autocomplete="off"> <input type="hidden" name="id_sales[]" id="id_sales'+count_id+'"></div></div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">No Kendaraan</label> <div class="col-sm-7"> <input type="text" id="no_kendaraan'+count_id+'" class="form-control" name="no_kendaraan[]"> </div></div></div></div></div><div class="col-md-1"> <a href="javascript:void(0);" onclick="T_removeElement('+count_id+');" class="btn btn-danger pull-right" id="del_row'+count_id+'"><i class="glyphicon glyphicon-minus"></i></a> </div></div>');
 
-    $( "#cari_produk"+count_id ).autocomplete({
-      autoFocus: true,
-      source: "<?php echo site_url('admin/Kelola_produk/get_produk/?');?>",
-      select: function (e, ui) {
-           var produk = ui.item.value;
-           var n = produk.indexOf("Kode");
-           var kode = produk.substr(n+6, 10);    
-           console.log(kode);       
-           $.ajax({
-            type: "GET",
-            data: "",
-            url: "<?php echo site_url('admin/Kelola_produk/get_data_produk_bykode/'); ?>"+kode,
-            success: function(results) {
-              var data = JSON.parse(results);
-              $('#harga'+count_id+'').val(data.harga);
-              $('#kode_produk'+count_id+'').val(data.id);
-              $('#subtotal'+count_id+'').val(data.harga);
-
-              totalAll() 
-            }
-           })
-        },
-      
-      messages: {
-        noResults: '',
-        results: function() {}
-      }
-    });
-
-    $("#sales"+count_id).autocomplete({
+    $("#cari_sales"+count_id).autocomplete({
       autoFocus: true,
       source: "<?php echo site_url('admin/Kelola_produk/get_sales/?');?>",
       select: function (e, ui) {
@@ -548,6 +415,7 @@
         $.get("<?php echo site_url('admin/Kelola_produk/get_data_sales_bynama/'); ?>"+nama_sales, function(respon) {
           var data = JSON.parse(respon);
           $('#id_sales'+count_id).val(data.id);
+          $('#no_kendaraan'+count_id).val(data.plat_nomor);
         });
         },
       messages: {

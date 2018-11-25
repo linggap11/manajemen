@@ -48,17 +48,8 @@
                                 <?php echo (form_error('kode_pos')) ? '<span class="help-block">' . form_error('kode_pos') . '</span>' : '';?> 
                               </div>
 
-                              <div class="form-group <?php echo (form_error('kecamatan  ')) ? 'has-error' : '';?>">
-                                <label for="inputNama" class="control-label">Kecamatan </label> 
-                                <input class="form-control" type="text" name="kecamatan" value="<?php echo set_value('kecamatan', $pelanggan->kecamatan); ?>">
-                                <?php echo (form_error('kecamatan')) ? '<span class="help-block">' . form_error('kecamatan') . '</span>' : '';?> 
-                              </div>
-
-                              <div class="form-group <?php echo (form_error('kelurahan  ')) ? 'has-error' : '';?>">
-                                <label for="inputNama" class="control-label">Kelurahan</label> 
-                                <input class="form-control" type="text" name="kelurahan" value="<?php echo set_value('kelurahan', $pelanggan->kelurahan); ?>">
-                                <?php echo (form_error('kelurahan')) ? '<span class="help-block">' . form_error('kelurahan') . '</span>' : '';?> 
-                              </div>
+                            
+                
 
                             </div><!-- end col -->
                           </div><!-- end row -->
