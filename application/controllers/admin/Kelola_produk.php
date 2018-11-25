@@ -75,7 +75,7 @@ class Kelola_produk extends CI_Controller {
 
 		foreach ($data_pengiriman as $row) {
 			$value = $row;
-			$value->aksi = '<a href="'.base_url().'admin/Kelola_produk/surat_jalan/'.$row->no_pengiriman.'/'.$row->pelanggan_id.'" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Surat Jalan</a> <a href="'.base_url().'admin/Kelola_produk/batal/'.$row->no_pengiriman.'/'.$row->pelanggan_id.'" class="btn btn-danger btn_hapus btn-xs"><i class="fa fa-trash"></i> Batal</a>';
+			$value->aksi = '<a href="'.base_url().'admin/Kelola_pengiriman/print_surat_jalan/'.$row->no_pengiriman.'" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-print"></i> Surat Jalan</a>';
 		}
 		echo json_encode($data_pengiriman);
 	}
