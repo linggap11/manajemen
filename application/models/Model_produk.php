@@ -9,7 +9,7 @@ class Model_produk extends CI_Model {
 
 	//get pengrimian by pelangggan
 	public function get_pengiriman_by_pelanggan($id_pelanggan) {
-		$this->db->select('no_pengiriman, produk.kode, sales.nama, pengiriman.alamat, pengiriman.berat, pengiriman.harga, pelanggan_id');
+		$this->db->select('no_pengiriman, produk.kode, sales.nama, pelanggan.alamat, pengiriman.berat, pengiriman.harga, pelanggan_id');
 		$this->db->from('pelanggan');
 		$this->db->join('pengiriman', 'pengiriman.pelanggan_id = pelanggan.id');
 		$this->db->join('produk', 'produk.id = pengiriman.produk_id');
@@ -26,9 +26,9 @@ class Model_produk extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_data_sales_bynama($nama) {
+	public function get_data_sales_byid($id) {
 		$this->db->from('sales');
-		$this->db->where('nama', $nama);
+		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}

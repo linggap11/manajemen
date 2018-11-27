@@ -22,6 +22,10 @@ class Model_pelanggan extends CI_Model {
 	}
 
 
+	public function search_pelanggan($keyword) {
+		$query = $this->db->query("SELECT * FROM pelanggan WHERE nama LIKE '%$keyword%' ");
+    return $query->result();
+	}
 
 	public function update($data = array(), $id) {
 		$this->db->where('id', $id);

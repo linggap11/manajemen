@@ -39,7 +39,7 @@
                          data-sales="<?= $pesananan->sales ?>" 
                          data-plat_nomor="<?= $pesananan->plat_nomor ?>" 
                          data-total="<?= $pesananan->total ?>" 
-                      class="btn btn-xs btn-info btn-detail"><i class="fa fa-file"> Detail</i> </button>&nbsp;<a href="<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/'.$pesananan->no_pengiriman.'')?>" target="_blank" class="btn btn-warning btn-xs" title=""><i class="fa fa-print"> Print Nota</i></a><br><a href="<?= base_url('admin/Kelola_pengiriman/approve_pesanan/'.$pesananan->no_pengiriman.'')?>" class="btn btn-success btn-xs" title=""><i class="fa fa-check"> Pengiriman Selesai</i></a>
+                      class="btn btn-xs btn-info btn-detail"><i class="fa fa-file"> Detail</i> </button>&nbsp;<a href="<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/'.$pesananan->no_pengiriman.'')?>" target="_blank" class="btn btn-warning btn-xs" title=""><i class="fa fa-print"> Print Nota</i></a><br><a href="<?= base_url('admin/Kelola_pengiriman/pengiriman_selesai/'.$pesananan->no_pengiriman.'')?>" class="btn btn-success btn-xs" title=""><i class="fa fa-check"> Pengiriman Selesai</i></a>
                     </td>
                   </tr>
               <?php endforeach ?>
@@ -124,7 +124,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning  print"><span class="fa fa-print"> Cetak</span></button> 
+          <a target="_blank" class="btn btn-warning print"><span class="fa fa-print"> Cetak</span></a> 
         </div>
       </div>
       <!-- /.modal-content -->
@@ -214,8 +214,20 @@
       $('#plat_nomor').html(plat_nomor);
 
       $('#tableModal').find('tbody').append("<tr><td align='center'>1</td><td align='center'>"+nama_produk+"</td><td>"+deskripsi_produk+"</td><td>"+berat+"</td><td align='center'>KG</td></tr>" );
-      $('#modal_detail').modal('show');
+      $('.close').click(function(event) {
+        $('#modal_detail').modal('hide');
+        $('.modal-backdrop').remove();
+        $('#content').load('<?= base_url('admin/Kelola_pengiriman/list_pesanan') ?>');   
+      });
+      $('#modal_detail').modal({
+         backdrop: 'static',
+         keyboard: false,
+         show: true
+      });
       
+      $('.print').attr({
+        'href': '<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/')?>'+no_pengiriman
+      });
     });
     
     

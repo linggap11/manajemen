@@ -35,7 +35,7 @@
                                 <tbody>
                                 <?php foreach($result as $res) { ?>
                                 <tr>
-                                    <td><?php echo $res->kode;?></td> 
+                                    <td><?php echo $res->id;?></td> 
                                     <td><?php echo $res->nama;?></td>                                  
                                     <td><?php echo $res->deskripsi;?></td>                                  
                                     <td class="text-center"> 

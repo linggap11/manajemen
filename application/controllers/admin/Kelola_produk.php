@@ -14,20 +14,6 @@ class Kelola_produk extends CI_Controller {
 		$this->load->helpers('custom_helper');
 	}
 
-	public function get_sales() {
-		if (isset($_GET['term'])) {
-			$arr_result = array();
-			$result = $this->model_produk->search_sales($_GET['term']);
-			if (count($result) > 0) {
-			foreach ($result as $row)
-					$arr_result[] = $row->nama;
-					echo json_encode($arr_result);
-			} else {
-					echo json_encode(['data'=> "Tidak Ada Sales"]);
-			}
-		}
-	}
-
 	public function get_produk() {
 		if (isset($_GET['term'])) {
 			$arr_result = array();
@@ -49,8 +35,8 @@ class Kelola_produk extends CI_Controller {
 		echo json_encode($value);
 	}
 
-	public function get_data_sales_bynama($nama) {
-		$data = $this->model_produk->get_data_sales_bynama(rawurldecode($nama));
+	public function get_data_sales_byid($id) {
+		$data = $this->model_produk->get_data_sales_byid($id);
 		$value ="";
 		foreach ($data as $row) {
 			$value = $row;

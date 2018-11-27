@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Model_laporan extends CI_Model {
 
 	public function show_laporan($bulan, $tahun, $status) {
-		$this->db->select('no_pengiriman, no_bukti, tgl_transaksi, pengiriman.berat, sales.nama AS sales, plat_nomor ,pelanggan.nama, pengiriman.alamat, produk.kode, produk.nama AS nama_produk, produk.deskripsi ,pengiriman.harga AS total, pengiriman.status, transaksi.status AS status_transaksi');
+		$this->db->select('no_pengiriman, no_bukti, tgl_transaksi, pengiriman.berat, sales.nama AS sales, plat_nomor ,pelanggan.nama, pelanggan.alamat, produk.kode, produk.nama AS nama_produk, produk.deskripsi ,pengiriman.harga AS total, pengiriman.status, transaksi.status AS status_transaksi');
 		$this->db->from('pengiriman');
 		$this->db->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id');
 		$this->db->join('produk', 'pengiriman.produk_id = produk.id');

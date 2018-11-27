@@ -120,8 +120,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a type="button" class="btn btn-warning print"><span class="fa fa-print"> Cetak</span></button> 
-          <a type="button" class="btn btn-primary  approve"><span class="fa fa-check"> Setujui</span></a> 
+          <a target="_blank" class="btn btn-warning print"><span class="fa fa-print"> Cetak</span></button> 
+          <a  class="btn btn-primary  approve"><span class="fa fa-check"> Setujui</span></a> 
         </div>
       </div>
       <!-- /.modal-content -->
@@ -172,7 +172,16 @@
       $('.approve').attr({
         'href': '<?= base_url('admin/Kelola_pengiriman/approve_pesanan/')?>'+no_pengiriman
       });
-      $('#modal_detail').modal('show');
+      $('.close').click(function(event) {
+        $('#modal_detail').modal('hide');
+        $('.modal-backdrop').remove();
+        $('#content').load('<?= base_url('admin/Kelola_pengiriman/list_pesanan') ?>');   
+      });
+      $('#modal_detail').modal({
+         backdrop: 'static',
+         keyboard: false,
+         show: true
+      });
     });
   });
 </script>

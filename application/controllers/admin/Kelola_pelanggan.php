@@ -249,6 +249,23 @@ class Kelola_pelanggan extends CI_Controller {
 	        }
 	    }
 	 }
+
+	 public function get_pelanggan() {
+	 	if (isset($_GET['term'])) {
+			$arr_result = array();
+			$result = $this->model_pelanggan->search_pelanggan($_GET['term']);
+			if (count($result) > 0) {
+			foreach ($result as $row)
+					$arr_result[] = $row->nama;
+					echo json_encode($arr_result);
+			}
+		}
+	 }
+
+	 public function get_data_pelanggan_by_nama($nama) {
+	 	$data = $this->db->where('nama', rawurldecode($nama))->get('pelanggan')->row();
+		echo json_encode($data);
+	 }
 }
 	
 

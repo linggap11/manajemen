@@ -86,40 +86,32 @@ $html = '<body>
     <table class="table-bordered">
       <thead>
         <tr>
-          <th width="5%">No</th> 
-               <th>Kode</th>  
-               <th>Nama Produk</th>    
-               <th width="25%">Deskripsi</th>    
+          <th width="5%">No</th>
+               <th>Produk/Jasa</th>    
+               <th width="55%">Deskripsi</th>    
                <th width="10%">Qty</th>  
-               <th>Satuan</th>  
-               <th>Jumlah</th>  
+               <th width="10%">Satuan</th>  
         </tr>
       </thead>
       
       <tbody>';
   
          $html .=' <tr>
-            <td>' . (1). '</td>  
-            <td>' . $print->kode. '</td> 
+            <td>' . (1). '</td>   
             <td>' . $print->nama_produk. '</td> 
             <td>' . $print->deskripsi. '</td> 
             <td>' . $print->berat. '</td>  
             <td align="center">' . ('KG') .'</td>  
-            <td>' . format_rupiah($print->total). '</td>  
           </tr>';
    
 
 
-      $html .= '</tbody>
-      <tfoot>
-        <tr>
-          <th colspan="6" class="text-right">Total</th>
-          <th class="text-left">' . format_rupiah($print->total). '</th>
-        </tr>
-      </tfoot> 
+      $html .= '</tbody> 
     </table> 
     <br>
-
+    <p><strong>Catatan :</strong></p>
+    <p>Semua barang yang diterima dalam urutan dan kondisi baik.</p>
+    <br><br>
     <table>
       <tr>
         <td style="height: 30px;">

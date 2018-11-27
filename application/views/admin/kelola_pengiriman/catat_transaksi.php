@@ -28,39 +28,58 @@
       </div>
       <!-- Data Pelanggan -->
     <div class="col-sm-12 headings" id="transaksi"> <br><br><span class="badge progress-bar-warning">D A T A &nbsp; P E L A N G G A N & P R O D U K</span><hr class="hr-flex"></div>
-      <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-body">
-              <div class="form-group">
-                  <label class="col-sm-4 control-label" for="nohape">Nama Pelanggan</label>
-                  <div class="col-sm-7">
-                    <input type="text" placeholder="Wajib Isi" id="nama_pelanggan1" class="form-control" name="nama_pelanggan[]">
-                  </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-4 control-label" for="nohape">No Telp</label>
-                <div class="col-sm-7">
-                  <input type="text" placeholder="Wajib Isi" id="telp_pelanggan1" class="form-control" name="telp_pelanggan[]">
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="nohape"><b>Pelanggan</b></label>
+                <div class="col-md-3">
+                  <select id="pilih_pelanggan1" name="pilih_pelanggan[]" class="form-control" onchange="showPelanggan(1)">
+                    <option value="baru">Baru</option>
+                    <option value="lama">Lama</option>
+                  </select><br>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group" id="cari_pelanggan1">
+                      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                      <input type="text" placeholder="Cari Pelanggan" oninput="cari_pelanggan(1)" disabled id="search_pelanggan1" class="form-control" autocomplete="off">
+                    </div>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label" for="nohape">Alamat</label>
-                <div class="col-sm-7">
+                <input type="hidden" name="id_pelanggan1" id="id_pelanggan1">
+                <label class="col-md-6 control-label" for=""><b>Nama Pelanggan</b></label>
+                <div class="col-md-6">
+                  <input type="text" placeholder="" id="nama_pelanggan1" class="form-control" name="nama_pelanggan[]">
+                  <input type="hidden" name="pelanggan_id[]" id="pelanggan_id1">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-6 control-label" for="">No Telp</label>
+                <div class="col-sm-6">
+                  <input type="text" placeholder="" id="telp_pelanggan1" class="form-control" name="telp_pelanggan[]">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-6 control-label" for="nohape">Alamat</label>
+                <div class="col-sm-12">
                   <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat1" name="alamat[]" class="form-control" rows="5"></textarea>
                   <span id="charNum"></span>
                 </div>
               </div>
-               <div class="form-group">
-                  <label class="col-sm-4 control-label" for="kodepos">Kode Pos</label>
-                  <div class="col-sm-7">
+              <div class="form-group">
+                  <label class="col-sm-8 control-label" for="kodepos">Kode Pos</label>
+                  <div class="col-sm-6">
                     <input type="text" id="kode_pos1" class="form-control" name="kode_pos[]">
                   </div>
                </div>
             </div>
           </div>
+          
         </div>
         <div class="col-md-5">
-        <div class="panel panel-default">
+          <div class="panel panel-default">
           <div class="panel-body">
               <div class="form-group">
                   <label class="col-sm-4 control-label" for="nohape">Nama Produk</label>
@@ -98,18 +117,24 @@
                     <input type="text" id="total1" class="form-control" readonly name="total[]">
                   </div>
                </div>
-            </div>    
+             </div>
           </div>
           <div class="panel panel-default">
-          <div class="panel-body">
+            <div class="panel-body">
               <div class="form-group">
-                  <input type="hidden" name="sales_id[]" id="sales_id1">
                   <label class="col-sm-4 control-label" for="">Sales</label>
                   <div class="col-sm-7">
                     <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                      <input type="text" placeholder="Cari Sales" id="cari_sales1" class="form-control" name="cari_sales[]" autocomplete="off">
-                      <input type="hidden" name="id_sales[]" id="id_sales1">
+                      <select name="sales[]" id="sales1" class="sales form-control" onchange="get_no_kendaraan(1)">
+                        <option value="">Pilih Sales</option>
+                        <?php if (count($sales) > 0): ?>
+                          <?php foreach ($sales as $list_sales): ?>
+                            <option value="<?= $list_sales->id ?>"><?= $list_sales->nama ?></option>
+                          <?php endforeach ?>
+                          <?php else: ?>
+                            <option value="">Sales Sibuk</option>
+                        <?php endif ?>
+                      </select>
                     </div>
                   </div>
               </div>
@@ -122,17 +147,17 @@
                </div>
             </div>
           </div>
-          
         </div>
-         <div class="col-md-1">
-            
-          </div> 
+        <div class="col-md-1">
+
+        </div>
+        </div>
           <div id="transaksi_lain">
             <div id="add1">
               
             </div>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <button type="submit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-save"></i> Simpan</button>
           </div>
         </form>
@@ -142,82 +167,37 @@
     </div> 
 <script>
   function checkSales() {
-    var idx = {};
-    $('.sales').each(function(){
-         var val = $(this).val();
-        if(val.length)
-        {
-            if(idx[val]){
-                idx[val]++;
-            }
-            else{
-              idx[val] = 1;   
-            }
-        }
+    var val = [];
+    $('.sales').each(function(i, el){
+        val.push($(el).val());
     });
-    var gt_one = $.map(idx,function(e,i){return e>1 ? e: null});
-    var isUnique = gt_one.length==0
-    if (isUnique == false) {
-      alert('Sales sudah di gunakan! Harap check kembali');
+    for (var i = 0; i < val.length; i++) {
+      if (val[i] == val[i+1] || val[i] == val[i+2]) {
+        var status = true;
+      } 
+    }
+    if (status == true) {
+      alert('Maaf Sales Sudah Digunakan!, Silahkan Cek Kembali');
       return false;
-    } else if (!$('#id_sales1').val()) {
-      alert('Maaf tidak bisa melanjutkan, Semua Sales Sedang Melakukan Pengiriman');
-      return false;
+    } else {
+      return true;  
     }
  }
 
- $("#cari_sales1").autocomplete({
-    autoFocus: true,
-    source: "<?php echo site_url('admin/Kelola_produk/get_sales/?');?>",
-    select: function (e, ui) {
-      var nama_sales = ui.item.value;
-      console.log(nama_sales);
-      $.get("<?php echo site_url('admin/Kelola_produk/get_data_sales_bynama/'); ?>"+nama_sales, function(respon) {
-        var data = JSON.parse(respon);
-        $('#id_sales1').val(data.id);
-        $('#no_kendaraan1').val(data.plat_nomor);
+ function get_no_kendaraan(i) {
+   var id_sales = $('#sales'+i).val();
 
-      });
-    },
-    messages: {
-      noResults: '',
-      results: function() {}
-    }
-  });
-
- $("#cari_produk1").autocomplete({
-    autoFocus: true,
-    source: "<?php echo site_url('admin/Kelola_produk/get_produk/?');?>",
-    select: function (e, ui) {
-       var produk = ui.item.value;
-       var n = produk.indexOf("Kode");
-       var kode = produk.substr(n+6, 10);    
-       console.log(kode);       
-       $.ajax({
-        type: "GET",
-        data: "",
-        url: "<?php echo site_url('admin/Kelola_produk/get_data_produk_bykode/'); ?>"+kode,
-        success: function(results) {
-          var data = JSON.parse(results);
-          $('#harga1').val(data.harga);
-          $('#kode_produk1').val(data.id);
-          $('#subtotal1').val(data.harga);
-        }
-       })
-    },
-    messages: {
-      noResults: '',
-      results: function() {}
-    }
-  });
+   $.get("<?php echo site_url('admin/Kelola_produk/get_data_sales_byid/'); ?>"+id_sales, function(respon) {
+      var data = JSON.parse(respon);
+      $('#no_kendaraan'+i).val(data.plat_nomor);
+   });  
+ }
 
   function showTable(){
     $('#hidden_section').show();
   }
 
  var count_id = 1;
-
-
   function T_removeElement(i) {
     $('#add'+i).remove();
     count_id--;
@@ -235,29 +215,37 @@
   function addPengiriman() {
     count_id++;
 
-    $('#transaksi_lain').append('<div id="add'+count_id+'"><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Nama Pelanggan</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="nama_pelanggan'+count_id+'" class="form-control" name="nama_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="nohape">No Telp</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="telp_pelanggan'+count_id+'" class="form-control" name="telp_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Alamat</label> <div class="col-sm-7"> <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat'+count_id+'" name="alamat[]" class="form-control" rows="5"></textarea> <span id="charNum"></span> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="kodepos">Kode Pos</label> <div class="col-sm-7"> <input type="text" id="kode_pos1" class="form-control" name="kode_pos[]"> </div></div></div></div></div><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Nama Produk</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="nama_produk'+count_id+'" class="form-control" name="nama_produk[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Deskripsi</label> <div class="col-sm-7"> <textarea placeholder="" id="deskripsi_produk'+count_id+'" name="deskripsi_produk[]" class="form-control" rows="2"></textarea> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Harga (Rp)</label> <div class="col-sm-7"> <input type="text" required onkeyup="hitungTotal('+count_id+')" value="0" id="harga'+count_id+'" class="form-control" name="harga[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Berat (Kg)</label> <div class="col-sm-7"> <input type="text" id="berat'+count_id+'" required value="1" onkeyup="hitungTotal('+count_id+')" class="form-control" name="berat[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Tambahan (Rp)</label> <div class="col-sm-7"> <input type="text" value="0" required onkeyup="hitungTotal('+count_id+')" id="biaya_tambahan'+count_id+'" class="form-control" name="biaya_tambahan[]"> </div></div><div class="form-group"><label class="col-sm-4 control-label" for="">Total (Rp)</label><div class="col-sm-7"><input type="text" id="total'+count_id+'" readonly class="form-control" name="total[]"></div></div></div></div><div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <input type="hidden" name="sales_id[]" id="sales_id'+count_id+'"> <label class="col-sm-4 control-label" for="">Sales</label> <div class="col-sm-7"> <div class="input-group"> <span class="input-group-addon"><i class="fa fa-search"></i></span> <input type="text" placeholder="Cari Sales" id="cari_sales'+count_id+'" class="form-control" name="cari_sales[]" autocomplete="off"> <input type="hidden" name="id_sales[]" id="id_sales'+count_id+'"></div></div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">No Kendaraan</label> <div class="col-sm-7"> <input type="text" id="no_kendaraan'+count_id+'" class="form-control" name="no_kendaraan[]"> </div></div></div></div></div><div class="col-md-1"> <a href="javascript:void(0);" onclick="T_removeElement('+count_id+');" class="btn btn-danger pull-right" id="del_row'+count_id+'"><i class="glyphicon glyphicon-minus"></i></a> </div></div>');
+    $('#transaksi_lain').append('<div id="add'+count_id+'"><hr class="hr-flex"><div class="row"> <div class="col-md-6"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-md-3 control-label" for=""><b>Pelanggan</b></label> <div class="col-md-3"> <select id="pilih_pelanggan'+count_id+'" name="pilih_pelanggan[]" class="form-control" onchange="showPelanggan('+count_id+')"> <option value="baru">Baru</option> <option value="lama">Lama</option> </select><br></div><div class="col-md-5"> <div class="input-group" id="cari_pelanggan'+count_id+'"> <span class="input-group-addon"><i class="fa fa-search"></i></span> <input type="text" placeholder="Cari Pelanggan" oninput="cari_pelanggan('+count_id+')" disabled id="search_pelanggan'+count_id+'" class="form-control" autocomplete="off"> </div></div></div><div class="form-group"> <input type="hidden" name="id_pelanggan[]" id="id_pelanggan'+count_id+'"> <label class="col-md-6 control-label" for=""><b>Nama Pelanggan</b></label> <div class="col-md-6"> <input type="text" placeholder="" id="nama_pelanggan'+count_id+'" class="form-control" name="nama_pelanggan[]"> <input type="hidden" name="pelanggan_id[]" id="pelanggan_id'+count_id+'"> </div></div><div class="form-group"> <label class="col-sm-6 control-label" for="">No Telp</label> <div class="col-sm-6"> <input type="text" placeholder="" id="telp_pelanggan'+count_id+'" class="form-control" name="telp_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-6 control-label" for="nohape">Alamat</label> <div class="col-sm-12"> <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat'+count_id+'" name="alamat[]" class="form-control" rows="5"></textarea> <span id="charNum"></span> </div></div><div class="form-group"> <label class="col-sm-8 control-label" for="kodepos">Kode Pos</label> <div class="col-sm-6"> <input type="text" id="kode_pos'+count_id+'" class="form-control" name="kode_pos[]"> </div></div></div></div></div><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="nohape">Nama Produk</label> <div class="col-sm-7"> <input type="text" placeholder="Wajib Isi" id="nama_produk'+count_id+'" class="form-control" name="nama_produk[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Deskripsi</label> <div class="col-sm-7"> <textarea placeholder="" id="deskripsi_produk'+count_id+'" name="deskripsi_produk[]" class="form-control" rows="2"></textarea> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Harga (Rp)</label> <div class="col-sm-7"> <input type="text" id="harga'+count_id+'" class="form-control" value="0" required onkeyup="hitungTotal('+count_id+')" name="harga[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Berat (Kg)</label> <div class="col-sm-7"> <input type="text" id="berat'+count_id+'" class="form-control" value="1" required onkeyup="hitungTotal('+count_id+')" name="berat[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Tambahan (Rp)</label> <div class="col-sm-7"> <input type="text" id="biaya_tambahan'+count_id+'" class="form-control" required value="0" onkeyup="hitungTotal('+count_id+')" name="biaya_tambahan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Total (Rp)</label> <div class="col-sm-7"> <input type="text" id="total'+count_id+'" class="form-control" readonly name="total[]"> </div></div></div></div><div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="">Sales</label> <div class="col-sm-7"> <div class="input-group"> <select name="sales[]" id="sales'+count_id+'" class="sales form-control" onchange="get_no_kendaraan('+count_id+')"> <option value="">Pilih Sales</option> <?php if (count($sales) > 0): ?> <?php foreach ($sales as $list_sales): ?> <option value="<?=$list_sales->id ?>"><?=$list_sales->nama ?></option> <?php endforeach ?> <?php else: ?> <option value="">Sales Sibuk</option> <?php endif ?> </select> </div></div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">No Kendaraan</label> <div class="col-sm-7"> <input type="text" id="no_kendaraan'+count_id+'" class="form-control" name="no_kendaraan[]"> </div></div></div></div></div><div class="col-md-1"> <div class="col-md-1"> <a href="javascript:void(0);" onclick="T_removeElement('+count_id+');" class="btn btn-danger pull-right btn-xs" id="del_row'+count_id+'"><i class="glyphicon glyphicon-remove"></i></a> </div></div></div></div>');
 
-    $("#cari_sales"+count_id).autocomplete({
+    
+  }
+
+  function cari_pelanggan(i) {
+    $('#search_pelanggan'+i).autocomplete({
       autoFocus: true,
-      source: "<?php echo site_url('admin/Kelola_produk/get_sales/?');?>",
+      source: "<?php echo site_url('admin/Kelola_pelanggan/get_pelanggan/?');?>",
       select: function (e, ui) {
-        var nama_sales = ui.item.value;
-        console.log(nama_sales);
-        $.get("<?php echo site_url('admin/Kelola_produk/get_data_sales_bynama/'); ?>"+nama_sales, function(respon) {
-          var data = JSON.parse(respon);
-          $('#id_sales'+count_id).val(data.id);
-          $('#no_kendaraan'+count_id).val(data.plat_nomor);
-          if (data == null) {
-            alert('Semua Sales Sedang Sibuk');
-          }
+        var pelanggan = ui.item.value;
+        $.get("<?php echo site_url('admin/Kelola_pelanggan/get_data_pelanggan_by_nama/'); ?>"+pelanggan, function(respon) {
+          var data = JSON.parse(respon);  
+          $('#nama_pelanggan'+i).val(data.nama);
+          $('#telp_pelanggan'+i).val(data.no_telp);
+          $('#alamat'+i).val(data.alamat);
+          $('#kode_pos'+i).val(data.kode_pos);
+          $('#pelanggan_id'+i).val(data.id);
+          $('#nama_pelanggan'+i).prop('readonly',true);
+          $('#telp_pelanggan'+i).prop('readonly',true);
+          $('#alamat'+i).prop('readonly',true);
+          $('#kode_pos'+i).prop('readonly',true);
         });
-        },
+      },
       messages: {
         noResults: '',
         results: function() {}
       }
     });
   }
+
   $('#table-list_pesanan').dataTable({
     "columns": [
         { "width": "20%" },
@@ -300,4 +288,16 @@
 
       });
     });
+
+  function showPelanggan(i) {
+    if ($('#pilih_pelanggan'+i).val() == 'lama') {
+      $('#search_pelanggan'+i).prop('disabled', false);
+    } else {
+      $('#nama_pelanggan_baru'+i).prop('readonly',false);
+      $('#telp'+i).prop('readonly',false);
+      $('#alamat'+i).prop('readonly',false);
+      $('#kodepos'+i).prop('readonly',false);
+      $('#search_pelanggan'+i).prop('disabled', true);
+    }
+  }
 </script>

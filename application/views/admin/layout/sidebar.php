@@ -24,7 +24,19 @@
 
         <li <?php echo ($menu == 'kelola_pelanggan') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pelanggan' . get_url_cache()) ?>"><i class="fa fa-users"></i> <span>Kelola Pelanggan</span></a></li> 
 
-        <li <?php echo ($menu == 'kelola_pengiriman') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pengiriman' . get_url_cache()) ?>"><i class="fa fa-money"></i> <span>Kelola Pengiriman</span></a></li> 
+        <li class="treeview <?php echo ($menu == 'pengiriman' || $menu == 'tagihan') ? 'active' : '';?>">
+         <a href="#">
+           <i class="fa fa-truck"></i> <span>Kelola Pengiriman</span>
+           <span class="pull-right-container">
+             <i class="fa fa-angle-left pull-right"></i>
+           </span>
+         </a>
+         <ul class="treeview-menu">   
+           
+           <li <?php echo ($menu == 'pengiriman') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pengiriman' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Pengiriman</span></a></li>  
+           <li <?php echo ($menu == 'tagihan') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pengiriman/penagihan' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Penagihan</span></a></li>  
+         </ul>
+       </li>
 
          <li class="treeview <?php echo ($menu == 'laporan_pengiriman' || $menu == 'laporan_pemesanan') ? 'active' : '';?>">
          <a href="#">
