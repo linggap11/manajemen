@@ -91,7 +91,7 @@ $html = '<body>
          <th width="15%">No Invoice</th>    
          <th >Produk / Jasa</th>    
          <th >Qty</th>  
-         <th >Biaya Tambahan</th>
+         <th >Harga</th>
          <th >Total</th>  
         </tr>
       </thead>
@@ -105,10 +105,10 @@ $html = '<body>
             <td align="center">' . $row->no_bukti. '</td> 
             <td>' . $row->nama_produk. '</td> 
             <td>' . $row->berat . (' ( KG )') .'</td>    
-            <td>' . format_rupiah($row->biaya_tambahan) .'</td>  
-            <td>' . format_rupiah($row->harga) . '</td>    
+            <td>' . format_rupiah($row->harga) .'</td>  
+            <td>' . format_rupiah($row->total) . '</td>    
           </tr>';
-           $grand_total += $row->harga;
+           $grand_total += $row->total;
 
          }
         

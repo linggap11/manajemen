@@ -17,7 +17,7 @@
                             <div class="box-tools pull-right">
                                 <!-- Buttons, labels, and many other things can be placed here! -->
                                 <!-- Here is a label for example -->
-                                <a class="btn btn-sm btn-primary" href="<?php echo site_url('admin/kelola_pelanggan/tambah');?>"><i class="fa fa-plus"></i> Tambah Pelanggan</a>
+                                <a class="btn btn-sm btn-primary" href="<?php echo site_url('admin/Kelola_pelanggan/tambah');?>"><i class="fa fa-plus"></i> Tambah Pelanggan</a>
                             </div><!-- /.box-tools -->
                         </div><!-- /.box-header -->
                         <div class="box-body">

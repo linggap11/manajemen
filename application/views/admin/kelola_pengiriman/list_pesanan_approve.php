@@ -217,7 +217,7 @@
       $('.close').click(function(event) {
         $('#modal_detail').modal('hide');
         $('.modal-backdrop').remove();
-        $('#content').load('<?= base_url('admin/Kelola_pengiriman/list_pesanan') ?>');   
+        $('#content').load('<?= base_url('admin/Kelola_pengiriman/list_pesanan_approve') ?>');   
       });
       $('#modal_detail').modal({
          backdrop: 'static',

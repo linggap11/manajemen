@@ -30,22 +30,25 @@
            
         </div><!-- /.box-header -->
         <div class="box-body">
-          <a href="<?= base_url('admin/Kelola_pengiriman/print_invoice/'.$data_pelanggan->id.' ')?>" target="_blank" class="btn btn-primary"><span class="fa fa-print"></span> Print Invoice</a>
-          <form id="list_invoice">
-            
-            
+          <form target="_blank" action="<?= base_url('admin/Kelola_pengiriman/print_invoice') ?>" method="post" accept-charset="utf-8"> 
+          <input type="hidden" name="id" value="<?= $data_tagihan[0]->pelanggan_id ?>">
+          <button type="submit" class="btn btn-primary" id="print_invoice"><span class="fa fa-print"></span> Print Invoice</button >
+          <br><br>
+          <p>Check All <input type="checkbox" checked id="check_all" onclick="toggle(this)"></p>
+                     
           
           <table id="tabel_pengiriman_by_pelanggan" class="table table-bordered table-striped">
           <thead>
           <tr>
              <th>No</th>
+             <th></th>
              <th >No Invoice</th>
              <th >Tgl Transaksi</th>
              <th >Produk</th> 
              <th >Biaya Tambahan</th> 
              <th >Total</th>
              <th>Status</th>  
-             <th width="10%">Action</th>  
+             <th width="15%">Action</th>  
           </tr>
           </thead>
           <tbody>
@@ -53,6 +56,7 @@
             <?php foreach ($data_tagihan as $row): ?>
               <tr>
                 <td><?php echo $no++ ?></td>
+                <th align="center" id="test"><input type="checkbox" checked class="cek" name="no_invoice_cek[]" id="cek_no_invoice" value="<?php echo $row->no_pengiriman ?>"></th>
                 <td><?php echo $row->no_bukti ?></td>
                 <td><?php echo $row->tgl_transaksi ?></td>
                 <td><?php echo $row->nama_produk ?></td>
@@ -72,6 +76,7 @@
                      data-biaya_tambahan="<?= $row->biaya_tambahan ?>" 
                      data-total="<?= $row->harga ?>" 
                   type="button" class="btn btn-info btn-xs btn-detail"> <span class="fa fa-info-circle"></span> Detail</button>
+                  <a href="<?= base_url('admin/Kelola_pengiriman/pembayaran_lunas/'.$row->no_pengiriman.'/'.$row->pelanggan_id.'') ?>" class="btn btn-primary btn-xs"><span class="fa fa-pencil"></span> Lunas </a>
                 </td>
               </tr>
             <?php endforeach ?>
@@ -183,5 +188,14 @@
         location.reload();
       });
     });
+
+    
+    
   })
+  function toggle(source) {
+    checkboxes = document.getElementsByName('no_invoice_cek[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
 </script>

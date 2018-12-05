@@ -57,6 +57,7 @@
                    <th width="25%">Alamat</th> 
                    <th width="10%">Berat (Kg)</th> 
                    <th width="10%">Total Biaya</th>  
+                   <th width="10%">Status</th>  
                    <th width="10%">Action</th>  
                 </tr>
                 </thead>
@@ -72,7 +73,8 @@
                           <td>'.$wow->nama.'</td>
                           <td>'.$wow->alamat.'</td>
                           <td>'.$wow->berat.'</td>
-                          <td>'.$wow->harga.'</td>
+                          <td>'.format_rupiah($wow->harga).'</td>
+                          <td><span class="btn btn-danger btn-xs">'.$wow->status.'</span></td>
                           <td>
                                <a href="'.base_url().'admin/Kelola_pengiriman/print_surat_jalan/'.$wow->no_pengiriman.'" target="_blank" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Surat Jalan</a>
                           </td>
@@ -131,6 +133,7 @@
           { "data": "alamat"},
           { "data": "berat"},
           { "data": "harga"},
+          { "data": "status"},
           { "data": "aksi"}
         ],  
     }); 

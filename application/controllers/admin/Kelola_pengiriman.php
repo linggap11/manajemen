@@ -24,9 +24,6 @@ class Kelola_pengiriman extends CI_Controller {
 		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 			);
 			
-		$data['result'] = $this->model_pelanggan->show();
-		$data['curr_page'] = ($offset != '') ? $offset + 1: 1;
-		$data['query'] = '';
 
 		$data['link'] = 'pengiriman';
 		$this->load->view('admin/layout/header', array('title' => 'Kelola Pengiriman', 'menu' => 'pengiriman', 'css' => $css));
@@ -67,19 +64,29 @@ class Kelola_pengiriman extends CI_Controller {
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
 		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 			);
+		$data['data_pelanggan'] = $this->model_pelanggan->data_pelanggan_by_produk();
 		$data['sales'] = $this->db->where('status', 'FREE')->get('sales')->result();
 		$this->load->view('admin/kelola_pengiriman/catat_transaksi', $data);
 	}
 
+	public function get_data_produk($id) {
+		$data = $this->model_pengiriman->data_produk($id);
+		echo json_encode($data);
+	}
+
+	public function get_deskripsi_produk($id) {
+		$data = $this->db->from('produk')->where('id', $id)->get()->row();
+		echo json_encode($data);
+	}
+
 	public function simpan_pengiriman() {
 		$tanggal_transaksi = $this->input->post('tanggal_transaksi');
-		$tipe_pelanggan = $this->input->post('pilih_pelanggan');
 		$nama_pelanggan = $this->input->post('nama_pelanggan');
 		$telp_pelanggan = $this->input->post('telp_pelanggan');
 		$alamat = $this->input->post('alamat');
 		$kode_pos = $this->input->post('kode_pos');
 
-		$nama_produk = $this->input->post('nama_produk');
+		$list_nama_produk = $this->input->post('list_nama_produk');
 		$pelanggan_id = $this->input->post('pelanggan_id');
 		$deskripsi_produk = $this->input->post('deskripsi_produk');
 		$berat = $this->input->post('berat');
@@ -89,10 +96,6 @@ class Kelola_pengiriman extends CI_Controller {
 		
 		$id_sales = $this->input->post('sales');
 
-		$id = $this->model_produk->get_pelanggan_id();
-		$id++;
-		$produk_id = $this->model_produk->get_produk_id();
-		$produk_id++;
 		$id_pengiriman = $this->model_produk->get_pengiriman_id();
 		$id_pengiriman++;
 		$no_pengiriman = $this->model_produk->get_no_pengiriman();
@@ -103,52 +106,33 @@ class Kelola_pengiriman extends CI_Controller {
 		$transaksi_id++;
 
 		foreach ($pelanggan_id as $idx => $kode) {
-			$data_pelanggan = array(
-				'id' => $id,
-				'nama' => $nama_pelanggan[$idx],
-				'no_telp' => $telp_pelanggan[$idx],
-				'alamat' => $alamat[$idx],
-				'kode_pos' => $kode_pos[$idx]
-			);
-
-			$data_produk = array(
-				'id' => $produk_id,
-				'nama' => $nama_produk[$idx],
-				'deskripsi' => $deskripsi_produk[$idx],
-			);
 			$data_transaksi = array(
 				'id' => ++$transaksi_id,
 				'no_bukti' => $no_bukti,
-				'status' => 'PENDING'
-			);
+				'status' => 'PENDING',
+				'tagihan' => 'BELUM LUNAS'
+			);	
+			
 			$data_pengiriman = array(
 				'no_pengiriman' => $no_pengiriman,
 				'tgl_transaksi' => $tanggal_transaksi,
 				'berat' => $berat[$idx],
-				'harga' => $total[$idx],
+				'harga' => $harga[$idx],
+				'total' => $total[$idx],
 				'biaya_tambahan' => $biaya_tambahan[$idx],
 				'status' => 'INORDER',
-				'produk_id' => $produk_id,
+				'produk_id' => $list_nama_produk[$idx],
 				'pelanggan_id' => $pelanggan_id[$idx],
 				'sales_id' => $id_sales[$idx],
 				'transaksi_id' => $transaksi_id
 			);
-
-			
-			if ($tipe_pelanggan[$idx] == 'baru') {
-				$this->db->insert('pelanggan', $data_pelanggan);
-			}
-			$this->model_pengiriman->simpan_pengiriman($data_produk, $data_transaksi, $data_pengiriman);
+			$this->model_pengiriman->simpan_pengiriman($data_transaksi, $data_pengiriman);
 			$this->model_pengiriman->ubah_status_sales($id_sales[$idx], array('status' => 'MENGIRIM'));
-
-			$id++;
-			$produk_id++;
 			$id_pengiriman++;
 			$no_pengiriman++;
 			$no_bukti++;
 			$transaksi_id++;
 		}
-
 		$this->session->set_flashdata('tambah_transaksi', '<div>Transaksi Berhasil Di Tambahkan! Lihat di Tab List Pesanan</div>');
 		redirect('admin/kelola_pengiriman');
 	}
@@ -169,7 +153,7 @@ class Kelola_pengiriman extends CI_Controller {
 		$transaksi_id = $this->model_pengiriman->get_transaksi_id($no_pengiriman);
 		if ($this->db->where('id', $transaksi_id->transaksi_id)->update('transaksi', array('status'=>'APPROVED'))) {
 			$this->session->set_flashdata('sukses', 'Pesanan Berhasil Disetujui');
-			$this->load->view('admin/Kelola_pengiriman/pengiriman', $data);
+			$this->load->view('admin/kelola_pengiriman/pengiriman', $data);
 		}
 	}
 
@@ -189,8 +173,9 @@ class Kelola_pengiriman extends CI_Controller {
 		if ($this->db->where('no_pengiriman', $no_pengiriman)->update('pengiriman', array('status'=>'BATAL'))) {
 			$transaksi_id = $this->model_pengiriman->get_transaksi_id($no_pengiriman);
 			$this->db->where('id', $transaksi_id->transaksi_id)->update('transaksi', array('status'=>'BATAL'));
+			$this->db->where('id', $transaksi_id->sales_id)->update('sales', array('status'=>'FREE'));
 			$this->session->set_flashdata('error', 'Pesanan Berhasil Dibatalkan');
-			$this->load->view('admin/Kelola_pengiriman/pengiriman', $data);
+			$this->load->view('admin/kelola_pengiriman/pengiriman', $data);
 		}
 	}
 
@@ -211,7 +196,7 @@ class Kelola_pengiriman extends CI_Controller {
 			$this->db->where('id', $transaksi_id->sales_id)->update('sales', array('status'=>'FREE'));
 			$this->db->where('id', $transaksi_id->transaksi_id)->update('transaksi', array('tgl_terima'=> date("Y-m-d")));
 			$this->session->set_flashdata('sukses', 'Pesanan Berhasil Disetujui');
-			$this->load->view('admin/Kelola_pengiriman/pengiriman', $data);
+			$this->load->view('admin/kelola_pengiriman/pengiriman', $data);
 		}
 	}
 
@@ -222,9 +207,16 @@ class Kelola_pengiriman extends CI_Controller {
      $this->load->view('admin/kelola_pengiriman/print', $data);
   } 
 
-  public function print_invoice($id) {  
+  public function print_invoice() { 
+ 		 $list = $this->input->post('no_invoice_cek');
+ 		 $id = $this->input->post('id');
+ 		 $list_invoice= [];
+ 		 foreach ($list as $list_print) {
+ 		 		array_push($list_invoice, $this->model_pengiriman->data_tagihan_by_pelanggan($id, $list_print)) ;
+ 		 }
 		 $data['profile'] = $this->model_pengaturan->get_profile();
-     $data['print'] = $this->model_pengiriman->data_tagihan_by_pelanggan($id);
+     $data['print'] = array_reduce($list_invoice, 'array_merge', array());
+
      $this->load->view('admin/kelola_pengiriman/print_invoice', $data);
   } 
 
@@ -254,14 +246,42 @@ class Kelola_pengiriman extends CI_Controller {
 			);
 
 		$data['data_pelanggan'] = $this->db->where('id', $id)->get('pelanggan')->row();
-		$data['data_tagihan'] = $this->model_pengiriman->data_tagihan_by_pelanggan($id);
+		$data['data_tagihan'] = $this->model_pengiriman->data_tagihan_by_pelanggan_all($id);
 		$this->load->view('admin/layout/header', array('title' => 'Penagihan', 'menu' => 'tagihan', 'css' => $css));
 		$this->load->view('admin/kelola_pengiriman/tagihan_pelanggan', $data);
   }
 
+
+  public function pembayaran_lunas($no_pengiriman, $id) {
+		$transaksi_id = $this->model_pengiriman->get_transaksi_id($no_pengiriman);
+		if ($this->db->where('id', $transaksi_id->transaksi_id)->update('transaksi', array('tagihan'=>'LUNAS'))) {
+			
+			$css = array(
+			    'assets/plugins/datatables/dataTables.bootstrap.css'
+			    );
+			$data['js'] = array(
+			    'assets/plugins/datatables/jquery.dataTables.min.js',
+			    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
+				);
+
+			$data['data_pelanggan'] = $this->db->where('id', $id)->get('pelanggan')->row();
+			$data['data_tagihan'] = $this->model_pengiriman->data_tagihan_by_pelanggan_all($id);
+			if (count($data['data_tagihan']) > 0) {
+				$this->load->view('admin/layout/header', array('title' => 'Penagihan', 'menu' => 'tagihan', 'css' => $css));
+				$this->session->set_flashdata('sukses', 'Pembayaran Berhasil Dilunasi');
+				$this->load->view('admin/kelola_pengiriman/tagihan_pelanggan', $data);	
+			} else {
+				$this->penagihan();
+			}
+			
+			
+		}
+		
+  }
+
 	public function test() {
 		// $data['profile'] = $this->model_pengaturan->get_profile();
-     $data = $this->model_pengiriman->data_tagihan_by_pelanggan(2);
+     $data = $this->model_pengiriman->data_tagihan_by_pelanggan(2, 'SHIPMNT000002 ');
      print_r($data);
 	}
 }

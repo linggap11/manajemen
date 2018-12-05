@@ -16,8 +16,7 @@ class Model_pengiriman extends CI_Model {
 		return $query->result();
 	}
 
-	public function simpan_pengiriman($data_produk, $data_transaksi, $data_pengiriman) {
-		$this->db->insert('produk', $data_produk);
+	public function simpan_pengiriman($data_transaksi, $data_pengiriman) {
 		$this->db->insert('transaksi', $data_transaksi);
 		$this->db->insert('pengiriman', $data_pengiriman);
 	}
@@ -66,12 +65,27 @@ class Model_pengiriman extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function data_tagihan_by_pelanggan($id) {
+	public function data_tagihan_by_pelanggan($id, $no_pengiriman) {
+		$this->db->select('transaksi.no_bukti, pengiriman.*, pelanggan.*, produk.nama AS nama_produk, produk.deskripsi AS produk_deskripsi, transaksi.tagihan');
+		$this->db->from('pengiriman')->join('transaksi', 'pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')->join('produk', 'pengiriman.produk_id = produk.id');
+		$this->db->where('transaksi.status = "APPROVED"');
+		$this->db->where('transaksi.tagihan != "LUNAS"');
+		$this->db->where('pengiriman.no_pengiriman', $no_pengiriman);
+		$this->db->where('pengiriman.pelanggan_id', $id);
+		return $this->db->get()->result();
+	}
+
+	public function data_tagihan_by_pelanggan_all($id) {
 		$this->db->select('transaksi.no_bukti, pengiriman.*, pelanggan.*, produk.nama AS nama_produk, produk.deskripsi AS produk_deskripsi, transaksi.tagihan');
 		$this->db->from('pengiriman')->join('transaksi', 'pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')->join('produk', 'pengiriman.produk_id = produk.id');
 		$this->db->where('transaksi.status = "APPROVED"');
 		$this->db->where('transaksi.tagihan != "LUNAS"');
 		$this->db->where('pengiriman.pelanggan_id', $id);
 		return $this->db->get()->result();
+	}
+
+	public function data_produk($pelanggan_id) {
+		$this->db->select('pelanggan.*, produk.id AS produk_id, produk.nama AS nama_produk, produk.deskripsi');
+		return $this->db->from('produk')->join('pelanggan', 'produk.pelanggan_id = pelanggan.id')->where('produk.pelanggan_id', $pelanggan_id)->get()->result();
 	}
 }

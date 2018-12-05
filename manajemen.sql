@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 27 Nov 2018 pada 23.47
+-- Generation Time: 05 Des 2018 pada 14.36
 -- Versi Server: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -85,19 +85,9 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`id`, `nama`, `no_telp`, `alamat`, `kode_pos`) VALUES
-(1, 'Toko A', '92528151', 'Jalan Cikutra Bandung Raya nomor 1', 41214),
-(2, 'aa', 'q', 'q', 0),
-(3, '', '', '', 0),
-(4, '3', '3', '3', 3),
-(5, '3', '', '3', 3),
-(6, '5', '5', '5', 5),
-(7, '6', '66', '6', 6),
-(8, '5', '5', '5', 5),
-(9, '6', '6', '6', 6),
-(10, '6', '6', '66', 6),
-(11, '532532', '5', '5', 5),
-(12, '6', '66', '6', 6),
-(13, '6', '6', '6', 6);
+(1, 'Pelanggan 1', '123131820', 'Jalan Bandung di patiukur', 12312),
+(2, 'Pelanggan Baru 1', '12312312', 'Pelanggan Baru 1Pelanggan Baru 1Pelanggan Baru 1Pelanggan Baru 1', 12312),
+(24, 'John Doea', '2312312', 'Jalan Jlana akwkwkwk', 13123);
 
 -- --------------------------------------------------------
 
@@ -111,7 +101,8 @@ CREATE TABLE `pengiriman` (
   `tgl_transaksi` date NOT NULL,
   `berat` varchar(50) NOT NULL,
   `biaya_tambahan` varchar(50) NOT NULL,
-  `harga` bigint(50) NOT NULL,
+  `harga` bigint(20) NOT NULL,
+  `total` bigint(50) NOT NULL,
   `status` enum('BERHASIL','INORDER','BATAL') NOT NULL,
   `pelanggan_id` int(11) NOT NULL,
   `produk_id` int(10) NOT NULL,
@@ -123,20 +114,11 @@ CREATE TABLE `pengiriman` (
 -- Dumping data untuk tabel `pengiriman`
 --
 
-INSERT INTO `pengiriman` (`id`, `no_pengiriman`, `tgl_transaksi`, `berat`, `biaya_tambahan`, `harga`, `status`, `pelanggan_id`, `produk_id`, `sales_id`, `transaksi_id`) VALUES
-(42, 'SHIPMNT000001', '2018-11-25', '20', '0', 4000000, 'BERHASIL', 1, 4, 1, 2),
-(43, 'SHIPMNT000002', '2018-11-26', '213', '0', 262203, 'BERHASIL', 2, 4, 1, 4),
-(44, 'SHIPMNT000003', '2018-11-26', '3', '3', 12, 'BATAL', 4, 7, 1, 8),
-(45, 'SHIPMNT000004', '2018-11-26', '3', '3', 9, 'BATAL', 5, 8, 1, 10),
-(46, 'SHIPMNT000005', '2018-11-26', '5', '5', 30, 'BATAL', 6, 9, 2, 12),
-(47, 'SHIPMNT000006', '2018-11-26', '6', '66666', 66702, 'BATAL', 7, 10, 2, 14),
-(48, 'SHIPMNT000007', '2018-11-26', '5', '5', 30, 'BATAL', 8, 11, 1, 16),
-(49, 'SHIPMNT000008', '2018-11-26', '6', '6', 42, 'BERHASIL', 9, 12, 1, 18),
-(50, 'SHIPMNT000009', '2018-11-26', '6', '6', 42, 'INORDER', 10, 13, 2, 20),
-(51, 'SHIPMNT000010', '2018-11-26', '555', '555', 31080, 'INORDER', 11, 14, 2, 22),
-(52, 'SHIPMNT000011', '2018-11-26', '6', '6', 42, 'BATAL', 12, 15, 1, 24),
-(53, 'SHIPMNT000012', '2018-11-26', '66', '6', 402, 'BATAL', 13, 16, 1, 26),
-(57, 'SHIPMNT000013', '2018-11-28', '4', '0', 266666664, 'BERHASIL', 2, 20, 1, 34);
+INSERT INTO `pengiriman` (`id`, `no_pengiriman`, `tgl_transaksi`, `berat`, `biaya_tambahan`, `harga`, `total`, `status`, `pelanggan_id`, `produk_id`, `sales_id`, `transaksi_id`) VALUES
+(10, 'SHIPMNT000001', '2018-12-05', '12', '1000', 10000, 120000, 'BERHASIL', 1, 23, 1, 2),
+(11, 'SHIPMNT000002', '2018-12-05', '1', '0', 66, 66, 'BERHASIL', 24, 27, 4, 4),
+(12, 'SHIPMNT000003', '2018-12-05', '1', '0', 1231231, 1231231, 'BERHASIL', 2, 29, 2, 6),
+(13, 'SHIPMNT000004', '2018-12-07', '1', '0', 333, 333, 'BERHASIL', 1, 23, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -148,33 +130,21 @@ CREATE TABLE `produk` (
   `id` int(11) NOT NULL,
   `kode` varchar(20) DEFAULT NULL,
   `nama` varchar(100) NOT NULL,
-  `deskripsi` text
+  `deskripsi` text,
+  `harga` bigint(20) NOT NULL,
+  `pelanggan_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `produk`
 --
 
-INSERT INTO `produk` (`id`, `kode`, `nama`, `deskripsi`) VALUES
-(2, 'BDGPAPUA10', 'Bandung - Papua', 'Lorem ipsum dll'),
-(3, 'BDGPAPUA11', 'Bandung - Jakarta', 'Batu'),
-(4, NULL, 'Bandung - Jakarta', 'Pengantaran Batu'),
-(5, NULL, 'Bandung - Jakarta', 'a'),
-(6, NULL, '', ''),
-(7, NULL, '3', '3'),
-(8, NULL, '3', '3'),
-(9, NULL, '55', '5'),
-(10, NULL, '6', '6'),
-(11, NULL, '5', '5'),
-(12, NULL, '6', '6'),
-(13, NULL, '6', '6'),
-(14, NULL, '5', '55'),
-(15, NULL, '6', '6'),
-(16, NULL, '6', '6'),
-(17, NULL, '6', '6'),
-(18, NULL, '151251251', '124912401'),
-(19, NULL, '1351512', '12412312'),
-(20, NULL, '66666666', '66666666');
+INSERT INTO `produk` (`id`, `kode`, `nama`, `deskripsi`, `harga`, `pelanggan_id`) VALUES
+(23, 'PROD-111132341', 'Produk A', 'Deskripsi Produk A', 10000, 1),
+(24, 'PROD-111132342', 'Produk Baru 1', 'Produk Baru 1Produk Baru 1', 20000, 2),
+(25, 'PROD-111132343', 'Produk 3', 'Deskripsi Produk 3', 22, 24),
+(27, 'PROD-111132344', '56', '65', 66, 24),
+(29, 'PROD-111132345', 'sada', '123123', 1231231, 2);
 
 -- --------------------------------------------------------
 
@@ -197,7 +167,9 @@ CREATE TABLE `sales` (
 
 INSERT INTO `sales` (`id`, `nama`, `plat_nomor`, `no_telp`, `no_gps`, `status`) VALUES
 (1, 'Yuma Yusuf', 'D 666 SU', '08123123123', '100123123123', 'FREE'),
-(2, 'imatu', 'B 666 SU', '08123123123', '100123123123', 'FREE');
+(2, 'imatu', 'B 666 SU', '08123123123', '100123123123', 'FREE'),
+(3, 'Ujang', 'D 444 D1', '12312312312', '125215215251', 'MENGIRIM'),
+(4, 'Nawari', 'B 4404 AA', '2311251251', '2312412519252', 'FREE');
 
 -- --------------------------------------------------------
 
@@ -218,23 +190,10 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id`, `no_bukti`, `tgl_terima`, `status`, `tagihan`) VALUES
-(2, '2018/09/415', '2018-11-25', 'APPROVED', 'LUNAS'),
-(4, '2018/09/416', '2018-11-26', 'APPROVED', 'BELUM LUNAS'),
-(6, '2018/09/417', NULL, 'PENDING', 'BELUM LUNAS'),
-(8, '2018/09/418', NULL, 'BATAL', 'BELUM LUNAS'),
-(10, '2018/09/419', NULL, 'BATAL', 'BELUM LUNAS'),
-(12, '2018/09/420', NULL, 'BATAL', 'BELUM LUNAS'),
-(14, '2018/09/421', NULL, 'BATAL', 'BELUM LUNAS'),
-(16, '2018/09/422', NULL, 'BATAL', 'BELUM LUNAS'),
-(18, '2018/09/423', '2018-11-28', 'APPROVED', 'BELUM LUNAS'),
-(20, '2018/09/424', NULL, 'APPROVED', 'BELUM LUNAS'),
-(22, '2018/09/425', NULL, 'PENDING', 'BELUM LUNAS'),
-(24, '2018/09/427', NULL, 'BATAL', 'BELUM LUNAS'),
-(26, '2018/09/427', NULL, 'BATAL', 'BELUM LUNAS'),
-(28, '2018/09/428', NULL, 'PENDING', 'LUNAS'),
-(30, '2018/09/429', NULL, 'PENDING', 'LUNAS'),
-(32, '2018/09/430', NULL, 'PENDING', 'LUNAS'),
-(34, '2018/09/431', '2018-11-28', 'APPROVED', 'BELUM LUNAS');
+(2, '2018/09/415', '2018-12-05', 'APPROVED', 'BELUM LUNAS'),
+(4, '2018/09/416', '2018-12-05', 'APPROVED', 'BELUM LUNAS'),
+(6, '2018/09/417', '2018-12-05', 'APPROVED', 'BELUM LUNAS'),
+(8, '2018/09/418', '2018-12-05', 'APPROVED', 'BELUM LUNAS');
 
 --
 -- Indexes for dumped tables
@@ -273,7 +232,8 @@ ALTER TABLE `pengiriman`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `pelanggan_id` (`pelanggan_id`);
 
 --
 -- Indexes for table `sales`
@@ -307,31 +267,31 @@ ALTER TABLE `cv`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

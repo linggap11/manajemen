@@ -61,17 +61,36 @@ class Model_pelanggan extends CI_Model {
 		return $query->result();
 	} 
 
+	public function data_pelanggan_by_produk() {
+		return $this->db->select('pelanggan.*')->from('pelanggan')->join('produk', 'produk.pelanggan_id = pelanggan.id')->group_by('id')->get()->result();
+	}
+
+	public function data_pelanggan() {
+		return $this->db->get('pelanggan')->result();
+	}
 	public function getNama($id) {
 		return $this->db->where('id', $id)->get('pelanggan')->row()->nama;
 	}
  
 
 	public function getPengirimanByPelangganID($produk_id){ 
-		$this->db->select('pelanggan.*, pengiriman.*');
+		$this->db->select('pelanggan.* , pengiriman.*');
 		$this->db->join('pelanggan', 'pelanggan.id = pengiriman.pelanggan_id');
-		$this->db->where('pelanggan_id', $pelanggan_id);
+		$this->db->where('pengiriman.pelanggan_id', $pelanggan_id);
 		$query = $this->db->get('pengiriman'); 
 		return $query->result();
+	}
+
+	public function get_pelanggan_id() {
+		$this->db->$query = $this->db->query("SELECT id FROM pelanggan ORDER BY id DESC LIMIT 1");
+    if ($query->num_rows() != 0) {
+      foreach ($query->result_array() as $row) {
+            $data = $row;
+      }
+      return $data['id'];
+    } else {
+      return '0';
+    }
 	}
 }
 

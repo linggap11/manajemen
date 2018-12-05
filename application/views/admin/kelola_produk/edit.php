@@ -24,18 +24,15 @@
                           <div class="row">
                             <div class="col-md-5">
 
-                               <div class="form-group <?php echo (form_error('kode')) ? 'has-error' : '';?>">
-                                <label for="inputkode" class="control-label">Kode Produk</label> 
-                                <input class="form-control" type="text" name="kode" value="<?php echo set_value('kode', $produk->kode); ?>">
-                                <?php echo (form_error('kode')) ? '<span class="help-block">' . form_error('kode') . '</span>' : '';?> 
-                              </div>   
-
                               <div class="form-group <?php echo (form_error('nama')) ? 'has-error' : '';?>">
                                 <label for="inputNama" class="control-label">Nama</label> 
                                 <input class="form-control" type="text" name="nama" value="<?php echo set_value('nama', $produk->nama); ?>">
                                 <?php echo (form_error('nama')) ? '<span class="help-block">' . form_error('nama') . '</span>' : '';?> 
                               </div> 
-
+                              <div class="form-group">
+                                  <label for="">Deskripsi</label>
+                                  <textarea name="deskripsi" class="form-control"><?= $produk->deskripsi ?></textarea>
+                              </div>
                               <div class="form-group <?php echo (form_error('harga  ')) ? 'has-error' : '';?>">
                                 <label for="inputNama" class="control-label">Harga</label> 
                                 <input class="form-control" type="text" name="harga" value="<?php echo set_value('harga', $produk->harga); ?>">

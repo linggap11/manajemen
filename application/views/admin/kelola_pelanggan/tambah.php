@@ -56,21 +56,8 @@
                             </div>
                            </div>  
                               
-                              <div class="col-md-5">
-                              <div class="form-group <?php echo (form_error('kecamatan')) ? 'has-error' : '';?>">
-                                <label for="inputNama" class="control-label">Kecamatan </label> 
-                                <input class="form-control" type="text" name="kecamatan" value="<?php echo set_value('kecamatan'); ?>">
-                                <?php echo (form_error('kecamatan')) ? '<span class="help-block">' . form_error('kecamatan') . '</span>' : '';?> 
-                            </div><!-- end col -->
-                          </div><!-- end row -->
-                        
-                        <div class="col-md-5">
-                              <div class="form-group <?php echo (form_error('kelurahan')) ? 'has-error' : '';?>">
-                                <label for="inputNama" class="control-label">Kelurahan </label> 
-                                <input class="form-control" type="text" name="kelurahan" value="<?php echo set_value('kelurahan'); ?>">
-                                <?php echo (form_error('kelurahan')) ? '<span class="help-block">' . form_error('kelurahan') . '</span>' : '';?> 
-                            </div><!-- end col -->
-                          </div><!-- end row -->
+                              
+                      
                         </div><!-- /.box-body -->
                         <div class="box-footer c">
                             <button class="btn btn-primary pull-right" type="submit" name="submit" value="save"><i class="fa fa-save"></i> Tambah Pelanggan</button>

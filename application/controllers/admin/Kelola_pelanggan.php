@@ -51,8 +51,6 @@ class Kelola_pelanggan extends CI_Controller {
 			$this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required'); 
 			$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');  
 			$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');  
-			$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');  
-			$this->form_validation->set_rules('kelurahan', 'Kelurahan', 'trim|required'); 
 
 			if ($this->form_validation->run() == false) {
 				$this->load->view('admin/layout/header', array('title' => 'Tambah Pelanggan', 'menu' => 'kelola_pelanggan'));
@@ -63,8 +61,6 @@ class Kelola_pelanggan extends CI_Controller {
 				$data['no_telp'] = $this->input->post('no_telp'); 
 				$data['alamat'] = $this->input->post('alamat');
 				$data['kode_pos'] = $this->input->post('kode_pos'); 
-				$data['kecamatan'] = $this->input->post('kecamatan'); 
-				$data['kelurahan'] = $this->input->post('kelurahan');  
 
 				if($this->model_pelanggan->insert($data)) {
 					$this->session->set_flashdata('sukses', 'Berhasil menambah pelanggan.');
@@ -91,9 +87,7 @@ class Kelola_pelanggan extends CI_Controller {
 			$data_edit['nama'] = $this->input->post('nama'); 
 			$data_edit['no_telp'] = $this->input->post('no_telp');  
 			$data_edit['alamat'] = $this->input->post('alamat');  
-			$data_edit['kode_pos'] = $this->input->post('kode_pos');   
-			$data_edit['kecamatan'] = $this->input->post('kecamatan');   
-			$data_edit['kelurahan'] = $this->input->post('kelurahan');  
+			$data_edit['kode_pos'] = $this->input->post('kode_pos');    
 
 			// validasi  
 			if($data['pelanggan']->nama != $data_edit['nama']) {
@@ -108,12 +102,7 @@ class Kelola_pelanggan extends CI_Controller {
 			if($data['pelanggan']->kode_pos != $data_edit['kode_pos']) {
 				$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
 			} 
-			if($data['pelanggan']->kecamatan != $data_edit['kecamatan']) {
-				$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
-			}  
-			if($data['pelanggan']->kelurahan != $data_edit['kelurahan']) {
-				$this->form_validation->set_rules('kelurahan', 'kelurahan', 'trim|required');
-			}      
+		
 			if ($this->form_validation->run() == false) {
 				$this->load->view('admin/layout/header', array('title' => 'Edit Pelanggan - ' . $data['pelanggan']->nama, 'menu' => 'kelola_pelanggan'));
 				$this->load->view('admin/kelola_pelanggan/edit', $data);
@@ -159,18 +148,15 @@ class Kelola_pelanggan extends CI_Controller {
 	public function get_produk($pelanggan_id = 0) {
 	    if($pelanggan_id != 0){
 	        $produk = $this->model_produk->getProdukByPelangganID($pelanggan_id);
-
 	        $data = array();
 	        foreach ($produk as $idx => $res) { 
 	            $data[$idx][] = $res->no_pengiriman;
 	            $data[$idx][] = $res->alamat;
-	            $data[$idx][] = $res->kecamatan;
-	            $data[$idx][] = $res->kelurahan;
 	            $data[$idx][] = $res->berat;
-	            $data[$idx][] = $res->kodepos;
+	            $data[$idx][] = $res->kode_pos;
 	            $data[$idx][] = format_rupiah($res->harga);
 	            $data[$idx][] = format_rupiah($res->biaya_tambahan);
-	            $data[$idx][] = '<a data-id="'.$res->harga_id.'" data-produk_id="'.$res->id.'" data-nama="'.$res->nama.'" class="btn-hapus btn btn-xs btn-danger" href="#"><i class="fa fa-trash"></i> Hapus</a>';
+	            $data[$idx][] = '<a data-id="'.$res->produk_id.'" data-produk_id="'.$res->produk_id.'" data-nama="'.$res->nama.'" class="btn-hapus btn btn-xs btn-danger" href="#"><i class="fa fa-trash"></i> Hapus</a>';
 	        }
 	        echo json_encode(array('data' => $data));
 	    }
@@ -183,8 +169,6 @@ class Kelola_pelanggan extends CI_Controller {
 	        foreach ($produk as $idx => $res) {
 	            $data[$idx][] = $res->no_pengiriman;
 	            $data[$idx][] = $res->alamat;
-	            $data[$idx][] = $res->kecamatan;
-	            $data[$idx][] = $res->kelurahan;
 	            $data[$idx][] = $res->berat;
 	            $data[$idx][] = $res->kodepos;
 	            $data[$idx][] = format_rupiah($res->harga);
@@ -203,8 +187,6 @@ class Kelola_pelanggan extends CI_Controller {
 	        $data['produk_id'] = $this->input->post('produk_id'); 
 	        $data['no_pengiriman'] = $this->input->post('no_pengiriman'); 
 	        $data['alamat'] = $this->input->post('alamat'); 
-	        $data['kelurahan'] = $this->input->post('kelurahan'); 
-	        $data['kecamatan'] = $this->input->post('kecamatan'); 
 	        $data['berat'] = $this->input->post('berat'); 
 	        $data['kodepos'] = $this->input->post('kodepos'); 
 	        $data['harga'] = format_angka($this->input->post('harga'));
@@ -222,8 +204,6 @@ class Kelola_pelanggan extends CI_Controller {
 
 	        $data = array('no_pengiriman' => $data['no_pengiriman'],
 	        			'alamat' => $data['alamat'],
-	        			'kecamatan' => $data['kecamatan'],
-	        			'kelurahan' => $data['kelurahan'],
 	        			'harga' => $data['harga'],
 	        			'berat' => $data['berat'],
 	        			'biaya_tambahan' => $data['biaya_tambahan'],
@@ -262,9 +242,14 @@ class Kelola_pelanggan extends CI_Controller {
 		}
 	 }
 
-	 public function get_data_pelanggan_by_nama($nama) {
-	 	$data = $this->db->where('nama', rawurldecode($nama))->get('pelanggan')->row();
+	 public function get_data_pelanggan_by_id($id) {
+	 	$data = $this->db->select('pelanggan.*, produk.nama AS nama_produk, produk.deskripsi')->from('pelanggan')->join('produk', 'pelanggan.id = produk.pelanggan_id')->where('pelanggan.id', $id)->get()->row();
 		echo json_encode($data);
+	 }
+
+	 public function test() {
+	 	$data = $this->model_produk->getProdukByPelangganID(1);
+	 	print_r($data);
 	 }
 }
 	

@@ -106,7 +106,6 @@
   $(".link").click(function() {
     $(this).parent().addClass('active').siblings().removeClass('active');
   });
-  console.log(menu);
   switch (menu) {
       case "pengiriman":
           $('#content').load('<?= base_url('admin/Kelola_pengiriman/catat_transaksi') ?>');

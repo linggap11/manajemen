@@ -101,29 +101,54 @@ class Kelola_produk extends CI_Controller {
 		if($this->input->post('submit')) { 
 			
 			// validasi 
-			$this->form_validation->set_rules('kode', 'Kode', 'trim|required'); 
 			$this->form_validation->set_rules('nama', 'Nama', 'trim|required'); 
-			$this->form_validation->set_rules('harga', 'Harga', 'trim|required'); 
 
 			if ($this->form_validation->run() == false) {
+				$data['data_pelanggan'] = $this->model_pelanggan->data_pelanggan();
 				$this->load->view('admin/layout/header', array('title' => 'Tambah Produk', 'menu' => 'kelola_produk'));
-				$this->load->view('admin/kelola_produk/tambah');
+				$this->load->view('admin/kelola_produk/tambah', $data);
 			} else {
+				$id = $this->model_produk->get_pelanggan_id();
+				$tipe = $this->input->post('pilih_pelanggan');
+				$nama_produk = $this->input->post('nama');
+				$deskripsi = $this->input->post('deskripsi');
+				$harga = $this->input->post('harga');
 
-				$data['kode'] = $this->input->post('kode'); 
-				$data['nama'] = $this->input->post('nama'); 
-				$data['harga'] = $this->input->post('harga');
+				$pelanggan_id = $this->input->post('pelanggan_id');
+				$nama_pelanggan = $this->input->post('nama_pelanggan');
+				$telp = $this->input->post('telp_pelanggan');
+				$alamat = $this->input->post('alamat_pelanggan');
+				$kode_pos = $this->input->post('kode_pos');
 
-				if($this->model_produk->insert($data)) {
+
+				$kode_produk = $this->model_produk->get_kode_produk();
+				$kode_produk++;
+				$data_pelanggan = array(
+					'nama' => $nama_pelanggan,
+					'no_telp' => $telp,
+					'alamat' => $alamat,
+					'kode_pos' => $kode_pos
+				);
+
+				$data_produk = array(
+					'kode' => $kode_produk,
+					'nama' => $nama_produk,
+					'deskripsi' => $deskripsi,
+					'harga' => $harga,
+					'pelanggan_id' => $pelanggan_id // nu di post
+				);			
+				if(($this->model_produk->insert($data_produk))) {
 					$this->session->set_flashdata('sukses', 'Berhasil menambah Produk.');
 				} else {
 					$this->session->set_flashdata('error', 'Gagal menambah Produk.');
-				}
+				}		 
+						
 				redirect(site_url('admin/kelola_produk'), 'refresh');
 			}
 		} else {
+			$data['data_pelanggan'] = $this->model_pelanggan->data_pelanggan();
 			$this->load->view('admin/layout/header', array('title' => 'Tambah Produk', 'menu' => 'kelola_produk'));
-			$this->load->view('admin/kelola_produk/tambah'); 
+			$this->load->view('admin/kelola_produk/tambah', $data); 
 		}
 	}
 
@@ -136,14 +161,11 @@ class Kelola_produk extends CI_Controller {
 		$data['id'] = $id;
 		if($this->input->post('submit')) {
 
-			$data_edit['kode'] = $this->input->post('kode'); 
+			$data_edit['deskripsi'] = $this->input->post('deskripsi'); 
 			$data_edit['nama'] = $this->input->post('nama'); 
 			$data_edit['harga'] = $this->input->post('harga');
 
-			// validasi  
-			if($data['produk']->kode != $data_edit['kode']) {
-				$this->form_validation->set_rules('kode', 'Kode', 'trim|required');
-			}  
+			// validasi   
 			if($data['produk']->nama != $data_edit['nama']) {
 				$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
 			}  
