@@ -39,7 +39,7 @@
                                     <th>No Telp</th>         
                                     <th>Kode Pos</th>
                                     <th>Jumlah Tagihan</th>
-                                    <th>Status</th>
+                                    <th>Total Surat Jalan</th>
                                     <th width="20%">Action</th>
                                 </tr>
                                 </thead>
@@ -52,7 +52,7 @@
                                     <td><?php echo $res->no_telp;?></td>                                  
                                     <td><?php echo $res->kode_pos;?></td>                                  
                                     <td><?php echo format_rupiah($res->total);?></td>                                  
-                                    <td align="center"><span class="btn btn-danger btn-xs"><?php echo $res->tagihan ?></span></td>                                  
+                                    <td align="center"><span class="btn btn-primary btn-xs"><?php echo $res->jum_tagihan ?></span></td>                                  
                                     <td class="text-center">
                                         <a href="<?= base_url('admin/Kelola_pengiriman/tagihan_pelanggan/'.$res->pelanggan_id.'') ?>" class="btn btn-info btn-xs"> <span class="fa fa-list"></span> Tagihan</a> 
                                         

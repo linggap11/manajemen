@@ -51,6 +51,7 @@ class Kelola_sales extends CI_Controller {
 			$this->form_validation->set_rules('plat_nomor', 'Plat Nomor', 'trim|required'); 
 			$this->form_validation->set_rules('no_telp', 'Nomor Telfon', 'trim|required'); 
 			$this->form_validation->set_rules('no_gps', 'Nomor GPS', 'trim|required'); 
+			$this->form_validation->set_rules('sim_berlaku', 'Sim Berlaku', 'trim|required'); 
 
 			if ($this->form_validation->run() == false) {
 				$this->load->view('admin/layout/header', array('title' => 'Tambah Sales', 'menu' => 'kelola_sales'));
@@ -61,6 +62,7 @@ class Kelola_sales extends CI_Controller {
 				$data['plat_nomor'] = $this->input->post('plat_nomor'); 
 				$data['no_telp'] = $this->input->post('no_telp'); 
 				$data['no_gps'] = $this->input->post('no_gps'); 
+				$data['sim_berlaku'] = $this->input->post('sim_berlaku'); 
 
 				if($this->model_sales->insert($data)) {
 					$this->session->set_flashdata('sukses', 'Berhasil menambah Sales.');

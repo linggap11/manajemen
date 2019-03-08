@@ -29,16 +29,16 @@
   <table style="vertical-align: top">
     <tr>
       <td style="text-align:center">
-        <h3>' . strtoupper($profile->nama_cv) . '</h3>
-        <p>' . $profile->alamat_cv. '</p>
-        <p>Telp: ' . $profile->kontak_cv . ' | Email: ' . $profile->email_cv . '</p>
+        <td align="center">
+          <img src="'.base_url("assets/images/Logo.png").'" alt="">
+        </td> 
       </td> 
     </tr>
   </table>
 
   <hr>
 
-  <h4 style="text-align:center">' . $title . '</h4>
+  <h4 style="text-align:center"> Laporan Pengiriman </h4>
   <table class="table">
   <thead>
   <tr>
@@ -46,7 +46,8 @@
       <th>Tanggal</th>
       <th>Sales </th>
       <th>Pelanggan</th>
-      <th>Total</th>  
+      <th>Total Biaya</th>  
+      <th>Kas Jalan</th>  
       <th>Status</th>    
   </tr>
   </thead>
@@ -60,7 +61,8 @@
           <td>'.  $row->sales . '</td>                 
           <td>'.  $row->nama  . '</td>                       
           <td>'.  format_rupiah($row->total) . '</td>     
-          <td>'.  $row->status_transaksi . '</td>               
+          <td>'.  format_rupiah($row->biaya_tambahan) . '</td>     
+          <td>'.  $row->status . '</td>               
       </tr>';
       $grand_total += $row->total;
   }

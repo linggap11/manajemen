@@ -37,7 +37,20 @@
            <li <?php echo ($menu == 'tagihan') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/kelola_pengiriman/penagihan' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Penagihan</span></a></li>  
          </ul>
        </li>
-
+        <li class="treeview <?php echo ($menu == 'buku_kas' || $menu == 'piutang' || $menu == 'hutang') ? 'active' : '';?>">
+         <a href="#">
+           <i class="fa fa-money"></i> <span>Laporan Keuangan</span>
+           <span class="pull-right-container">
+             <i class="fa fa-angle-left pull-right"></i>
+           </span>
+         </a>
+         <ul class="treeview-menu">   
+           
+           <li <?php echo ($menu == 'buku_kas') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/Kelola_keuangan/buku_kas' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Buku Kas</span></a></li>  
+           <li <?php echo ($menu == 'piutang') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/Kelola_keuangan/piutang' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Piutang</span></a></li>  
+           <li <?php echo ($menu == 'hutang') ? 'class="active"' : '';?>><a href="<?php echo site_url('admin/Kelola_keuangan/buku_hutang' . get_url_cache()) ?>"><i class="fa fa-circle"></i> <span>Buku Hutang</span></a></li>  
+         </ul>
+       </li>
          <li class="treeview <?php echo ($menu == 'laporan_pengiriman' || $menu == 'laporan_pemesanan') ? 'active' : '';?>">
          <a href="#">
            <i class="fa fa-file"></i> <span>Kelola Laporan</span>

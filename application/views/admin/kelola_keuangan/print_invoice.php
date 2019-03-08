@@ -53,7 +53,7 @@ table{
 $html = '<body>
   <div id="page">
     <div class="header">
-      <table>
+       <table>
         <tr>
           <td align="center">
             <img src="'.base_url("assets/images/Logo.png").'" alt="">
@@ -65,15 +65,14 @@ $html = '<body>
 
     <table>
       <tr>
-        <td width="50%">
-          <p>Kepada : </p>
-          <p><b>' . $print->nama. '</b><br>' . $print->alamat. '<br>No Telp : ' . $print->no_telp. '</p>
-          <p><b>TRANSAKSI #'.$print->no_bukti.'</b></p>
+        <td width="74%">
+          <p><strong>Kepada :</strong> </p>
+          <p>' . $print[0]->nama . '</p>
+          <p><strong>Alamat : </strong></p>
+          <p>' . $print[0]->alamat . ' ('.$print[0]->kode_pos.') ' . $print[0]->no_telp .'</p>
+
         </td>
-        <td align="right">
-          <h4 align="right">SURAT JALAN</h4>
-          <p><h4>NOMOR #' . $print->no_pengiriman .'</h4></p>
-          <p>Tanggal : ' . $print->tgl_transaksi. '</p>
+        <td>
 
         </td>
       </tr>
@@ -83,32 +82,43 @@ $html = '<body>
     <table class="table-bordered">
       <thead>
         <tr>
-          <th width="5%">No</th>
-               <th>Produk/Jasa</th>
-               <th width="55%">Deskripsi</th>
-               <th width="10%">Qty</th>
-               <th width="10%">Satuan</th>
+         <th width="5%">No</th>
+         <th width="16%">Surat Jalan</th>
+         <th >Produk / Jasa</th>
+         <th >Qty</th>
+         <th >Harga</th>
+         <th >Total</th>
         </tr>
       </thead>
 
       <tbody>';
 
-         $html .=' <tr>
-            <td>' . (1). '</td>
-            <td>' . $print->nama_produk. '</td>
-            <td>' . $print->deskripsi. '</td>
-            <td>' . $print->berat. '</td>
-            <td align="center">' . ('KG') .'</td>
+         $grand_total = 0; $no = 1;
+         foreach ($print as $row) {
+          $html .=' <tr>
+            <td>' . $no++ . '</td>
+            <td align="center">' . $row->no_pengiriman. '</td>
+            <td>' . $row->produk. '</td>
+            <td>' . $row->berat . (' ( KG )') .'</td>
+            <td>' . format_rupiah($row->harga) .'</td>
+            <td>' . format_rupiah($row->total) . '</td>
           </tr>';
+           $grand_total += $row->total;
 
+         }
 
 
       $html .= '</tbody>
+      <tfoot>
+      <tr>
+        <td style="text-align:right" colspan="5"><b>TOTAL</b></td>
+        <td><b>' . format_rupiah($grand_total) .'</b></td>
+      </tr>
+
+      </tr>
+  </tfoot>
     </table>
     <br>
-    <p><strong>Catatan :</strong></p>
-    <p>Semua barang yang diterima dalam urutan dan kondisi baik.</p>
-    <br><br>
     <table>
       <tr>
         <td style="height: 30px;">
@@ -116,26 +126,33 @@ $html = '<body>
         </td>
         <td width="30%"></td>
         <td>
-          Barang diterima pada tanggal .........................<br><br>
+
         </td>
       </tr>
       <tr>
         <td style="text-align: center">
-          <div style="text-align: center; ">Pengirim<br><br><br><br><br><br>
 
-          (................................................)
-          </div>
+
         </td>
         <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td style="text-align: center">
-          <div style="text-align: center; ">Penerima<br><br><br><br><br><br>
+          <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br>
 
           (................................................)
           </div>
         </td>
       </tr>
     </table>
-  </div><!-- end page -->';
+  </div>';
+
 
   $mpdf = new \Mpdf\Mpdf();
 
@@ -143,4 +160,4 @@ $html = '<body>
   //echo $css . $html;die;
   $mpdf->CSSselectMedia='mpdf';
   $mpdf->WriteHTML($css . $html);
-  $mpdf->Output('nota_pengiriman_' . $print->no_pengiriman . '.pdf', \Mpdf\Output\Destination::INLINE);
+  $mpdf->Output('no_invoice_' . (date('Y-m-d')) . '_' . $print[0]->nama . '_.pdf', \Mpdf\Output\Destination::INLINE);

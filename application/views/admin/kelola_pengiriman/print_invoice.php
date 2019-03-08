@@ -1,8 +1,8 @@
 <?php
 
-$css = '<style type="text/css"> 
+$css = '<style type="text/css">
 
-body{  
+body{
   font-size: 10px;
   font-family: Arial, Sans Serif;
 }
@@ -12,9 +12,9 @@ h3{
 }
 
 #page {
-  width: 100%;  
+  width: 100%;
 }
- 
+
 
 p{
   margin-bottom: 2px;
@@ -46,23 +46,21 @@ table{
 .text-right{
   text-align: right;
 }
- 
+
 </style>';
+if ($ppn != 0) {
+  $pajak = 'PPN 10%';
+} else {
+  $pajak = 'PPN 0%';
+}
 
-
-$html = '<body>  
+$html = '<body>
   <div id="page">
     <div class="header">
       <table>
         <tr>
-          <td>
-           <h3>' . $profile->nama_cv . '</h3>
-            <p>' . $profile->alamat_cv . '</p>
-            <p>Telp: ' . $profile->kontak_cv . ' | Email: ' . $profile->email_cv . '</p>
-          </td>
-          <td style="text-align: right"> 
-            <h4><b>NO INVOICE</b></h4><br>
-            <p>Dari Tanggal: <b>#'.$print[0]->tgl_transaksi.'</b></p> 
+          <td align="center">
+            <img src="'.base_url("assets/images/Logo.png").'" alt="">
           </td>
         </tr>
       </table>
@@ -71,69 +69,102 @@ $html = '<body>
 
     <table>
       <tr>
-        <td width="74%"> 
-          <p><strong>Kepada :</strong> </p> 
+        <td width="74%">
+          <p><strong>Kepada :</strong> </p>
           <p>' . $print[0]->nama . '</p>
-          <p><strong>Alamat : </strong></p> 
+          <p><strong>Alamat : </strong></p>
           <p>' . $print[0]->alamat . ' ('.$print[0]->kode_pos.') ' . $print[0]->no_telp .'</p>
+          <h4><b>NO INVOICE #'.$print[0]->no_bukti.'</b></h4>
+            <p>Dari Tanggal: <b>'.$print[0]->tgl_transaksi.'</b></p>
+            <br>
+            <p><b>'.$pajak .'</b></p>
         </td>
-        <td> 
-          
-        </td>
+
       </tr>
-    </table>  
-    
-    <br> 
+    </table>
+
+    <br>
     <table class="table-bordered">
       <thead>
         <tr>
          <th width="5%">No</th>
-         <th width="15%">No Invoice</th>    
-         <th >Produk / Jasa</th>    
-         <th >Qty</th>  
+         <th width="16%">Surat Jalan</th>
+         <th >Produk / Jasa</th>
+         <th >Qty</th>
          <th >Harga</th>
-         <th >Total</th>  
+         <th >Total</th>
         </tr>
       </thead>
-      
+
       <tbody>';
 
          $grand_total = 0; $no = 1;
          foreach ($print as $row) {
           $html .=' <tr>
-            <td>' . $no++ . '</td>   
-            <td align="center">' . $row->no_bukti. '</td> 
-            <td>' . $row->nama_produk. '</td> 
-            <td>' . $row->berat . (' ( KG )') .'</td>    
-            <td>' . format_rupiah($row->harga) .'</td>  
-            <td>' . format_rupiah($row->total) . '</td>    
+            <td>' . $no++ . '</td>
+            <td align="center">' . $row->no_pengiriman. '</td>
+            <td>' . $row->nama_produk. '</td>
+            <td>' . $row->berat . (' ( KG )') .'</td>
+            <td>' . format_rupiah($row->harga) .'</td>
+            <td>' . format_rupiah($row->total) . '</td>
           </tr>';
            $grand_total += $row->total;
 
          }
-        
-         
-      $html .= '</tbody> 
+
+      $html .= '</tbody>
       <tfoot>
       <tr>
-        <td style="text-align:right" colspan="5"><b>TOTAL</b></td>
-        <td><b>' . format_rupiah($grand_total) .'</b></td>
+        <td style="text-align:right" colspan="5"><b>PPN</b></td>
+        <td><b>' . format_rupiah($ppn) .'</b></td>
       </tr>
-   
+      <tr>
+        <td style="text-align:right" colspan="5"><b>TOTAL</b></td>
+        <td><b>' . format_rupiah($grand_total + $ppn) .'</b></td>
+      </tr>
+
       </tr>
   </tfoot>
-    </table> 
+    </table>
     <br>
+    <table>
+      <tr>
+        <td style="height: 30px;">
+
+        </td>
+        <td width="30%"></td>
+        <td>
+
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center">
+
+
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align: center">
+          <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br>
+
+          (................................................)
+          </div>
+        </td>
+      </tr>
+    </table>
   </div><!-- end page -->';
 
   $mpdf = new \Mpdf\Mpdf();
-  
+
 
   //echo $css . $html;die;
-  $mpdf->CSSselectMedia='mpdf';  
+  $mpdf->CSSselectMedia='mpdf';
   $mpdf->WriteHTML($css . $html);
   $mpdf->Output('no_invoice_' . (date('Y-m-d')) . '_' . $print[0]->pelanggan_id . '_.pdf', \Mpdf\Output\Destination::INLINE);
-
-
-
- 

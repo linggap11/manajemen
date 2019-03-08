@@ -62,7 +62,8 @@
                                   <th>Sales </th>
                                   <th>Pelanggan</th>
                                   <th>Alamat</th>  
-                                  <th>Total</th>  
+                                  <th>Total Biaya</th>  
+                                  <th>Kas Jalan</th>  
                                   <th width="15%">Status</th>    
                               </tr>
                               </thead>
@@ -74,7 +75,8 @@
                                     <td><?php echo $row->sales; ?></td>
                                     <td><?php echo $row->nama; ?></td>
                                     <td><?php echo $row->alamat; ?></td>
-                                    <td><?php echo $row->total; ?></td>
+                                    <td><?php echo format_rupiah($row->total); ?></td>
+                                    <td><?php echo format_rupiah($row->biaya_tambahan); ?></td>
                                     <td align="center"><strong><?php echo $row->status_transaksi; ?></strong></td>
                                   </tr>
                                 <?php endforeach ?>

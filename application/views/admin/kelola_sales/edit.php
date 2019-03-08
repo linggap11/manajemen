@@ -44,7 +44,7 @@
                                 <?php echo (form_error('no_telp')) ? '<span class="help-block">' . form_error('no_telp') . '</span>' : '';?> 
                               </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                               <div class="form-group <?php echo (form_error('no_gps  ')) ? 'has-error' : '';?>">
                                 <label for="inputNama" class="control-label">Nomor GPS</label> 
                                 <input class="form-control" type="text" name="no_gps" value="<?php echo set_value('no_gps', $sales->no_gps); ?>">
@@ -52,6 +52,14 @@
                               </div>
 
                             </div><!-- end col -->
+
+                            <div class="col-md-6">  
+                               <div class="form-group <?php echo (form_error('sim_berlaku')) ? 'has-error' : '';?>">
+                                 <label for="inputNama" class="control-label">SIM Berlaku s/d</label> 
+                                 <input style="text-align: center" readonly class="datepicker form-control" type="text" name="sim_berlaku" value="<?php echo date('Y-m-d'); ?>">
+                                <?php echo (form_error('sim_berlaku')) ? '<span class="help-block">' . form_error('sim_berlaku') . '</span>' : '';?> 
+                            </div>
+
                           </div><!-- end row -->
                         </div><!-- /.box-body -->
                         <div class="box-footer c">
@@ -68,10 +76,19 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-
-    
-
     <?php $this->load->view('admin/layout/footer'); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>">
+    <script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+     <script type="text/javascript">
+       
+        $('.datepicker').datepicker({
+              autoclose: true,
+              format: "yyyy-mm-dd",
+              todayHighlight: true,
+              orientation: "top auto",
+              todayBtn: true,
+              todayHighlight: true,
+          });
+     </script>
 
      

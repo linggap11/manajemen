@@ -30,6 +30,7 @@
                                     <th>Plat Nomor </th>                                     
                                     <th>Nomor Telepon</th> 
                                     <th>Nomor Gps</th>
+                                    <th>SIM Berlaku s/d</th>
                                     <th>Status</th>
                                     <th width="20%">Action</th>
                                 </tr>
@@ -40,12 +41,14 @@
                                     <td><?php echo $res->nama;?></td> 
                                     <td><?php echo $res->plat_nomor;?></td> 
                                     <td><?php echo $res->no_telp;?></td> 
-                                    <td><?php echo $res->no_gps;?></td>                                    
+                                    <td><?php echo $res->no_gps;?></td>
+                                    <td class="text-center"> <?php echo $res->sim_berlaku ?> </td>                                    
                                     <td><?php if ($res->status == "MENGIRIM"): ?>
                                         <span class="btn btn-success btn-xs"><?php echo $res->status;?></span>
                                         <?php else: ?>
                                         <span class="btn btn-warning btn-xs"><?php echo $res->status;?></span>    
-                                    <?php endif ?></td>                                    
+                                    <?php endif ?></td>     
+
                                     <td class="text-center"> 
                                     <a href="<?php echo site_url('admin/kelola_sales/edit/' . $res->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                                     <a href="<?php echo site_url('admin/kelola_sales/delete/' . $res->id);?>" class="btn btn-danger btn_hapus btn-xs"><i class="fa fa-trash"></i> Hapus</a>

@@ -32,6 +32,7 @@ class Model_produk extends CI_Model {
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result();
+
 	}
 
 	public function search_produk($keyword) {
@@ -66,26 +67,26 @@ class Model_produk extends CI_Model {
 	public function update($data = array(), $id) {
 		$this->db->where('id', $id);
 		return $this->db->update('produk', $data);
-	} 
+	}
 
 	public function get($id) {
 		return $this->db->where('id', $id)->get('produk')->row();
-	}    
- 
+	}
+
 
 	public function delete($id) {
-		$this->db->where('id', $id); 
+		$this->db->where('id', $id);
 		return $this->db->delete('produk');
-	} 
+	}
 
-	public function insertHargaPengiriman($data = array()) { 
+	public function insertHargaPengiriman($data = array()) {
 		return $this->db->insert('pengiriman', $data);
 	}
 	public function deleteHargaPengiriman($id) {
 		$this->db->where('id', $id);
 		return $this->db->delete('pengiriman');
 	}
-	
+
 	public function show($limit = 0, $offset = 0) {
 		if($limit != 0) {
 			$query = $this->db->limit($limit, $offset)->order_by('id', 'DESC')->get('produk');
@@ -93,18 +94,18 @@ class Model_produk extends CI_Model {
 			$query = $this->db->from('produk')->order_by('id', 'DESC')->get();
 		}
 		return $query->result();
-	} 
+	}
 
 	public function getNama($id) {
 		return $this->db->where('id', $id)->get('produk')->row()->nama;
 	}
-  
+
 
 	public function deletePengiriman($id) {
 		$this->db->where('id', $id);
 		return $this->db->delete('pengiriman');
 	}
-	
+
 
 	public function countListHargaByPelangganID($pelanggan_id) {
 		$this->db->where('pelanggan_id', $pelanggan_id);
@@ -112,7 +113,7 @@ class Model_produk extends CI_Model {
 		return $this->db->get('pengiriman')->num_rows();
 	}
 
-	public function getProdukByPelangganID($pelanggan_id){ 
+	public function getProdukByPelangganID($pelanggan_id){
 		$this->db->select('pelanggan.*, produk.*, pengiriman.*');
 		$this->db->join('produk', 'produk.id = pengiriman.produk_id');
 		$this->db->join('pelanggan', 'pelanggan.id = pengiriman.pelanggan_id');
@@ -120,8 +121,8 @@ class Model_produk extends CI_Model {
 		return $this->db->get('pengiriman')->result();
 	}
 
-	
-	public function getPengirimanByPelangganIDandProdukID($pelanggan_id, $produk_id){ 
+
+	public function getPengirimanByPelangganIDandProdukID($pelanggan_id, $produk_id){
 		$this->db->select('produk.*, pengiriman.harga as harga_pelanggan, pengiriman.id as harga_id');
 		$this->db->join('produk', 'produk.id = pengiriman.produk_id');
 		$this->db->where('pengiriman.pelanggan_id', $pelanggan_id);
@@ -131,9 +132,12 @@ class Model_produk extends CI_Model {
 
 	public function getPengirimanPelangganByPelangganID($pelanggan_id){
 		$this->db->select('pengiriman.*');
-		return $this->db->get('pengiriman')->result();	
-	} 
+		return $this->db->get('pengiriman')->result();
+	}
 
+	public function get_nama_produk($id) {
+		return $this->db->select('nama')->from('produk')->where('id', $id)->get()->row();
+	}
 
 	public function get_pelanggan_id() {
 		$query = $this->db->query("SELECT id FROM pelanggan ORDER BY id DESC LIMIT 1");
@@ -169,7 +173,7 @@ class Model_produk extends CI_Model {
     } else {
       return 'PROD-111132341';
     }
-	}	
+	}
 
 	public function get_pengiriman_id() {
 		$query = $this->db->query("SELECT id FROM pengiriman ORDER BY id DESC LIMIT 1");
@@ -208,14 +212,21 @@ class Model_produk extends CI_Model {
 	}
 
 	public function get_no_bukti() {
-		$query = $this->db->query("SELECT no_bukti FROM transaksi ORDER BY no_bukti DESC LIMIT 1");
+		$query = $this->db->query("SELECT no_bukti FROM transaksi ORDER BY id DESC LIMIT 1");
+		$tahun = date('Y');
+		$bulan = date('m');
+		$tanggal = date('d');
+		$data = null;
+		$no_invoice = $tahun.'/'.$bulan.'/'.$tanggal;;
     if ($query->num_rows() != 0) {
       foreach ($query->result_array() as $row) {
-            $data = $row;
+				if ($no_invoice == substr($row['no_bukti'], 0, 10)) {
+        	$data['no_bukti'] = $row['no_bukti'];
+        } else {
+        	$data['no_bukti'] = $no_invoice.'00';
+        }
       }
       return $data['no_bukti'];
-    } else {
-      return '2018/09/414';
     }
 	}
 

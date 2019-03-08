@@ -29,6 +29,7 @@ class Laporan extends CI_Controller {
 		$data['js'] = $this->js ;
 		
 		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status);
+		$data['data_sales'] = $this->model_laporan->tampil_sales();
 		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
 		$data['tahun'] = $this->model_laporan->getTahunPengiriman();
 		$this->load->view('admin/layout/header', array('title' => 'Laporan Pengiriman', 'menu' => 'laporan_pengiriman', 'css' => $this->css)); 
@@ -81,9 +82,24 @@ class Laporan extends CI_Controller {
 		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status); 
 		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
  
-		$this->load->view('admin/laporan/pengiriman_print', $data);
+		$this->load->view('admin/laporan/pemesanan_print', $data);
  
 	}
+
+
+	public function get_detail_sales($id) {
+		$data = $this->model_laporan->get_detail_sales($id);
+		echo json_encode($data);
+	}
+
+	public function print_sj_by_sales($id) {
+		 $data['profile'] = $this->model_pengaturan->get_profile();
+     $data['print'] = $this->model_laporan->get_sj_by_sales($id);
+     $this->load->view('admin/laporan/pengiriman_print_by_sales', $data);
+	}
+
+
+
 
 	public function test() {
 		$status = 'all';   
@@ -95,9 +111,11 @@ class Laporan extends CI_Controller {
 		$data['profile'] = $this->model_pengaturan->get_profile();
 		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status); 
 		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
-
+		$data['data_sales'] = $this->model_laporan->get_detail_sales(1);
 		print_r($data);
 	}
+
+
 
 }
 

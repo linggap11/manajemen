@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>">
 <div class="" id="default">
     <div class="row">
       <form action="<?= base_url('admin/Kelola_pengiriman/simpan_pengiriman') ?>" method="post" onsubmit="return checkSales()" accept-charset="utf-8">
@@ -52,32 +51,32 @@
                 <input type="hidden" name="id_pelanggan[]" id="id_pelanggan1">
                 <label class="col-md-6 control-label" for=""><b>Nama Pelanggan</b></label>
                 <div class="col-md-6">
-                  <input type="text" placeholder="" id="nama_pelanggan1" class="form-control" name="nama_pelanggan[]">
+                  <input type="text" placeholder="" id="nama_pelanggan1" readonly class="form-control" name="nama_pelanggan[]">
                   <input type="hidden" name="pelanggan_id[]" id="pelanggan_id1">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label" for="">No Telp</label>
                 <div class="col-sm-6">
-                  <input type="text" placeholder="" id="telp_pelanggan1" class="form-control" name="telp_pelanggan[]">
+                  <input type="text" placeholder="" readonly id="telp_pelanggan1" class="form-control" name="telp_pelanggan[]">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label" for="nohape">Alamat</label>
                 <div class="col-sm-12">
-                  <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat1" name="alamat[]" class="form-control" rows="5"></textarea>
+                  <textarea placeholder="" id="alamat1" name="alamat[]" class="form-control" readonly rows="5"></textarea>
                   <span id="charNum"></span>
                 </div>
               </div>
               <div class="form-group">
                   <label class="col-sm-8 control-label" for="kodepos">Kode Pos</label>
                   <div class="col-sm-6">
-                    <input type="text" id="kode_pos1" class="form-control" name="kode_pos[]">
+                    <input type="text" id="kode_pos1" readonly class="form-control" name="kode_pos[]">
                   </div>
                </div>
             </div>
           </div>
-          
+
         </div>
         <div class="col-md-5">
           <div class="panel panel-default">
@@ -93,19 +92,19 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="">Deskripsi</label>
                 <div class="col-sm-7">
-                  <textarea placeholder="" id="deskripsi_produk1" name="deskripsi_produk[]" class="form-control" readonly rows="2"></textarea>
+                  <textarea placeholder="" id="deskripsi_produk1" name="deskripsi_produk[]" class="form-control" rows="2"></textarea>
                 </div>
               </div>
                <div class="form-group">
                   <label class="col-sm-4 control-label" for="">Harga (Rp)</label>
                   <div class="col-sm-7">
-                    <input type="text" id="harga1" class="form-control" value="0" required onkeyup="hitungTotal(1)" name="harga[]">
+                    <input type="text" id="harga1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" value="0" required onkeyup="hitungTotal(1)" name="harga[]">
                   </div>
                </div>
                <div class="form-group">
                   <label class="col-sm-4 control-label" for="">Berat (Kg)</label>
                   <div class="col-sm-7">
-                    <input type="text" id="berat1" class="form-control" value="1" required onkeyup="hitungTotal(1)" name="berat[]">
+                    <input type="number" id="berat1" class="form-control" value="1" required onkeyup="hitungTotal(1)" onchange="hitungTotal(1)" name="berat[]">
                   </div>
                </div>
                <div class="form-group">
@@ -144,9 +143,15 @@
                   </div>
                </div>
                <div class="form-group">
-                  <label class="col-sm-4 control-label" for="">Tambahan (Rp)</label>
+                  <label class="col-sm-4 control-label" for="">Kas Jalan (Rp)</label>
                   <div class="col-sm-7">
-                    <input type="text" id="biaya_tambahan1" class="form-control" required value="0" onkeyup="hitungTotal(1)" name="biaya_tambahan[]">
+                    <input type="text" id="biaya_tambahan1" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required value="0" onkeyup="hitungTotal(1)" name="biaya_tambahan[]">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-4 control-label" for="">Potongan (Rp)</label>
+                  <div class="col-sm-7">
+                    <input type="text" id="potongan1" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required value="0" onkeyup="hitungTotal(1)" name="potongan[]">
                   </div>
                </div>
             </div>
@@ -158,7 +163,7 @@
         </div>
           <div id="transaksi_lain">
             <div id="add1">
-              
+
             </div>
           </div>
           <div class="col-sm-12">
@@ -168,9 +173,9 @@
       </div>
       <hr class="hr-flex">
         <div class="form-group col-md-12"><button type="button" class="btn btn-warning" onclick="addPengiriman();" id="add_rowProduk"><i class="glyphicon glyphicon-plus"></i>Tambah Pengiriman Lain</button></div>
-    </div> 
+    </div>
 
-
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>">
 <script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 <script>
   function checkSales() {
@@ -181,13 +186,13 @@
     for (var i = 0; i < val.length; i++) {
       if (val[i] == val[i+1] || val[i] == val[i+2]) {
         var status = true;
-      } 
+      }
     }
     if (status == true) {
       alert('Maaf Sales Sudah Digunakan!, Silahkan Cek Kembali');
       return false;
     } else {
-      return true;  
+      return true;
     }
  }
 
@@ -197,7 +202,7 @@
    $.get("<?php echo site_url('admin/Kelola_produk/get_data_sales_byid/'); ?>"+id_sales, function(respon) {
       var data = JSON.parse(respon);
       $('#no_kendaraan'+i).val(data.plat_nomor);
-   });  
+   });
  }
 
   function showTable(){
@@ -223,13 +228,13 @@
   function addPengiriman() {
     count_id++;
 
-    $('#transaksi_lain').append('<div id="add'+count_id+'"><hr class="hr-flex"><div class="row"> <div class="col-md-6"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-md-3 control-label" for=""><b>Pelanggan</b></label> <div class="col-md-8"> <div class="input-group" id="cari_pelanggan'+count_id+'"> <span class="input-group-addon"><i class="fa fa-search"></i></span> <select required id="search_pelanggan'+count_id+'" onchange="cari_pelanggan('+count_id+')" class="form-control" style=""> <option value="">Pilih Pelanggan</option> <?php foreach ($data_pelanggan as $row): ?> <option value="<?=$row->id ?>"><?=$row->nama ?></option> <?php endforeach ?> </select> </div></div></div><div class="form-group"> <input type="hidden" name="id_pelanggan[]" id="id_pelanggan'+count_id+'"> <label class="col-md-6 control-label" for=""><b>Nama Pelanggan</b></label> <div class="col-md-6"> <input type="text" placeholder="" id="nama_pelanggan'+count_id+'" class="form-control" name="nama_pelanggan[]"> <input type="hidden" name="pelanggan_id[]" id="pelanggan_id'+count_id+'"> </div></div><div class="form-group"> <label class="col-sm-6 control-label" for="">No Telp</label> <div class="col-sm-6"> <input type="text" placeholder="" id="telp_pelanggan'+count_id+'" class="form-control" name="telp_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-6 control-label" for="nohape">Alamat</label> <div class="col-sm-12"> <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat'+count_id+'" name="alamat[]" class="form-control" rows="5"></textarea> <span id="charNum"></span> </div></div><div class="form-group"> <label class="col-sm-8 control-label" for="kodepos">Kode Pos</label> <div class="col-sm-6"> <input type="text" id="kode_pos'+count_id+'" class="form-control" name="kode_pos[]"> </div></div></div></div></div><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group" id="pelanggan_lama'+count_id+'" > <label class="col-sm-4 control-label" for="">Nama Produk</label> <div class="col-sm-7"> <select required class="form-control" id="list_produk'+count_id+'" onchange="get_deskripsi('+count_id+')" name="list_nama_produk[]" > <option value="">Pilih Produk</option> </select> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Deskripsi</label> <div class="col-sm-7"> <textarea placeholder="" id="deskripsi_produk'+count_id+'" name="deskripsi_produk[]" class="form-control" rows="2"></textarea> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Harga (Rp)</label> <div class="col-sm-7"> <input type="text" id="harga'+count_id+'" class="form-control" value="0" required onkeyup="hitungTotal('+count_id+')" name="harga[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Berat (Kg)</label> <div class="col-sm-7"> <input type="text" id="berat'+count_id+'" class="form-control" value="1" required onkeyup="hitungTotal('+count_id+')" name="berat[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Total (Rp)</label> <div class="col-sm-7"><input type="text" id="totalShow'+count_id+'" class="form-control" readonly> <input type="hidden" id="total'+count_id+'" class="form-control" readonly name="total[]"> </div></div></div></div><div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="">Sales</label> <div class="col-sm-7"> <div class="input-group"> <select name="sales[]" required id="sales'+count_id+'" class="sales form-control" onchange="get_no_kendaraan('+count_id+')"> <option value="">Pilih Sales</option> <?php if (count($sales) > 0): ?> <?php foreach ($sales as $list_sales): ?> <option value="<?=$list_sales->id ?>"><?=$list_sales->nama ?></option> <?php endforeach ?> <?php else: ?> <option value="">Sales Sibuk</option> <?php endif ?> </select> </div></div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">No Kendaraan</label> <div class="col-sm-7"> <input type="text" id="no_kendaraan'+count_id+'" class="form-control" name="no_kendaraan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Tambahan (Rp)</label> <div class="col-sm-7"> <input type="text" id="biaya_tambahan'+count_id+'" class="form-control" required value="0" onkeyup="hitungTotal('+count_id+')" name="biaya_tambahan[]"> </div></div></div></div></div><div class="col-md-1"> <div class="col-md-1"> <a href="javascript:void(0);" onclick="T_removeElement('+count_id+');" class="btn btn-danger pull-right btn-xs" id="del_row'+count_id+'"><i class="glyphicon glyphicon-remove"></i></a> </div></div></div></div>'); 
+    $('#transaksi_lain').append('<div id="add'+count_id+'"><hr class="hr-flex"><div class="row"> <div class="col-md-6"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-md-3 control-label" for=""><b>Pelanggan</b></label> <div class="col-md-8"> <div class="input-group" id="cari_pelanggan'+count_id+'"> <span class="input-group-addon"><i class="fa fa-search"></i></span> <select required id="search_pelanggan'+count_id+'" onchange="cari_pelanggan('+count_id+')" class="form-control" style=""> <option value="">Pilih Pelanggan</option> <?php foreach ($data_pelanggan as $row): ?> <option value="<?=$row->id ?>"><?=$row->nama ?></option> <?php endforeach ?> </select> </div></div></div><div class="form-group"> <input type="hidden" name="id_pelanggan[]" id="id_pelanggan'+count_id+'"> <label class="col-md-6 control-label" for=""><b>Nama Pelanggan</b></label> <div class="col-md-6"> <input type="text" placeholder="" id="nama_pelanggan'+count_id+'" class="form-control" name="nama_pelanggan[]"> <input type="hidden" name="pelanggan_id[]" id="pelanggan_id'+count_id+'"> </div></div><div class="form-group"> <label class="col-sm-6 control-label" for="">No Telp</label> <div class="col-sm-6"> <input type="text" placeholder="" id="telp_pelanggan'+count_id+'" class="form-control" name="telp_pelanggan[]"> </div></div><div class="form-group"> <label class="col-sm-6 control-label" for="nohape">Alamat</label> <div class="col-sm-12"> <textarea placeholder="Wajib Isi. Max 500 karakter" id="alamat'+count_id+'" name="alamat[]" class="form-control" rows="5"></textarea> <span id="charNum"></span> </div></div><div class="form-group"> <label class="col-sm-8 control-label" for="kodepos">Kode Pos</label> <div class="col-sm-6"> <input type="text" id="kode_pos'+count_id+'" class="form-control" name="kode_pos[]"> </div></div></div></div></div><div class="col-md-5"> <div class="panel panel-default"> <div class="panel-body"> <div class="form-group" id="pelanggan_lama'+count_id+'" > <label class="col-sm-4 control-label" for="">Nama Produk</label> <div class="col-sm-7"> <select required class="form-control" id="list_produk'+count_id+'" onchange="get_deskripsi('+count_id+')" name="list_nama_produk[]" > <option value="">Pilih Produk</option> </select> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Deskripsi</label> <div class="col-sm-7"> <textarea placeholder="" id="deskripsi_produk'+count_id+'" name="deskripsi_produk[]" class="form-control" rows="2"></textarea> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Harga (Rp)</label> <div class="col-sm-7"> <input type="number"  id="harga'+count_id+'" class="form-control" value="0" required onkeyup="hitungTotal('+count_id+')" name="harga[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Berat (Kg)</label> <div class="col-sm-7"> <input type="number" id="berat'+count_id+'" class="form-control" value="1" required onkeyup="hitungTotal('+count_id+')" onchange="hitungTotal('+count_id+')" name="berat[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Total (Rp)</label> <div class="col-sm-7"><input type="text" id="totalShow'+count_id+'" class="form-control" readonly> <input type="hidden" id="total'+count_id+'" class="form-control" readonly name="total[]"> </div></div></div></div><div class="panel panel-default"> <div class="panel-body"> <div class="form-group"> <label class="col-sm-4 control-label" for="">Sales</label> <div class="col-sm-7"> <div class="input-group"> <select name="sales[]" required id="sales'+count_id+'" class="sales form-control" onchange="get_no_kendaraan('+count_id+')"> <option value="">Pilih Sales</option> <?php if (count($sales) > 0): ?> <?php foreach ($sales as $list_sales): ?> <option value="<?=$list_sales->id ?>"><?=$list_sales->nama ?></option> <?php endforeach ?> <?php else: ?> <option value="">Sales Sibuk</option> <?php endif ?> </select> </div></div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">No Kendaraan</label> <div class="col-sm-7"> <input type="text" id="no_kendaraan'+count_id+'" class="form-control" name="no_kendaraan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Kas Jalan (Rp)</label> <div class="col-sm-7"> <input type="number" id="biaya_tambahan'+count_id+'" class="form-control" required value="0" onkeyup="hitungTotal('+count_id+')" name="biaya_tambahan[]"> </div></div><div class="form-group"> <label class="col-sm-4 control-label" for="">Potongan (Rp)</label> <div class="col-sm-7"> <input type="number" id="potongan'+count_id+'" class="form-control" required value="0" onkeyup="hitungTotal('+count_id+')" name="potongan[]"> </div></div></div></div></div><div class="col-md-1"> <div class="col-md-1"> <a href="javascript:void(0);" onclick="T_removeElement('+count_id+');" class="btn btn-danger pull-right btn-xs" id="del_row'+count_id+'"><i class="glyphicon glyphicon-remove"></i></a> </div></div></div></div>');
   }
 
   function cari_pelanggan(i) {
     var id = $('#search_pelanggan'+i).val()
     $.get("<?php echo site_url('admin/Kelola_pelanggan/get_data_pelanggan_by_id/'); ?>"+id, function(respon) {
-      var data = JSON.parse(respon);  
+      var data = JSON.parse(respon);
       $('#id_pelanggan'+i).val(data.id);
       $('#nama_pelanggan'+i).val(data.nama);
       $('#telp_pelanggan'+i).val(data.no_telp);
@@ -255,7 +260,7 @@
       } else {
         $('#list_produk'+i).append($('<option>').text('Tidak Ada Produk Untuk Pelanggan ini').attr('value', ''));
       }
-    }); 
+    });
   }
 
   function get_deskripsi(i) {
@@ -267,7 +272,7 @@
       var sub_total = parseInt(data.harga) * parseInt($('#berat'+i).val());
       $('#totalShow'+i).val(formatRupiah(String(sub_total), 'Rp. ' ));
       $('#total'+i).val(sub_total); //hidden
-      $('#deskripsi_produk'+i).prop('readonly', true);
+      $('#biaya_tambahan'+i).val(data.kas_jalan);
     });
   }
 
@@ -296,7 +301,7 @@
       var deskripsi_produk = $(this).data('deskripsi');
       var berat = $(this).data('berat');
       var sales = $(this).data('sales');
-      var plat_nomor = $(this).data('plat_nomor');      
+      var plat_nomor = $(this).data('plat_nomor');
       var total = $(this).data('total');
 
       $('#nama_pelanggan').html(nama_pelanggan);
@@ -339,13 +344,13 @@
       sisa        = split[0].length % 3,
       rupiah        = split[0].substr(0, sisa),
       ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
-     
+
       // tambahkan titik jika yang di input sudah menjadi angka ribuan
       if(ribuan){
         separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
       }
-     
+
       rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
       return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }

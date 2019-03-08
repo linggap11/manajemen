@@ -13,7 +13,7 @@
                   <th>Sales </th>
                   <th>Nama Pelanggan</th>
                   <th>Alamat</th>
-                  <th>Total Harga</th>  
+                  <th>Total Harga</th>
                   <th>Aksi</th>
               </tr>
               </thead>
@@ -27,19 +27,19 @@
                       <td><?php echo $pesananan->alamat; ?></td>
                       <td><?php echo format_rupiah($pesananan->total); ?></td>
                       <td align="center"><button
-                         data-no_surat="<?= $pesananan->no_pengiriman ?>" 
-                         data-no_bukti="<?= $pesananan->no_bukti ?>" 
-                         data-nama_pelanggan="<?= $pesananan->nama ?>" 
-                         data-alamat="<?= $pesananan->alamat ?>" 
-                         data-tgl="<?= $pesananan->tgl_transaksi ?>" 
-                         data-kode_produk="<?= $pesananan->kode ?>" 
-                         data-nama_produk="<?= $pesananan->nama_produk ?>" 
-                         data-deskrips_produk="<?= $pesananan->deskripsi ?>" 
-                         data-berat="<?= $pesananan->berat ?>" 
-                         data-sales="<?= $pesananan->sales ?>" 
-                         data-plat_nomor="<?= $pesananan->plat_nomor ?>" 
-                         data-total="<?= $pesananan->total ?>" 
-                      class="btn btn-xs btn-info btn-detail"><i class="fa fa-file"> Detail</i> </button>&nbsp;<a href="<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/'.$pesananan->no_pengiriman.'')?>" target="_blank" class="btn btn-warning btn-xs" title=""><i class="fa fa-print"> Print Nota</i></a><br><a href="<?= base_url('admin/Kelola_pengiriman/pengiriman_selesai/'.$pesananan->no_pengiriman.'')?>" class="btn btn-success btn-xs" title=""><i class="fa fa-check"> Pengiriman Selesai</i></a>
+                         data-no_surat="<?= $pesananan->no_pengiriman ?>"
+                         data-no_bukti="<?= $pesananan->no_bukti ?>"
+                         data-nama_pelanggan="<?= $pesananan->nama ?>"
+                         data-alamat="<?= $pesananan->alamat ?>"
+                         data-tgl="<?= $pesananan->tgl_transaksi ?>"
+                         data-kode_produk="<?= $pesananan->kode ?>"
+                         data-nama_produk="<?= $pesananan->nama_produk ?>"
+                         data-deskrips_produk="<?= $pesananan->deskripsi ?>"
+                         data-berat="<?= $pesananan->berat ?>"
+                         data-sales="<?= $pesananan->sales ?>"
+                         data-plat_nomor="<?= $pesananan->plat_nomor ?>"
+                         data-total="<?= $pesananan->total ?>"
+                      class="btn btn-xs btn-info btn-detail"><i class="fa fa-file"> </i> Detail</button>&nbsp;<a href="<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/'.$pesananan->no_pengiriman.'')?>" target="_blank" class="btn btn-warning btn-xs" title=""><i class="fa fa-print"> </i>Print Nota</a>&nbsp;<a href="<?= base_url('admin/Kelola_pengiriman/edit_pengiriman/'.$pesananan->no_pengiriman.'')?>" class="btn btn-default btn-xs" title=""><i class="fa fa-pencil"> </i>Edit</a><br><a href="<?= base_url('admin/Kelola_pengiriman/pengiriman_selesai/'.$pesananan->no_pengiriman.'')?>" class="btn btn-success btn-xs" title=""><i class="fa fa-check"> </i>Pengiriman Selesai</a>
                     </td>
                   </tr>
               <?php endforeach ?>
@@ -57,7 +57,7 @@
           <h1 class="modal-title"><center><strong>NOTA PENGIRIMAN</strong></center></h1>
         </div>
         <div class="modal-body">
-          <div class="data-user-cont border-right"> 
+          <div class="data-user-cont border-right">
             <div class="col-md-8 col-md-12">
               <p><strong>Kepada : </strong></p>
               <p id="nama_pelanggan"></p>
@@ -98,8 +98,8 @@
                </div>
             </div>
           </div>
-          
-          <div class="data-user-cont border-right"> 
+
+          <div class="data-user-cont border-right">
             <div class="col-md-12">
             <hr class="hr-flex">
             <table class="table table-bordered" id="tableModal">
@@ -114,8 +114,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                
-                    </tr> 
+
+                    </tr>
                 </tbody>
             </table>
             </div>
@@ -124,7 +124,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a target="_blank" class="btn btn-warning print"><span class="fa fa-print"> Cetak</span></a> 
+          <a target="_blank" class="btn btn-warning print"><span class="fa fa-print"> Cetak</span></a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -153,7 +153,7 @@
               <th>Sales </th>
               <th>Nama Pelanggan</th>
               <th>Alamat</th>
-              <th>Total Harga</th>  
+              <th>Total Harga</th>
           </tr>
           </thead>
           <tbody>
@@ -177,8 +177,46 @@
 
   </div>
 </div>
-<script type="text/javascript">  
+<script type="text/javascript">
   $(document).ready(function() {
+    $('.btn-detail').click(function(){
+        var no_pengiriman = $(this).data('no_surat');
+        var no_bukti = $(this).data('no_bukti');
+        var nama_pelanggan = $(this).data('nama_pelanggan');
+        var alamat = $(this).data('alamat');
+        var tgl = $(this).data('tgl');
+        var kode_produk = $(this).data('kode_produk');
+        var nama_produk = $(this).data('nama_produk');
+        var deskripsi_produk = $(this).data('deskrips_produk');
+        var berat = $(this).data('berat');
+        var sales = $(this).data('sales');
+        var plat_nomor = $(this).data('plat_nomor');
+        var total = $(this).data('total');
+
+        $('#nama_pelanggan').html(nama_pelanggan);
+        $('#alamat').html(alamat);
+        $('#no_pesanan').html(no_pengiriman);
+        $('#no_nota').html(no_bukti);
+        $('#tgl_pengiriman').html(tgl);
+        $('#sales').html(sales);
+        $('#plat_nomor').html(plat_nomor);
+
+        $('#tableModal').find('tbody').append("<tr><td align='center'>1</td><td align='center'>"+nama_produk+"</td><td>"+deskripsi_produk+"</td><td>"+berat+"</td><td align='center'>KG</td></tr>" );
+        $('.close').click(function(event) {
+          $('#modal_detail').modal('hide');
+          $('.modal-backdrop').remove();
+          $('#content').load('<?= base_url('admin/Kelola_pengiriman/list_pesanan_approve') ?>');
+        });
+        $('#modal_detail').modal({
+
+           show: true
+        });
+
+        $('.print').attr({
+          'href': '<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/')?>'+no_pengiriman
+        });
+      });
+
     $('#table-list_pesanan').dataTable({
     "columns": [
          { "width": "10%" },
@@ -187,49 +225,11 @@
         null,
         { "width": "25%" },
         { "width": "10%" },
-        { "width": "17%" }
+        { "width": "20%" }
       ]
   });
 
-  $('.btn-detail').click(function(){
-      var no_pengiriman = $(this).data('no_surat');
-      var no_bukti = $(this).data('no_bukti');
-      var nama_pelanggan = $(this).data('nama_pelanggan');
-      var alamat = $(this).data('alamat');
-      var tgl = $(this).data('tgl');
-      var kode_produk = $(this).data('kode_produk');
-      var nama_produk = $(this).data('nama_produk');
-      var deskripsi_produk = $(this).data('deskrips_produk');
-      var berat = $(this).data('berat');
-      var sales = $(this).data('sales');
-      var plat_nomor = $(this).data('plat_nomor');      
-      var total = $(this).data('total');
 
-      $('#nama_pelanggan').html(nama_pelanggan);
-      $('#alamat').html(alamat);
-      $('#no_pesanan').html(no_pengiriman);
-      $('#no_nota').html(no_bukti);
-      $('#tgl_pengiriman').html(tgl);
-      $('#sales').html(sales);
-      $('#plat_nomor').html(plat_nomor);
 
-      $('#tableModal').find('tbody').append("<tr><td align='center'>1</td><td align='center'>"+nama_produk+"</td><td>"+deskripsi_produk+"</td><td>"+berat+"</td><td align='center'>KG</td></tr>" );
-      $('.close').click(function(event) {
-        $('#modal_detail').modal('hide');
-        $('.modal-backdrop').remove();
-        $('#content').load('<?= base_url('admin/Kelola_pengiriman/list_pesanan_approve') ?>');   
-      });
-      $('#modal_detail').modal({
-         backdrop: 'static',
-         keyboard: false,
-         show: true
-      });
-      
-      $('.print').attr({
-        'href': '<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/')?>'+no_pengiriman
-      });
-    });
-    
-    
   });
 </script>

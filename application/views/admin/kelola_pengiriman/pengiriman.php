@@ -75,9 +75,9 @@
             <div class="panel with-nav-tabs panel-default">
                  <div class="panel-heading">
                   <ul class="nav nav-pills">
-                    <li class="active" id="menu-1"><a class="btn btn-default link" id="pengiriman">1. CATAT PENGIRIMAN <i class="glyphicon glyphicon-chevron-right"></i></a></li>
-                    <li class="" id="menu-2"><a class="btn btn-default link" id="list_pesanan">2. LIST PESANAN <i class="glyphicon glyphicon-chevron-right"></i></a></li>
-                    <li class="" id="menu-3"><a class="btn btn-default link" id="list_pesanan_approve">3. PESANAN DISETUJUI <i class="glyphicon glyphicon-ok"></i></a></li>
+                    <li class="active" id="menu-1"><a class="btn btn-default link" id="pengiriman">CATAT PENGIRIMAN <i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                    <li class="" id="menu-2" style="display: none"><a class="btn btn-default link" id="list_pesanan">2. LIST PESANAN <i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                    <li class="" id="menu-3"><a class="btn btn-default link" id="list_pesanan_approve">PESANAN DISETUJUI <i class="glyphicon glyphicon-ok"></i></a></li>
                 
                   </ul>
                </div>
@@ -106,6 +106,8 @@
   $(".link").click(function() {
     $(this).parent().addClass('active').siblings().removeClass('active');
   });
+
+  console.log(menu);
   switch (menu) {
       case "pengiriman":
           $('#content').load('<?= base_url('admin/Kelola_pengiriman/catat_transaksi') ?>');

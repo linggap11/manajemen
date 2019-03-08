@@ -42,65 +42,31 @@
                             <div class="col-md-5"> 
                             <h6>Data Pelanggan</h6> 
                               <div class="col-md-12" style="display: block" id="pelanggan_lama">
-                                <table id="tabelProduknya" class="table table-hover table-bordered">
-                                  <thead class="cf">
-                                    <tr>
-                                      <th style="width:35%" align="center">Pelanggan</th>
-                                    </tr></thead>
-                                  <tbody id="tbody_stok">
-                                    <tr id="tr1">
-                                      <td data-title="Produk*">
-                                        <div class="input-group">
-                                          <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                          <select id="search_pelanggan1" onchange="cari_pelanggan(1)" class="form-control btn-block" style="">                                            
-                                            <?php if (count($data_pelanggan) > 0): ?>
-                                                <option value="">Pilih Pelanggan</option>
-                                                <?php foreach ($data_pelanggan as $row): ?>
-                                                  <option value="<?= $row->id ?>"><?= $row->nama ?></option>
-                                                <?php endforeach ?>
-                                              <?php else: ?>
-                                                <option value="">Tidak Ada Pelanggan</option>
-                                            <?php endif ?>
+                               <div class="form-group">
+                                 <div class="input-group">
+                                    <label for="">Pelanggan</label>
+                                    <select id="search_pelanggan1" onchange="cari_pelanggan(1)" class="form-control btn-block" style="">       
+                                      <?php if (count($data_pelanggan) > 0): ?>
+                                          <option value="">Pilih Pelanggan</option>
+                                          <?php foreach ($data_pelanggan as $row): ?>
+                                            <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+                                          <?php endforeach ?>
+                                        <?php else: ?>
+                                          <option value="">Tidak Ada Pelanggan</option>
+                                      <?php endif ?>
 
-                                          </select>
-                                        </div>
-                                        <input type="hidden" class="pelanggan form-control" id="pelanggan_id1" name="pelanggan_id">
-
-                                      </td>
-                                     <!--  <td align="center">
-                                        <a href="javascript:void(0);" onclick="T_removeElement_awal();" class="btn btn-danger" id="del_row1">
-                                        <i class="glyphicon glyphicon-minus"></i>
-                                        </a>
-                                      </td> -->
-                                  </tr>
-                                </tbody>
-                              </table>
+                                    </select>
+                                  </div>
+                                  <input type="hidden" class="pelanggan form-control" id="pelanggan_id1" name="pelanggan_id">
+                               </div>
+                               <div class="form-group">
+                                  <label for="">Kas Jalan</label>
+                                  <input type="text" name="kas_jalan" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  placeholder="Kas Jalan">  
+                                </div>
                                <button class="btn btn-primary pull-right" type="submit" name="submit" value="save"><i class="fa fa-save"></i> Tambah Produk</button>
-                              <!-- <div class="form-group col-md-12"><button type="button" class="badge progress-bar-warning" onclick="addPelanggan();" id="add_rowProduk"><i class="glyphicon glyphicon-plus"></i> Tambah Produk Lain</button></div>  -->
+                              
                               </div>
                               
-                              <!-- <div class="col-md-12" style="display: none" id="pelanggan_baru">
-                                <div class="form-group">
-                                 <label for="inputNama" class="control-label">Nama Pelanggan</label> 
-                                 <input class="form-control" type="text" name="nama_pelanggan">
-                              </div> 
-                              <div class="form-group">
-                                 <label for="" class="control-label">No Telp</label> 
-                                 <input class="form-control" type="text" name="telp_pelanggan">
-                              </div> 
-                              <div class="form-group">
-                                 <label for="inputNama" class="control-label">Alamat</label> 
-                                 <textarea name="alamat_pelanggan" class="form-control"></textarea>
-                              </div> 
-                              
-                              <div class="form-group">
-                                 <label for="" class="control-label">Kode Pos</label> 
-                                 <input class="form-control" type="text" name="kode_pos">
-                              </div> 
-                              </div> -->
-                              <div class="form-group">
-                                
-                              </div>
                             </div>
                                
                              

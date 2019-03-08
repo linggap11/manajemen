@@ -29,14 +29,20 @@
                                 <input class="form-control" type="text" name="nama" value="<?php echo set_value('nama', $produk->nama); ?>">
                                 <?php echo (form_error('nama')) ? '<span class="help-block">' . form_error('nama') . '</span>' : '';?> 
                               </div> 
-                              <div class="form-group">
+                              <div class="form-group <?php echo (form_error('deskripsi  ')) ? 'has-error' : '';?>">
                                   <label for="">Deskripsi</label>
                                   <textarea name="deskripsi" class="form-control"><?= $produk->deskripsi ?></textarea>
+                                  <?php echo (form_error('deskripsi')) ? '<span class="help-block">' . form_error('deskripsi') . '</span>' : '';?>
                               </div>
                               <div class="form-group <?php echo (form_error('harga  ')) ? 'has-error' : '';?>">
                                 <label for="inputNama" class="control-label">Harga</label> 
                                 <input class="form-control" type="text" name="harga" value="<?php echo set_value('harga', $produk->harga); ?>">
                                 <?php echo (form_error('harga')) ? '<span class="help-block">' . form_error('harga') . '</span>' : '';?> 
+                              </div>
+                               <div class="form-group <?php echo (form_error('kas_jalan  ')) ? 'has-error' : '';?>">
+                                <label for="">Kas Jalan (Rp)</label>
+                                <input type="text" name="kas_jalan" class="form-control" required="" value="<?= $produk->kas_jalan ?>">
+                                <?php echo (form_error('kas_jalan')) ? '<span class="help-block">' . form_error('kas_jalan') . '</span>' : '';?>
                               </div>
                             </div><!-- end col -->
                           </div><!-- end row -->

@@ -53,7 +53,7 @@ class Kelola_produk extends CI_Controller {
 	public function batal($no_pengiriman, $pelanggan_id) {
 		$this->db->where('no_pengiriman', $no_pengiriman);
 		$this->db->delete('pengiriman');
-		redirect('admin/kelola_pelanggan/produk/'.$pelanggan_id,'refresh');
+		redirect('admin/Kelola_pelanggan/produk/'.$pelanggan_id,'refresh');
 	}
 
 	public function get_pengiriman_by_pelanggan($id_pelanggan) {
@@ -113,28 +113,20 @@ class Kelola_produk extends CI_Controller {
 				$nama_produk = $this->input->post('nama');
 				$deskripsi = $this->input->post('deskripsi');
 				$harga = $this->input->post('harga');
-
+				$kas_jalan = $this->input->post('kas_jalan');
 				$pelanggan_id = $this->input->post('pelanggan_id');
-				$nama_pelanggan = $this->input->post('nama_pelanggan');
-				$telp = $this->input->post('telp_pelanggan');
-				$alamat = $this->input->post('alamat_pelanggan');
-				$kode_pos = $this->input->post('kode_pos');
 
 
 				$kode_produk = $this->model_produk->get_kode_produk();
 				$kode_produk++;
-				$data_pelanggan = array(
-					'nama' => $nama_pelanggan,
-					'no_telp' => $telp,
-					'alamat' => $alamat,
-					'kode_pos' => $kode_pos
-				);
+
 
 				$data_produk = array(
 					'kode' => $kode_produk,
 					'nama' => $nama_produk,
 					'deskripsi' => $deskripsi,
 					'harga' => $harga,
+					'kas_jalan' => $kas_jalan,
 					'pelanggan_id' => $pelanggan_id // nu di post
 				);			
 				if(($this->model_produk->insert($data_produk))) {
@@ -164,6 +156,7 @@ class Kelola_produk extends CI_Controller {
 			$data_edit['deskripsi'] = $this->input->post('deskripsi'); 
 			$data_edit['nama'] = $this->input->post('nama'); 
 			$data_edit['harga'] = $this->input->post('harga');
+			$data_edit['kas_jalan'] = $this->input->post('kas_jalan');
 
 			// validasi   
 			if($data['produk']->nama != $data_edit['nama']) {
@@ -172,6 +165,13 @@ class Kelola_produk extends CI_Controller {
 			if($data['produk']->harga != $data_edit['harga']) {
 				$this->form_validation->set_rules('harga', 'Harga', 'trim|required');
 			}  
+			if($data['produk']->deskripsi != $data_edit['deskripsi']) {
+				$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
+			}  
+			if($data['produk']->kas_jalan != $data_edit['kas_jalan']) {
+				$this->form_validation->set_rules('kas_jalan', 'Kas_jalan', 'trim|required');
+			}  
+
 			if ($this->form_validation->run() == false) {
 				$this->load->view('admin/layout/header', array('title' => 'Edit produk - ' . $data['produk']->nama, 'menu' => 'kelola_produk'));
 				$this->load->view('admin/kelola_produk/edit', $data);
