@@ -11,8 +11,8 @@ function encrypt_password($plain_text) {
 
 function purify($text){
 	$text = str_replace("<p>", "",  $text);
-	$text = str_replace("</p>", "", $text); 
-	$text = str_replace("\n", " ", $text); 
+	$text = str_replace("</p>", "", $text);
+	$text = str_replace("\n", " ", $text);
 	return $text;
 }
 
@@ -25,7 +25,7 @@ function alert_sukses($teks) {
 function alert_warning($teks) {
 	$teks = purify($teks);
 	return '$.notify("'. $teks .'", {className: "warn"});';
-} 
+}
 
 function alert_error($teks) {
 	$teks = purify($teks);
@@ -40,7 +40,10 @@ function alert_info($teks) {
 function format_rupiah($angka) {
 	return 'Rp. ' . number_format($angka, 0, ',', '.');
 }
-function format_angka($angka) { 
+function format_rp($angka) {
+	return number_format($angka, 0, ',', '.');
+}
+function format_angka($angka) {
 	if($angka > 0){
 		return (int)preg_replace("/([^0-9\\,])/i", "", $angka);
 	}else{
@@ -69,7 +72,7 @@ function formatSizeUnits($bytes) {
 
     return $bytes;
 }
-  
+
 function tanggal_lokal($tanggal, $cetak_hari = false) {
 	$tanggal = date('d-m-Y', strtotime($tanggal));
 	$hari = array ( 1 =>    'Senin',
@@ -80,7 +83,7 @@ function tanggal_lokal($tanggal, $cetak_hari = false) {
 				'Sabtu',
 				'Minggu'
 			);
-			
+
 	$bulan = array (1 =>   'Januari',
 				'Februari',
 				'Maret',
@@ -95,8 +98,8 @@ function tanggal_lokal($tanggal, $cetak_hari = false) {
 				'Desember'
 			);
 	$split 	  = explode('-', $tanggal);
-	$tgl_indo = $split[0] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[2]; 
-	
+	$tgl_indo = $split[0] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[2];
+
 	if ($cetak_hari) {
 		$num = date('N', strtotime($tanggal));
 		return $hari[$num] . ', ' . $tgl_indo;
@@ -106,7 +109,7 @@ function tanggal_lokal($tanggal, $cetak_hari = false) {
 
 function format_tanggal($tanggal){
 	return date('d-m-Y', strtotime($tanggal));
-} 
+}
 function get_hak_akses($hak){
 	switch ($hak) {
 		case 'admin':
@@ -115,7 +118,7 @@ function get_hak_akses($hak){
 		case 'staff':
 			return 'Staff Karyawan';
 			break;
-		
+
 		default:
 			return '';
 			break;
@@ -133,35 +136,35 @@ function get_status_penjualan($status){
 		case '9':
 			return '<span class="label label-danger">Dibatalkan</span>';
 			break;
-		
+
 		default:
 			return $status;
 			break;
 	}
 }
- 
+
 function format_tanggal_waktu($tanggal){
 	return date('d-m-Y H:i', strtotime($tanggal));
-} 
+}
 
-function get_kode_penjualan($kode){ 
+function get_kode_penjualan($kode){
 	$kode_olah = sprintf("%05d", $kode);
 	return 'FAK' . $kode_olah;
 }
 
-function get_kode_consignment($kode){ 
+function get_kode_consignment($kode){
 	$kode_olah = sprintf("%05d", $kode);
 	return 'CN' . $kode_olah;
 }
 
-function get_kode_faktur($kode){ 
+function get_kode_faktur($kode){
 	$kode_olah = sprintf("%04d", $kode);
 	return 'FAK' . $kode_olah;
 }
-  
+
 function get_url_cache(){
 	return '?id=' . md5(date('Y-m-d H:i:s'));
-} 
+}
 
 function getBulanIndo($bulan){
 	switch ($bulan) {
@@ -204,7 +207,7 @@ function getBulanIndo($bulan){
 		case 'all':
 			return 'Tahun ';
 			break;
-		
+
 		default:
 			return '';
 			break;

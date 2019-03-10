@@ -397,7 +397,11 @@ class Kelola_pengiriman extends CI_Controller {
 
 		$this->db->where('no_pengiriman', $sj)->update('pengiriman', $data_tagihan);
 		$this->session->set_flashdata('sukses', 'Berhasil Melakukan Pembaharuan');
-		redirect('admin/Kelola_pengiriman/tagihan_pelanggan/'.$id.'');
+		if ($this->input->post('asal') == 'laporan') {
+			redirect('admin/Laporan/laporan_tagihan');
+		} else {
+			redirect('admin/Kelola_pengiriman/tagihan_pelanggan/'.$id.'');
+		}
 	}
 
   public function pembayaran_lunas($no_pengiriman, $id) {

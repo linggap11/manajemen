@@ -7,10 +7,10 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <ol class="breadcrumb left"> 
+            <ol class="breadcrumb left">
               <li class="active"><i class="fa fa-file-o"></i>Laporan Pengiriman</li>
             </ol>
-            
+
         </section>
 
         <!-- Main content -->
@@ -19,17 +19,17 @@
                 <div class="col-md-12">
                     <div class="box box-red">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?= $title ?> </h3> 
+                            <h3 class="box-title"><?= $title ?> </h3>
                             <div class="box-tools row" style="width: 400px;">
                               <div class="col-md-3"> 
                                 <select id="select-status" name="select-status" class="form-control input-sm" style="border-radius: 3px;">
-                                    <option data-status="all" value="all">Status</option>   
+                                    <option data-status="all" value="all">Status</option>
                                     <option data-status="BERHASIL" value="BERHASIL">BERHASIL</option>
                                     <option data-status="INORDER" value="INORDER">IN ORDER</option>
                                     <option data-status="BATAL" value="BATAL">BATAL</option>
                                 </select>
                               </div>
-                              <div class="col-md-4"> 
+                              <div class="col-md-4">
                                 <select id="select-bulan" name="select-bulan" class="form-control input-sm" style="border-radius: 3px;">
                                     <option data-bulan="all" value="all">Bulan</option>
                                     <?php foreach ($bulan as $bul) { ?>
@@ -37,7 +37,7 @@
                                     <?php } ?>
                                 </select>
                               </div>
-                              <div class="col-md-3"> 
+                              <div class="col-md-3">
                                 <select id="select-tahun" class="form-control input-sm" style="border-radius: 3px;">
                                     <option data-bulan="all" value="all">Tahun</option>
                                     <?php foreach ($tahun as $thn) { ?>
@@ -60,10 +60,10 @@
                                   <th>Tanggal</th>
                                   <th>Sales </th>
                                   <th>Pelanggan</th>
-                                  <th>Produk</th>  
+                                  <th>Produk</th>
                                   <th>Total Biaya</th>
                                   <th>Kas Jalan</th>
-                                  <th width="15%">Status</th>    
+                                  <th width="15%">Status</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -82,7 +82,7 @@
                               </tbody>
                               </table>
                         </div><!-- /.box-body -->
-                        <div class="box-footer"> 
+                        <div class="box-footer">
                         </div><!-- box-footer -->
                     </div><!-- /.box -->
                 </div><!-- /.col -->
@@ -94,8 +94,8 @@
                 <div class="col-md-12">
                     <div class="box box-red">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Data Pengiriman Berdasarkan Sales</h3> 
-                            
+                            <h3 class="box-title">Data Pengiriman Berdasarkan Sales</h3>
+
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <br>
@@ -106,8 +106,8 @@
                                   <th>Nama Sales</th>
                                   <th>No Kendaraan</th>
                                   <th>No Telepon</th>
-                                  <th>Total Pengiriman</th>      
-                                  <th></th>      
+                                  <th>Total Pengiriman</th>
+                                  <th></th>
                               </tr>
                               </thead>
                               <tbody>
@@ -125,7 +125,7 @@
                               </tbody>
                               </table>
                         </div><!-- /.box-body -->
-                        <div class="box-footer"> 
+                        <div class="box-footer">
                         </div><!-- box-footer -->
                     </div><!-- /.box -->
                 </div><!-- /.col -->
@@ -160,15 +160,15 @@
       <div class="modal-footer">
         <a href="" target="_blank" id="print_invoice" class="btn btn-danger btn-xs"><span class="fa fa-print"></span> Print Semua</a>
         <button type="button" id="close" class="btn btn-secondary btn-xs" data-dismiss="modal">Close</button>
-        
+
       </div>
       </form>
     </div>
   </div>
 </div>
     <?php $footer_js = isset($js) ? $js : array() ; ?>
-    <?php $this->load->view('admin/layout/footer', $footer_js); ?> 
- 
+    <?php $this->load->view('admin/layout/footer', $footer_js); ?>
+
     <script type="text/javascript">
   $(document).ready(function() {
     $('#table-laporan').dataTable({
@@ -196,17 +196,17 @@
     //   }else{
     //     window.location.replace(BASE_URL + 'admin/Laporan/laporan_pengiriman');
     //   }
-    // }); 
+    // });
 
     // $('#select-tahun').on('change', function(){
-    //   if($(this).find(':selected').data('bulan') != ''){ 
-    //     var tahun = $(this).find(':selected').data('tahun'); 
+    //   if($(this).find(':selected').data('bulan') != ''){
+    //     var tahun = $(this).find(':selected').data('tahun');
     //     window.location.replace(BASE_URL + 'admin/Laporan/laporan_pengiriman/all/' + tahun);
     //   }else{
     //     window.location.replace(BASE_URL + 'admin/Laporan/laporan_pengiriman');
     //   }
-    // }); 
-  }); 
+    // });
+  });
 
   $('.detail').click(function() {
         var id = $(this).data('id');
@@ -215,23 +215,23 @@
             var no = 1;
             $('#sales').html(data[0].nama);
             $('#plat').html(data[0].plat_nomor);
-            
+
             for (var i = 0; i < data.length; i++) {
-                $('#table_detail').find('tbody').append("<tr><td align='center'>"+no+"</td><td align='center'>"+data[i].no_pengiriman+"</td><td align='center'>"+data[i].tgl_transaksi+"</td><td>"+convertToRupiah(data[i].biaya_tambahan)+"</td><td>"+convertToRupiah(data[i].total)+"</td><td align='center'>"+data[i].status+"</td><td align='center'><a href='<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/') ?>"+data[i].no_pengiriman+"' title='SJ "+data[i].no_pengiriman+"' target='_blank' class='btn btn-success btn-xs'>Lihat</a></td></tr>");    
+                $('#table_detail').find('tbody').append("<tr><td align='center'>"+no+"</td><td align='center'>"+data[i].no_pengiriman+"</td><td align='center'>"+data[i].tgl_transaksi+"</td><td>"+convertToRupiah(data[i].biaya_tambahan)+"</td><td>"+convertToRupiah(data[i].total)+"</td><td align='center'>"+data[i].status+"</td><td align='center'><a href='<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/') ?>"+data[i].no_pengiriman+"' title='SJ "+data[i].no_pengiriman+"' target='_blank' class='btn btn-success btn-xs'>Lihat</a></td></tr>");
                 no++;
-            }    
+            }
             $('#print_invoice').prop({
               href: '<?= base_url('admin/Laporan/print_sj_by_sales/') ?>'+data[0].sales_id,
             })
         });
-        
+
         $('#detailPengiriman').modal('show');
     });
-   
+
    $('#close').click(function() {
         $('#table_detail').find('tbody').empty();
     });
-   
+
    $('#detailPengiriman').modal({
         backdrop: 'static',
         keyboard: false,
@@ -239,7 +239,7 @@
     })
 
    function convertToRupiah(angka) {
-        var rupiah = '';        
+        var rupiah = '';
         var angkarev = angka.toString().split('').reverse().join('');
         for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
         return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');

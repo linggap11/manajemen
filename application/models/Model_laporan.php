@@ -61,4 +61,14 @@ class Model_laporan extends CI_Model {
     return $query;
   }
 
+	public function data_tagihan() {
+		$this->db->select('transaksi.no_bukti, pengiriman.*, pelanggan.*, produk.nama AS nama_produk, produk.deskripsi AS produk_deskripsi, transaksi.tagihan, sales.plat_nomor');
+		$this->db->from('pengiriman')->join('transaksi', 'pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')
+		->join('produk', 'pengiriman.produk_id = produk.id')->join('sales', 'sales.id = pengiriman.sales_id');
+		$this->db->where('transaksi.status = "APPROVED"');
+		$this->db->where('pengiriman.status = "INORDER"');
+		$this->db->where('transaksi.tagihan != "LUNAS"')->order_by('pelanggan.nama', 'ASC');
+		return $this->db->get()->result();
+	}
+
 }
