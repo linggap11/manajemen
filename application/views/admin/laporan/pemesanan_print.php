@@ -1,6 +1,6 @@
 
 
-<?php  
+<?php
   $style = '<style type="text/css">
   body{
     font-size:10px;
@@ -16,7 +16,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
-    padding-right: 15px; 
+    padding-right: 15px;
   }
   h3{
     font-size: 16px;
@@ -29,7 +29,7 @@
   <table style="vertical-align: top">
     <tr>
       <td align="center">
-        <img src="'.base_url("assets/images/Logo.png").'" alt="">
+        <img src="'.base_url("assets/images/Logo.png").'" alt="" width="85%">
       </td>
     </tr>
   </table>
@@ -44,28 +44,28 @@
       <th>Tanggal</th>
       <th>Sales </th>
       <th>Pelanggan</th>
-      <th>Total Biaya</th>  
-      <th>Kas Jalan</th>  
-      <th>Status</th>    
+      <th>Total Biaya</th>
+      <th>Kas Jalan</th>
+      <th>Status</th>
   </tr>
   </thead>
   <tbody>';
 
   $grand_total = 0;
-  foreach($result as $row) { 
+  foreach($result as $row) {
       $html .= '<tr>
-          <td>'.  $row->no_bukti  . '</td>        
-          <td>'.  $row->tgl_transaksi . '</td>                 
-          <td>'.  $row->sales . '</td>                 
-          <td>'.  $row->nama  . '</td>                         
-          <td>'.  format_rupiah($row->total) . '</td>  
-          <td>'.  format_rupiah($row->biaya_tambahan) . '</td>      
-          <td>'.  $row->status_transaksi . '</td>               
+          <td>'.  $row->no_bukti  . '</td>
+          <td>'.  $row->tgl_transaksi . '</td>
+          <td>'.  $row->sales . '</td>
+          <td>'.  $row->nama  . '</td>
+          <td>'.  format_rupiah($row->total) . '</td>
+          <td>'.  format_rupiah($row->biaya_tambahan) . '</td>
+          <td>'.  $row->status_transaksi . '</td>
       </tr>';
       $grand_total += $row->total;
   }
 
-  $html .= '    
+  $html .= '
   </tbody>
   <tfoot>
     <tr>
@@ -76,9 +76,9 @@
   </table>';
 
   $mpdf = new \Mpdf\Mpdf();
-  
-  $mpdf->CSSselectMedia='mpdf';  
+
+  $mpdf->CSSselectMedia='mpdf';
   $mpdf->WriteHTML($style . $html);
   $mpdf->Output('Laporan_Pengiriman_' . getBulanIndo($data_bulan). '_' .$data_tahun . '.pdf', \Mpdf\Output\Destination::INLINE);
 
-?> 
+?>

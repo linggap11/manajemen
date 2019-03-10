@@ -10,7 +10,7 @@ class Kelola_pelanggan extends CI_Controller {
 			redirect(site_url('admin/login'));
 		}
 		$this->load->model('model_pelanggan');
-		$this->load->model('model_produk');		
+		$this->load->model('model_produk');
 	}
 
 	public function index($offset = 0) {
@@ -19,7 +19,7 @@ class Kelola_pelanggan extends CI_Controller {
 		    );
 		$data['js'] = array(
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
-		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
+		    'assets/plugins/datatables/dataTables.bootstrap.min.js'
 		    );
 		$data['result'] = $this->model_pelanggan->show();
 		$data['curr_page'] = ($offset != '') ? $offset + 1: 1;
@@ -33,34 +33,34 @@ class Kelola_pelanggan extends CI_Controller {
 		$referred_from = $this->agent->referrer();
 		if($id == 0) {
 			$this->session->set_flashdata('info', 'Pelanggan tidak ditemukan.');
-		} else { 
+		} else {
 			if($this->model_pelanggan->delete($id)) {
 				$this->session->set_flashdata('sukses', 'Berhasil menghapus pelanggan.');
 			} else {
 				$this->session->set_flashdata('error', 'Gagal menghapus pelanggan.');
-			} 
+			}
 		}
 		redirect($referred_from, 'refresh');
 	}
- 
+
 	public function tambah() {
-		if($this->input->post('submit')) { 
-			
-			// validasi 
-			$this->form_validation->set_rules('nama', 'Nama', 'trim|required'); 
-			$this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required'); 
-			$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');  
-			$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');  
+		if($this->input->post('submit')) {
+
+			// validasi
+			$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+			$this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required');
+			$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+			$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
 
 			if ($this->form_validation->run() == false) {
 				$this->load->view('admin/layout/header', array('title' => 'Tambah Pelanggan', 'menu' => 'kelola_pelanggan'));
 				$this->load->view('admin/kelola_pelanggan/tambah');
 			} else {
 
-				$data['nama'] = $this->input->post('nama'); 
-				$data['no_telp'] = $this->input->post('no_telp'); 
+				$data['nama'] = $this->input->post('nama');
+				$data['no_telp'] = $this->input->post('no_telp');
 				$data['alamat'] = $this->input->post('alamat');
-				$data['kode_pos'] = $this->input->post('kode_pos'); 
+				$data['kode_pos'] = $this->input->post('kode_pos');
 
 				if($this->model_pelanggan->insert($data)) {
 					$this->session->set_flashdata('sukses', 'Berhasil menambah pelanggan.');
@@ -71,38 +71,38 @@ class Kelola_pelanggan extends CI_Controller {
 			}
 		} else {
 			$this->load->view('admin/layout/header', array('title' => 'Tambah Pelanggan', 'menu' => 'kelola_pelanggan'));
-			$this->load->view('admin/kelola_pelanggan/tambah'); 
+			$this->load->view('admin/kelola_pelanggan/tambah');
 		}
 	}
 
 	public function edit($id = 0) {
-		$data['pelanggan'] = $this->model_pelanggan->get($id); 
+		$data['pelanggan'] = $this->model_pelanggan->get($id);
 		if(($id == 0) || (!$data['pelanggan'])) {
 			$this->session->set_flashdata('info', 'Pelanggan tidak ditemukan.');
 			redirect(site_url('admin/kelola_pelanggan'), 'refresh');
-		} 
+		}
 		$data['id'] = $id;
 		if($this->input->post('submit')) {
 
-			$data_edit['nama'] = $this->input->post('nama'); 
-			$data_edit['no_telp'] = $this->input->post('no_telp');  
-			$data_edit['alamat'] = $this->input->post('alamat');  
-			$data_edit['kode_pos'] = $this->input->post('kode_pos');    
+			$data_edit['nama'] = $this->input->post('nama');
+			$data_edit['no_telp'] = $this->input->post('no_telp');
+			$data_edit['alamat'] = $this->input->post('alamat');
+			$data_edit['kode_pos'] = $this->input->post('kode_pos');
 
-			// validasi  
+			// validasi
 			if($data['pelanggan']->nama != $data_edit['nama']) {
 				$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-			}  
+			}
 			if($data['pelanggan']->no_telp != $data_edit['no_telp']) {
 				$this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required');
-			}  
+			}
 			if($data['pelanggan']->alamat != $data_edit['alamat']) {
 				$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
 			}
 			if($data['pelanggan']->kode_pos != $data_edit['kode_pos']) {
 				$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
-			} 
-		
+			}
+
 			if ($this->form_validation->run() == false) {
 				$this->load->view('admin/layout/header', array('title' => 'Edit Pelanggan - ' . $data['pelanggan']->nama, 'menu' => 'kelola_pelanggan'));
 				$this->load->view('admin/kelola_pelanggan/edit', $data);
@@ -117,9 +117,9 @@ class Kelola_pelanggan extends CI_Controller {
 			}
 		} else {
 			$this->load->view('admin/layout/header', array('title' => 'Edit Pelanggan - ' . $data['pelanggan']->nama, 'menu' => 'kelola_pelanggan'));
-			$this->load->view('admin/kelola_pelanggan/edit', $data); 
+			$this->load->view('admin/kelola_pelanggan/edit', $data);
 		}
-	}   
+	}
 
 
 	public function produk($pelanggan_id = 0) {
@@ -127,17 +127,17 @@ class Kelola_pelanggan extends CI_Controller {
 		    'assets/plugins/datatables/dataTables.bootstrap.css',
 		    'assets/plugins/select2/dist/css/select2.css'
 		    );
-		$data['js'] = array(    
-			'assets/plugins/select2/dist/js/select2.min.js',   
+		$data['js'] = array(
+			'assets/plugins/select2/dist/js/select2.min.js',
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
-		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
+		    'assets/plugins/datatables/dataTables.bootstrap.min.js'
 		    );
-	
-		if($pelanggan_id == 0)die; 
 
-		$data['list_pelanggan'] = $this->model_pelanggan->show(); 
+		if($pelanggan_id == 0)die;
+
+		$data['list_pelanggan'] = $this->model_pelanggan->show();
 		$data['pelanggan'] = $this->model_pelanggan->get($pelanggan_id);
-		$data['DataPelanggan'] = $this->model_produk->get_pengiriman_by_pelanggan($pelanggan_id); 
+		$data['DataPelanggan'] = $this->model_produk->get_pengiriman_by_pelanggan($pelanggan_id);
 		// $data['DataPelanggan'] = $this->model_pelanggan->GetDataPengiriman("SELECT produk.kode, produk.nama, produk.harga, pengiriman.* FROM pengiriman LEFT OUTER JOIN produk ON produk.id = pengiriman.produk_id");
 
 		$this->load->view('admin/layout/header', array('title' => 'Kelola Pelanggan', 'menu' => 'kelola_pelanggan', 'css' => $css));
@@ -149,7 +149,7 @@ class Kelola_pelanggan extends CI_Controller {
 	    if($pelanggan_id != 0){
 	        $produk = $this->model_produk->getProdukByPelangganID($pelanggan_id);
 	        $data = array();
-	        foreach ($produk as $idx => $res) { 
+	        foreach ($produk as $idx => $res) {
 	            $data[$idx][] = $res->no_pengiriman;
 	            $data[$idx][] = $res->alamat;
 	            $data[$idx][] = $res->berat;
@@ -173,24 +173,24 @@ class Kelola_pelanggan extends CI_Controller {
 	            $data[$idx][] = $res->kodepos;
 	            $data[$idx][] = format_rupiah($res->harga);
 	            $data[$idx][] = format_rupiah($res->biaya_tambahan);
-	            $data[$idx][] = '<input type="text" class="form-control input-sm data_input_'.$res->id.' currency" data-a-sep="." >'; 
+	            $data[$idx][] = '<input type="text" class="form-control input-sm data_input_'.$res->id.' currency" data-a-sep="." >';
 	            $data[$idx][] = '<a class="btn-tambah-produk btn btn-xs btn-primary" data-produk_id="'.$res->id.'"  data-harga="'.$res->harga.'" href="#"><i class="fa fa-plus"></i> Tambahkan</a>';
 	        }
 	        echo json_encode(array('data' => $data));
 	    }
 	}
- 
+
 	public function tambah_produk() {
 	    if($this->input->post('submit')){
 	        $data['pelanggan_id'] = $this->input->post('pelanggan_id');
-	        $data['kode'] = $this->input->post('kode'); 
-	        $data['produk_id'] = $this->input->post('produk_id'); 
-	        $data['no_pengiriman'] = $this->input->post('no_pengiriman'); 
-	        $data['alamat'] = $this->input->post('alamat'); 
-	        $data['berat'] = $this->input->post('berat'); 
-	        $data['kodepos'] = $this->input->post('kodepos'); 
+	        $data['kode'] = $this->input->post('kode');
+	        $data['produk_id'] = $this->input->post('produk_id');
+	        $data['no_pengiriman'] = $this->input->post('no_pengiriman');
+	        $data['alamat'] = $this->input->post('alamat');
+	        $data['berat'] = $this->input->post('berat');
+	        $data['kodepos'] = $this->input->post('kodepos');
 	        $data['harga'] = format_angka($this->input->post('harga'));
-	        $data['biaya_tambahan'] = format_angka($this->input->post('biaya_tambahan')); 
+	        $data['biaya_tambahan'] = format_angka($this->input->post('biaya_tambahan'));
 
 	        $kode = $data['kode'];
 
@@ -215,7 +215,7 @@ class Kelola_pelanggan extends CI_Controller {
                echo 'berhasil ditambahkan';
             }else{
                 echo 'gagal ditambahkan';
-            } 
+            }
 	    }
 	}
 
@@ -243,7 +243,7 @@ class Kelola_pelanggan extends CI_Controller {
 	 }
 
 	 public function get_data_pelanggan_by_id($id) {
-	 	$data = $this->db->select('pelanggan.*, produk.nama AS nama_produk, produk.deskripsi')->from('pelanggan')->join('produk', 'pelanggan.id = produk.pelanggan_id')->where('pelanggan.id', $id)->get()->row();
+	 	$data = $this->db->select('pelanggan.*, produk.id as produk_id, produk.nama AS nama_produk, produk.deskripsi')->from('pelanggan')->join('produk', 'pelanggan.id = produk.pelanggan_id')->where('pelanggan.id', $id)->get()->row();
 		echo json_encode($data);
 	 }
 
@@ -252,5 +252,3 @@ class Kelola_pelanggan extends CI_Controller {
 	 	print_r($data);
 	 }
 }
-	
-

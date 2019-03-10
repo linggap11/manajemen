@@ -57,7 +57,13 @@ class Laporan extends CI_Controller {
 
 	public function laporan_tagihan() {
 		$data['js'] = $this->js ;
-		$data['data_tagihan'] = $this->model_laporan->data_tagihan();
+		$status = $this->input->post('status');
+		$tgl_awal = $this->input->post('awal');
+		$tgl_akhir = $this->input->post('akhir');
+		$data['data_tagihan'] = $this->model_laporan->data_tagihan($status, $tgl_awal, $tgl_akhir);
+		$data['status'] = $status;
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
 		$this->load->view('admin/layout/header', array('title' => 'Laporan Penagihan', 'menu' => 'laporan_tagihan', 'css' => $this->css));
 		$this->load->view('admin/laporan/laporan_tagihan', $data);
 	}

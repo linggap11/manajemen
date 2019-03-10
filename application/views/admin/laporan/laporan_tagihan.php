@@ -24,12 +24,40 @@
           <h3 class="box-title">
             Laporan Tagihan
           </h3>
+          <div class="box-tools row" style="width: 600px;">
+            <form class="" action="<?php echo base_url('admin/Laporan/laporan_tagihan') ?>" method="post">
+              <div class="col-md-3">
+                <select name="status" id="status" class="form-control input-sm" style="border-radius: 3px;">
+                    <?php if ($status == 'BELUM LUNAS'): ?>
+                        <option value="BELUM LUNAS" selected>BELUM LUNAS</option>
+                        <option value="PENDING">INVOICE</option>
+                      <?php elseif ($status == 'PENDING'): ?>
+                        <option value="BELUM LUNAS">BELUM LUNAS</option>
+                        <option value="PENDING" selected>INVOICE</option>
+                      <?php else: ?>
+                        <option value="BELUM LUNAS" selected>BELUM LUNAS</option>
+                        <option value="PENDING" >INVOICE</option>
+                    <?php endif; ?>
+
+                </select>
+              </div>
+              <div class="col-md-3">
+                <input type="text" name="awal"  class="datepicker form-control input-sm" value="<?php echo $tgl_awal ?>" size="2" id="awal" placeholder="Tanggal Awal">
+              </div>
+              <div class="col-md-3">
+                <input type="text" name="akhir"  class="datepicker form-control input-sm" value="<?php echo $tgl_akhir ?>" size="2" id="akhir" placeholder="Tanggal Akhir">
+              </div>
+                <button type="submit" class="btn btn-success" id="sorting"><strong>Apply</strong></button>
+              <div>
+              </div>
+            </form>
+          </div>
           <div class="box-tools">
           </div>
 
         </div><!-- /.box-header -->
         <div class="box-body">
-          <a href="<?php echo base_url('admin/Laporan/print_laporan_tagihan/') ?>" class="btn btn-primary" target="_blank"><i class="fa fa-print"></i> Print Laporan</a><br><br>
+
           <br><br>
           <table id="tabel_pengiriman_by_pelanggan" class="table table-bordered table-striped">
           <thead>
@@ -82,17 +110,10 @@
                      data-total="<?= $row->harga ?>"
                   type="button" class="btn btn-info btn-xs btn-detail"> <span class="fa fa-info-circle"></span> Detail</button>
                   <?php if ($row->tagihan == 'BELUM LUNAS'): ?>
-                    <button
-                    data-no_surat="<?= $row->no_pengiriman ?>"
-                     data-no_bukti="<?= $row->no_bukti ?>"
-                     data-pelanggan_id="<?= $row->pelanggan_id ?>"
-                     data-nama_produk="<?= $row->nama_produk ?>"
-                     data-deskrips_produk="<?= $row->produk_deskripsi ?>"
-                     data-berat="<?= $row->berat ?>"
-                     data-harga="<?= $row->harga ?>"
-                  type="button" class="btn btn-secondary btn-xs btn-edit"><span class="fa fa-edit"></span> Edit</button>
+                    <a href="<?php echo base_url('admin/Kelola_pengiriman/tagihan_pelanggan/'.$row->id.'') ?>" class="btn btn-secondary btn-xs"><span class="fa fa-edit"></span> Link</button>
                   <?php else: ?>
-                    <button type="button" class="btn btn-secondary btn-xs btn-edit" disabled><span class="fa fa-edit"></span> Edit</button>
+
+                    <!-- <button type="button" class="btn btn-secondary btn-xs btn-edit" disabled><span class="fa fa-edit"></span> Link</button> -->
                   <?php endif ?>
 
                 </td>
@@ -262,9 +283,11 @@
 
   </div>
 </div>
+
 <?php $footer_js = isset($js) ? $js : array() ; ?>
 <?php $this->load->view('admin/layout/footer'); ?>
-
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>">
+<script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 <script>
   $(document).ready(function() {
     $('#tabel_pengiriman_by_pelanggan').DataTable({
@@ -376,5 +399,14 @@
     function convertToAngka(rupiah) {
         return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
     }
+
+    $('.datepicker').datepicker({
+          autoclose: true,
+          format: "yyyy-mm-dd",
+          todayHighlight: true,
+          orientation: "top auto",
+          todayBtn: true,
+          todayHighlight: true,
+    });
 
 </script>

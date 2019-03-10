@@ -17,8 +17,8 @@ class Dashboard extends CI_Controller {
 		$data['kas'] = $this->total_saldo_kas();
 		$data['piutang'] = $this->total_saldo_piutang();
 		$data['hutang'] = $this->total_saldo_hutang();
-		$data['total_penagihan'] = $this->model_laporan->data_tagihan();
-		$this->load->view('admin/dashboard', $data); 
+		$data['total_penagihan'] = $this->model_laporan->data_tagihan("BELUM LUNAS", null, null);
+		$this->load->view('admin/dashboard', $data);
 	}
 
 	public function total_saldo_kas() {

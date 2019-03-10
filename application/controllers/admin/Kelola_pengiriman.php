@@ -384,6 +384,8 @@ class Kelola_pengiriman extends CI_Controller {
   }
 
   public function edit_tagihan() {
+		$produk_id = $this->input->post('produk_baru');
+		$deskripsi = $this->input->post('deskripsi_edit');
 		$id = $this->input->post('pelanggan_id');
 		$sj = $this->input->post('sj_edit');
 		$berat = $this->input->post('berat_edit');
@@ -392,10 +394,14 @@ class Kelola_pengiriman extends CI_Controller {
 		$data_tagihan = array(
 			'berat' => $berat,
 			'harga' => $harga,
-			'total' => $berat * $harga
+			'total' => $berat * $harga,
+			'produk_id' => $produk_id
 		);
 
+		$data_produk = array('deskripsi' => $deskripsi);
+
 		$this->db->where('no_pengiriman', $sj)->update('pengiriman', $data_tagihan);
+		$this->db->where('id', $produk_id)->update('produk', $data_produk);
 		$this->session->set_flashdata('sukses', 'Berhasil Melakukan Pembaharuan');
 		if ($this->input->post('asal') == 'laporan') {
 			redirect('admin/Laporan/laporan_tagihan');

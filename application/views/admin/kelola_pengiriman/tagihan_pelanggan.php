@@ -190,7 +190,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="">Produk</label>
-                    <input type="text" class="form-control" id="produk_edit" readonly="" name="produk_edit">
+                    <select class="form-control" name="produk_baru" id="produk_baru">
+
+                    </select>
                     <input type="hidden" name="sj_edit" id="sj_edit">
                     <input type="hidden" name="pelanggan_id" id="pelanggan_id">
                   </div>
@@ -198,7 +200,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="">Deskripsi</label>
-                    <textarea name="deskripsi_edit" id="deskripsi_edit" class="form-control" readonly=""></textarea>
+                    <textarea name="deskripsi_edit" id="deskripsi_edit" class="form-control" ></textarea>
                   </div>
                 </div>
               </div>
@@ -336,6 +338,8 @@
   });
 
   $('.btn-edit').click(function(){
+
+
       var no_surat = $(this).data('no_surat');
       var no_invoice = $(this).data('no_bukti');
       var pelanggan_id = $(this).data('pelanggan_id');
@@ -356,6 +360,35 @@
       $('#harga_edit').val(harga);
       $('#harga_awal').html('Harga Asal '+convertToRupiah(harga));
 
+
+      $.get("<?php echo site_url('admin/Kelola_pengiriman/get_data_produk/'); ?>"+pelanggan_id, function(respon) {
+        var data = JSON.parse(respon);
+        if (data != null) {
+          $('#produk_baru').empty();
+
+          $.each(data, function(idx, obj){
+            if (nama_produk == obj.nama_produk) {
+              $('#produk_baru').append($('<option>').text(obj.nama_produk).attr('value', obj.produk_id).attr('selected', 'selected'));
+            } else {
+              $('#produk_baru').append($('<option>').text(obj.nama_produk).attr('value', obj.produk_id));
+            }
+          });
+
+
+        } else {
+          $('#produk_baru').append($('<option>').text('Tidak Ada Produk Untuk Pelanggan ini').attr('value', ''));
+        }
+      });
+
+      $('#produk_baru').change(function() {
+        var produk_id = $('#produk_baru').val();
+        $.get('<?php echo base_url('admin/Kelola_pengiriman/get_deskripsi_produk/') ?>'+produk_id, function(respon) {
+          var data = JSON.parse(respon);
+          console.log(data);
+          $('#deskripsi_edit').val(data.deskripsi);
+          $('#harga_edit').val(data.harga);
+        });
+      });
       $('#modal_edit').show();
 
       $('#modal_edit').modal({

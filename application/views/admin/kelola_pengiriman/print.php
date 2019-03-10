@@ -56,7 +56,7 @@ $html = '<body>
       <table>
         <tr>
           <td align="center">
-            <img src="'.base_url("assets/images/Logo.png").'" alt="">
+            <img src="'.base_url("assets/images/Logo.png").'" alt="" width="85%">
           </td>
         </tr>
       </table>

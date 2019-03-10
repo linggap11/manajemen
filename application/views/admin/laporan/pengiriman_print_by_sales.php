@@ -1,8 +1,8 @@
 <?php
 
-$css = '<style type="text/css"> 
+$css = '<style type="text/css">
 
-body{  
+body{
   font-size: 10px;
   font-family: Arial, Sans Serif;
 }
@@ -12,9 +12,9 @@ h3{
 }
 
 #page {
-  width: 100%;  
+  width: 100%;
 }
- 
+
 
 p{
   margin-bottom: 2px;
@@ -46,17 +46,17 @@ table{
 .text-right{
   text-align: right;
 }
- 
+
 </style>';
 
 
-$html = '<body>  
+$html = '<body>
   <div id="page">
     <div class="header">
       <table>
         <tr>
           <td align="center">
-            <img src="'.base_url("assets/images/Logo.png").'" alt="">
+            <img src="'.base_url("assets/images/Logo.png").'" alt="" width="85%">
           </td>
         </tr>
       </table>
@@ -64,46 +64,42 @@ $html = '<body>
     <hr>
     <h3>SALES : <b>' . $print[0]->sales .' [' . $print[0]->plat_nomor. ']</b></h3>
     <h3 style="text-align:center">Laporan Pengiriman</h3>
-    
-    <br> 
+
+    <br>
     <table class="table-bordered">
       <thead>
         <tr>
           <th width="5%">No</th>
-               <th>Produk/Jasa</th>    
-               <th>Pelanggan</th>    
-               <th width="45%">Deskripsi</th>    
-               <th>Qty</th>  
-               <th width="10%">Satuan</th>  
+               <th>Produk/Jasa</th>
+               <th>Pelanggan</th>
+               <th width="45%">Deskripsi</th>
+               <th>Qty</th>
+               <th width="10%">Satuan</th>
         </tr>
       </thead>
-      
+
       <tbody>';
       $no = 1;
-      foreach($print as $row) { 
+      foreach($print as $row) {
           $html .= '<tr>
-            <td>'.  $no++  . '</td>        
-            <td>'.  $row->nama_produk  . '</td>        
-            <td>'.  $row->nama . '</td>        
-            <td>'.  $row->deskripsi . '</td>                 
-            <td>'.  $row->berat . '</td>             
-            <td align="center">' . ('KG') .'</td>          
+            <td>'.  $no++  . '</td>
+            <td>'.  $row->nama_produk  . '</td>
+            <td>'.  $row->nama . '</td>
+            <td>'.  $row->deskripsi . '</td>
+            <td>'.  $row->berat . '</td>
+            <td align="center">' . ('KG') .'</td>
           </tr>';
       }
 
-      $html .= '</tbody> 
-    </table> 
-   
+      $html .= '</tbody>
+    </table>
+
   </div><!-- end page -->';
 
   $mpdf = new \Mpdf\Mpdf();
-  
+
 
   //echo $css . $html;die;
-  $mpdf->CSSselectMedia='mpdf';  
+  $mpdf->CSSselectMedia='mpdf';
   $mpdf->WriteHTML($css . $html);
   $mpdf->Output('nota_pengiriman_' . $print[0]->sales . '.pdf', \Mpdf\Output\Destination::INLINE);
-
-
-
- 
