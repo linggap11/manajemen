@@ -156,7 +156,8 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Surat Jalan</th>
+                    <th>Tanggal</th>
+                    <th>No Mobil</th>
                     <th>Deskripsi</th>
                     <th>Berat (Kg)</th>
                     <th>Harga Produk</th>
@@ -257,7 +258,7 @@
                 'href': '<?= base_url('admin/Kelola_keuangan/print_invoice_by_piutang/')?>'+id
             });
             for (var i = 0; i < data.length; i++) {
-                $('#table_detail').find('tbody').append("<tr><td>"+no+"</td><td>"+data[i].no_pengiriman+"</td><td>"+data[i].deskripsi+"</td><td>"+data[i].berat+"</td><td>"+convertToRupiah(data[i].harga)+"</td><td>"+convertToRupiah(data[i].total)+"</td><td align='center'><a href='<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/') ?>"+data[i].no_pengiriman+"' title='SJ "+data[i].no_pengiriman+"' target='_blank' class='btn btn-success btn-xs'>Lihat</a></td></tr>");
+                $('#table_detail').find('tbody').append("<tr><td>"+no+"</td><td>"+data[i].tgl_transaksi+"</td><td>"+data[i].plat_nomor+"</td><td>"+data[i].deskripsi+"</td><td>"+data[i].berat+"</td><td>"+convertToRupiah(data[i].harga)+"</td><td>"+convertToRupiah(data[i].total)+"</td><td align='center'><a href='<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/') ?>"+data[i].no_pengiriman+"' title='SJ "+data[i].no_pengiriman+"' target='_blank' class='btn btn-success btn-xs'>Lihat</a></td></tr>");
                 no++;
             }
         });

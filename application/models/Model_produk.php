@@ -91,7 +91,7 @@ class Model_produk extends CI_Model {
 		if($limit != 0) {
 			$query = $this->db->limit($limit, $offset)->order_by('id', 'DESC')->get('produk');
 		} else {
-			$query = $this->db->from('produk')->order_by('id', 'DESC')->get();
+			$query = $this->db->select('produk.*, pelanggan.nama as pelanggan')->from('produk')->join('pelanggan', 'pelanggan.id = produk.pelanggan_id')->order_by('id', 'DESC')->get();
 		}
 		return $query->result();
 	}

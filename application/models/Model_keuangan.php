@@ -14,7 +14,7 @@ class Model_keuangan extends CI_Model {
 	public function tampil_kas() {
 		$this->db->select('buku_kas.*, nominal AS total');
 		return $this->db->get('buku_kas')->result();
-	}	
+	}
 
 	public function tampil_piutang() {
 		$this->db->select('piutang.*, jumlah_piutang AS saldo, pelanggan.nama')->from('piutang')->join('invoice', 'invoice.no_invoice = piutang.no_invoice')->join('transaksi', 'transaksi.no_invoice = invoice.no_invoice')->join('pengiriman','pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')->group_by('piutang.id');
@@ -38,7 +38,7 @@ class Model_keuangan extends CI_Model {
 	}
 
 	public function get_detail_piutang($no_invoice) {
-		$this->db->select('pengiriman.no_pengiriman, pengiriman.berat, pengiriman.harga, pengiriman.total, pelanggan.*, produk.nama as produk, produk.deskripsi, transaksi.no_invoice')->from('pengiriman')->join('transaksi', 'transaksi.id = pengiriman.transaksi_id')->join('pelanggan', 'pelanggan.id = pengiriman.pelanggan_id')->join('produk', 'produk.id = pengiriman.produk_id')->where('transaksi.no_invoice', $no_invoice);
+		$this->db->select('pengiriman.no_pengiriman, pengiriman.tgl_transaksi, pengiriman.berat, pengiriman.harga, pengiriman.total, pelanggan.*, produk.nama as produk, produk.deskripsi, transaksi.no_invoice, sales.plat_nomor')->from('pengiriman')->join('transaksi', 'transaksi.id = pengiriman.transaksi_id')->join('pelanggan', 'pelanggan.id = pengiriman.pelanggan_id')->join('produk', 'produk.id = pengiriman.produk_id')->join('sales', 'sales.id = pengiriman.sales_id')->where('transaksi.no_invoice', $no_invoice);
 		return $this->db->get()->result();
 	}
 
@@ -69,11 +69,11 @@ class Model_keuangan extends CI_Model {
       }
       $no_piutang = 'PE'.date('ymd');
       if (substr($data['no_piutang'], 0, 8) == $no_piutang) {
-      	return $data['no_piutang'];	
+      	return $data['no_piutang'];
       } else {
       	$kombinasi = date('ymd');
-      	return 'PE'.$kombinasi.'00';	
-      }      
+      	return 'PE'.$kombinasi.'00';
+      }
     } else {
     	$kombinasi = date('ymd');
       return 'PE'.$kombinasi.'00';
@@ -88,11 +88,11 @@ class Model_keuangan extends CI_Model {
       }
       $no_piutang = 'PH'.date('ym');
       if (substr($data['no_piutang'], 0, 8) == $no_piutang) {
-      	return $data['no_piutang'];	
+      	return $data['no_piutang'];
       } else {
       	$kombinasi = date('ymd');
-      	return 'PH'.$kombinasi.'00';	
-      }      
+      	return 'PH'.$kombinasi.'00';
+      }
     } else {
     	$kombinasi = date('ymd');
       return 'PH'.$kombinasi.'00';
@@ -108,7 +108,7 @@ class Model_keuangan extends CI_Model {
   public function get_piutang_by_pelanggan($id) {
   	$this->db->select('piutang.no_piutang, piutang.no_invoice, pelanggan.nama, produk.nama as produk')->from('piutang')->join('invoice', 'invoice.no_invoice = piutang.no_invoice')->join('transaksi', 'transaksi.no_invoice = invoice.no_invoice')->join('pengiriman','pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')->join('produk', 'pengiriman.produk_id = produk.id');
   	return $this->db->where('piutang.id', $id)->get()->row();
-    
+
   }
 
   public function get_kas_by_hutang($kas_id) {

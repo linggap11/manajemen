@@ -1,15 +1,15 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header"> 
+        <section class="content-header">
           <ol class="breadcrumb left">
-            <li class="active"> <i class="fa fa-users"></i> List Produk </li> 
+            <li class="active"> <i class="fa fa-users"></i> List Produk </li>
           </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-        
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-red">
@@ -26,21 +26,24 @@
                             <table id="table-regular" class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Kode Produk</th> 
-                                    <th>Nama Produk</th>                            
-                                    <th>Deskripsi Produk</th>                            
-                                    <th>Harga</th>                            
-                                    <th width="20%">Action</th>
+                                    <th width="5%">No</th>
+                                    <th>Nama Produk</th>
+                                    <th>Deskripsi Produk</th>
+                                    <th width="10%" >Harga</th>
+                                    <th>Pelanggan</th>
+                                    <th width="15%" class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php $no = 1?>
                                 <?php foreach($result as $res) { ?>
                                 <tr>
-                                    <td><?php echo $res->kode;?></td> 
-                                    <td><?php echo $res->nama;?></td>                                  
-                                    <td><?php echo $res->deskripsi;?></td>     
-                                    <td><?php echo format_rupiah($res->harga);?></td>                                
-                                    <td class="text-center"> 
+                                    <td class="text-center"><?php echo $no++;?></td>
+                                    <td><?php echo $res->nama;?></td>
+                                    <td><?php echo $res->deskripsi;?></td>
+                                    <td><?php echo format_rupiah($res->harga);?></td>
+                                    <td><strong><?php echo $res->pelanggan;?></strong></td>
+                                    <td class="text-center">
                                     <a href="<?php echo site_url('admin/kelola_produk/edit/'. $res->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                                     <a href="<?php echo site_url('admin/kelola_produk/delete/' . $res->id);?>" class="btn btn-danger btn_hapus btn-xs"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
@@ -63,7 +66,7 @@
     <!-- /.content-wrapper -->
 
 
- 
+
     <?php $this->load->view('admin/layout/footer'); ?>
 
     <script type="text/javascript">
@@ -71,4 +74,3 @@
             return confirm('apakah anda yakin?');
         });
     </script>
-    
