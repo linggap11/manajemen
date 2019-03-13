@@ -5,15 +5,15 @@
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header"> 
+    <section class="content-header">
       <ol class="breadcrumb left">
-        <li class="active"> <i class="fa fa-money"></i> PIUTANG </li> 
+        <li class="active"> <i class="fa fa-money"></i> PIUTANG </li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-    
+
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-red">
@@ -27,14 +27,14 @@
                         <table id="table-kas" class="table table-bordered">
                             <thead>
                             <tr>
-                                <th width="5%">NO</th> 
-                                <th>TANGGAL MASUK</th>                                      
-                                <th>NO PIUTANG</th>                            
-                                <th>PELANGGAN</th>         
-                                <th>DEBIT</th>                               
-                                <th>KREDIT</th>                          
-                                <th>SALDO</th>                            
-                                <th>KETERANGAN</th>                            
+                                <th width="5%">NO</th>
+                                <th>TANGGAL MASUK</th>
+                                <th>NO PIUTANG</th>
+                                <th>PELANGGAN</th>
+                                <th>DEBIT</th>
+                                <th>KREDIT</th>
+                                <th>SALDO</th>
+                                <th>KETERANGAN</th>
                                 <th width="10%">PEMBAYARAN</th>
                             </tr>
                             </thead>
@@ -52,7 +52,7 @@
                                             <?php $total_kredit = $total_kredit + $piutang->jumlah_bayar ?>
                                         <?php else: ?>
                                             <td>-</td>
-                                            <td><?= format_rupiah($piutang->jumlah_bayar) ?></td> 
+                                            <td><?= format_rupiah($piutang->jumlah_bayar) ?></td>
                                             <?php $total_debit = $total_debit + $piutang->jumlah_bayar ?>
                                     <?php endif ?>
                                     <td><?= format_rupiah($piutang->saldo) ?></td>
@@ -61,14 +61,14 @@
                                         <button class="pembayaran btn btn-secondary btn-xs" data-id="<?= $piutang->no_piutang ?>" title="Pembayaran"><span class="fa fa-pencil-square-o"></span></button>
                                         <button class="detail btn btn-info btn-xs" data-id="<?= $piutang->no_piutang ?>" title="Detail Piutang">Detail</button>
                                     </td>
-                                </tr>    
+                                </tr>
                             <?php endforeach ?>
                             </tbody>
                             <tfoot>
-                                <tr>                            
-                                    <th colspan="4">TOTAL</th>                            
-                                    <th align="left"><?= format_rupiah($total_kredit) ?></th>                            
-                                    <th align="left"><?= format_rupiah($total_debit) ?></th>                            
+                                <tr>
+                                    <th colspan="4">TOTAL</th>
+                                    <th align="left"><?= format_rupiah($total_kredit) ?></th>
+                                    <th align="left"><?= format_rupiah($total_debit) ?></th>
                                     <th align="left"><?= format_rupiah($total_kredit - $total_debit) ?></th>
                                     <th colspan="2"></th>
                                 </tr>
@@ -101,13 +101,13 @@
                         <div class="datepicker input-group date">
                             <input style="text-align : center" type="text" class="form-control" id="tanggal" name="tanggal" required="" value="<?php echo(date("Y-m-d")); ?>">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label class="control-label"><strong>Keterangan</strong></label>
                         <select name="jenis" id="jenis" class="form-control" style="margin-top: 4px;">
-                             <option value="DEBIT" selected="selected">DEBIT</option>                     
-                         </select> 
+                             <option value="DEBIT" selected="selected">DEBIT</option>
+                         </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -122,7 +122,7 @@
                     <div class="col-md-12">
                         <label for="">Jumlah Bayar</label>
                         <input type="number" id="jumlah_bayar" onkeyup="bayar()" name="jumlah_bayar" required="" class="form-control">
-                    </div>    
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
@@ -130,9 +130,9 @@
                         <input type="text" name="sisa" id="sisa" readonly class="form-control">
                         <input type="hidden" name="id" id="id" value="">
                         <input type="hidden" name="sisa_bayar" id="sisa_bayar" value="">
-                    </div>    
+                    </div>
                 </div>
-            
+
         </div>
       </div>
       <div class="modal-footer">
@@ -203,23 +203,23 @@
         $('#select-bulan').on('change', function(){
           if($(this).find(':selected').data('bulan') != ''){
             var bulan = $(this).find(':selected').data('bulan');
-            var tahun = $(this).find(':selected').data('tahun'); 
+            var tahun = $(this).find(':selected').data('tahun');
             window.location.replace(BASE_URL + 'admin/Kelola_keuangan/kas_by/' + bulan + '/' + tahun);
           }else{
             window.location.replace(BASE_URL + 'admin/Kelola_keuangan/kas_by');
           }
-        }); 
+        });
 
         $('#select-tahun').on('change', function(){
-          if($(this).find(':selected').data('bulan') != ''){ 
-            var tahun = $(this).find(':selected').data('tahun'); 
+          if($(this).find(':selected').data('bulan') != ''){
+            var tahun = $(this).find(':selected').data('tahun');
             window.location.replace(BASE_URL + 'admin/Kelola_keuangan/kas_by/all/' + tahun);
           }else{
             window.location.replace(BASE_URL + 'admin/Kelola_keuangan/kas_by');
           }
-        }); 
+        });
 
-        
+
 
     } );
 
@@ -257,9 +257,9 @@
                 'href': '<?= base_url('admin/Kelola_keuangan/print_invoice_by_piutang/')?>'+id
             });
             for (var i = 0; i < data.length; i++) {
-                $('#table_detail').find('tbody').append("<tr><td>"+no+"</td><td>"+data[i].no_pengiriman+"</td><td>"+data[i].deskripsi+"</td><td>"+data[i].berat+"</td><td>"+convertToRupiah(data[i].harga)+"</td><td>"+convertToRupiah(data[i].total)+"</td><td align='center'><a href='<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/') ?>"+data[i].no_pengiriman+"' title='SJ "+data[i].no_pengiriman+"' target='_blank' class='btn btn-success btn-xs'>Lihat</a></td></tr>");    
+                $('#table_detail').find('tbody').append("<tr><td>"+no+"</td><td>"+data[i].no_pengiriman+"</td><td>"+data[i].deskripsi+"</td><td>"+data[i].berat+"</td><td>"+convertToRupiah(data[i].harga)+"</td><td>"+convertToRupiah(data[i].total)+"</td><td align='center'><a href='<?= base_url('admin/Kelola_pengiriman/print_surat_jalan/') ?>"+data[i].no_pengiriman+"' title='SJ "+data[i].no_pengiriman+"' target='_blank' class='btn btn-success btn-xs'>Lihat</a></td></tr>");
                 no++;
-            }    
+            }
         });
         $('#detailPiutang').modal('show');
     });
@@ -280,14 +280,14 @@
             alert('Jumlah Melibihi Sisa Pembayaran');
             jumlah_bayar = sisa;
             $('#jumlah_bayar').val(sisa);
-        } 
+        }
         sisa = piutang - (jumlah_bayar + temp);
         $('#sisa').val(sisa);
     }
 
 
     function convertToRupiah(angka) {
-        var rupiah = '';        
+        var rupiah = '';
         var angkarev = angka.toString().split('').reverse().join('');
         for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
         return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
@@ -298,13 +298,13 @@
     }
 
     function cek_pembayaran() {
-        if ($('#jumlah_bayar').val() == 0 || $('#jumlah_bayar').val() == "")  {            
-            alert('Jumlah Bayar Tidak Boleh Kosong');            
+        if ($('#jumlah_bayar').val() == 0 || $('#jumlah_bayar').val() == "")  {
+            alert('Jumlah Bayar Tidak Boleh Kosong');
             return false;
         } else {
             return true;
         }
-        
+
     }
 
     $('#detailPiutang').modal({

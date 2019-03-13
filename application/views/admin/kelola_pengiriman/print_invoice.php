@@ -54,7 +54,7 @@ if ($ppn != 0) {
   $pajak = 'PPN 0%';
 }
 
-$html = '<body>
+$html = '<body width="100%">
   <div id="page">
     <div class="header">
       <table>
@@ -76,21 +76,21 @@ $html = '<body>
           <p>' . $print[0]->alamat . ' ('.$print[0]->kode_pos.') ' . $print[0]->no_telp .'</p>
           <h4><b>NO INVOICE #'.$print[0]->no_bukti.'</b></h4>
             <p>Dari Tanggal: <b>'.$print[0]->tgl_transaksi.'</b></p>
-            <br>
             <p><b>'.$pajak .'</b></p>
         </td>
 
       </tr>
     </table>
 
-    <br>
+    <h1 style="text-align:center"> FAKTUR </h1>
+
     <table class="table-bordered">
       <thead>
         <tr>
-         <th width="5%">No</th>
-         <th width="16%">Surat Jalan</th>
+         <th width="7%">No</th>
+         <th width="15%">No. Mobil</th>
          <th >Produk / Jasa</th>
-         <th >Qty</th>
+         <th width="12%">Qty (KG)</th>
          <th >Harga</th>
          <th >Total</th>
         </tr>
@@ -101,10 +101,10 @@ $html = '<body>
          $grand_total = 0; $no = 1;
          foreach ($print as $row) {
           $html .=' <tr>
-            <td>' . $no++ . '</td>
-            <td align="center">' . $row->no_pengiriman. '</td>
+            <td align="center">' . $no++ . '</td>
+            <td align="center">' . $row->plat_nomor. '</td>
             <td>' . $row->nama_produk. '</td>
-            <td>' . $row->berat . (' ( KG )') .'</td>
+            <td>' . $row->berat.'</td>
             <td>' . format_rupiah($row->harga) .'</td>
             <td>' . format_rupiah($row->total) . '</td>
           </tr>';
@@ -127,6 +127,7 @@ $html = '<body>
   </tfoot>
     </table>
     <br>
+    <i>*Harap mengirim kembali bukti faktur melalui fax (022) 6623907 / WA 081394786706 / E-Mail usen_suryanto@yahoo.co.id </i>
     <table>
       <tr>
         <td style="height: 30px;">
@@ -152,7 +153,7 @@ $html = '<body>
         <td></td>
         <td></td>
         <td style="text-align: center">
-          <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br>
+          <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br><br><br><br>
 
           (................................................)
           </div>

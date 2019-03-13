@@ -56,7 +56,7 @@ $html = '<body>
        <table>
         <tr>
           <td align="center">
-            <img src="'.base_url("assets/images/Logo.png").'" alt="">
+            <img src="'.base_url("assets/images/Logo.png").'" alt="" width="85%">
           </td>
         </tr>
       </table>
@@ -77,15 +77,13 @@ $html = '<body>
         </td>
       </tr>
     </table>
-
     <br>
     <table class="table-bordered">
       <thead>
         <tr>
-         <th width="5%">No</th>
-         <th width="16%">Surat Jalan</th>
-         <th >Produk / Jasa</th>
-         <th >Qty</th>
+         <th width="7%">No</th>
+         <th width="25%">Produk / Jasa</th>
+         <th width="12%">Qty (KG)</th>
          <th >Harga</th>
          <th >Total</th>
         </tr>
@@ -96,10 +94,9 @@ $html = '<body>
          $grand_total = 0; $no = 1;
          foreach ($print as $row) {
           $html .=' <tr>
-            <td>' . $no++ . '</td>
-            <td align="center">' . $row->no_pengiriman. '</td>
+            <td align="center">' . $no++ . '</td>
             <td>' . $row->produk. '</td>
-            <td>' . $row->berat . (' ( KG )') .'</td>
+            <td>' . $row->berat.'</td>
             <td>' . format_rupiah($row->harga) .'</td>
             <td>' . format_rupiah($row->total) . '</td>
           </tr>';
@@ -111,7 +108,7 @@ $html = '<body>
       $html .= '</tbody>
       <tfoot>
       <tr>
-        <td style="text-align:right" colspan="5"><b>TOTAL</b></td>
+        <td style="text-align:right" colspan="4"><b>TOTAL</b></td>
         <td><b>' . format_rupiah($grand_total) .'</b></td>
       </tr>
 
@@ -119,6 +116,7 @@ $html = '<body>
   </tfoot>
     </table>
     <br>
+    <i>*Harap mengirim kembali bukti faktur melalui fax (022) 6623907 / WA 081394786706 / E-Mail usen_suryanto@yahoo.co.id </i>
     <table>
       <tr>
         <td style="height: 30px;">
@@ -144,7 +142,7 @@ $html = '<body>
         <td></td>
         <td></td>
         <td style="text-align: center">
-          <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br>
+          <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br><br><br><br>
 
           (................................................)
           </div>

@@ -42,7 +42,7 @@
   <table class="table">
   <thead>
   <tr>
-    <th width="5%">No</th>
+    <th width="7%">No</th>
     <th>Pelanggan</th>
     <th >No. Mobil</th>
     <th >Tgl Transaksi</th>

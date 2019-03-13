@@ -64,21 +64,21 @@
           <tr>
              <th>No</th>
              <th>Pelanggan</th>
-             <th >No. Mobil</th>
-             <th >Tgl Transaksi</th>
+             <th width="10%">No. Mobil</th>
+             <th width="10%">Tgl Transaksi</th>
              <th >Produk</th>
-             <th >Harga</th>
-             <th >Total</th>
+             <th width="10%">Harga</th>
+             <th width="10%">Total</th>
              <th >Muatan (Kg)</th>
-             <th>Status</th>
-             <th width="15%">Action</th>
+             <th width="5%">Status</th>
+             <th width="12%">Action</th>
           </tr>
           </thead>
           <tbody>
             <?php $no=1; ?>
             <?php foreach ($data_tagihan as $row): ?>
               <tr>
-                <td><?php echo $no++ ?></td>
+                <td align="center"><?php echo $no++ ?></td>
                 <th align="center">
                   <?php echo $row->nama ?>
                 </th>
@@ -87,7 +87,7 @@
                 <td><?php echo $row->nama_produk ?></td>
                 <td><?php echo format_rupiah($row->harga) ?></td>
                 <td><?php echo format_rupiah($row->total) ?></td>
-                <td><?php echo $row->berat ?></td>
+                <td align="center"><?php echo $row->berat ?></td>
                 <td align="center">
                   <?php if ($row->tagihan == 'BELUM LUNAS'): ?>
                     <span class="btn btn-danger btn-xs"><?php echo $row->tagihan ?></span>

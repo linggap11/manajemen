@@ -48,7 +48,6 @@
       <th>Pelanggan</th>
       <th>Total Biaya</th>
       <th>Kas Jalan</th>
-      <th>Status</th>
   </tr>
   </thead>
   <tbody>';
@@ -62,7 +61,6 @@
           <td>'.  $row->nama  . '</td>
           <td>'.  format_rupiah($row->total) . '</td>
           <td>'.  format_rupiah($row->biaya_tambahan) . '</td>
-          <td>'.  $row->status . '</td>
       </tr>';
       $grand_total += $row->total;
   }

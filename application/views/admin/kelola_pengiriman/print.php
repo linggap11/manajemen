@@ -83,18 +83,18 @@ $html = '<body>
     <table class="table-bordered">
       <thead>
         <tr>
-          <th width="5%">No</th>
-               <th>Produk/Jasa</th>
-               <th width="55%">Deskripsi</th>
-               <th width="10%">Qty</th>
-               <th width="10%">Satuan</th>
+          <th width="7%">No</th>
+           <th>Produk/Jasa</th>
+           <th width="55%">Deskripsi</th>
+           <th width="10%">Qty</th>
+           <th width="10%">Satuan</th>
         </tr>
       </thead>
 
       <tbody>';
 
          $html .=' <tr>
-            <td>' . (1). '</td>
+            <td align="center">' . (1). '</td>
             <td>' . $print->nama_produk. '</td>
             <td>' . $print->deskripsi. '</td>
             <td>' . $print->berat. '</td>
@@ -121,14 +121,14 @@ $html = '<body>
       </tr>
       <tr>
         <td style="text-align: center">
-          <div style="text-align: center; ">Pengirim<br><br><br><br><br><br>
+          <div style="text-align: center; ">Pengirim<br><br><br><br><br><br><br><br><br>
 
           (................................................)
           </div>
         </td>
         <td></td>
         <td style="text-align: center">
-          <div style="text-align: center; ">Penerima<br><br><br><br><br><br>
+          <div style="text-align: center; ">Penerima<br><br><br><br><br><br><br><br><br>
 
           (................................................)
           </div>

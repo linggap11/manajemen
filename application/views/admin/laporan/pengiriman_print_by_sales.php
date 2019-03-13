@@ -69,7 +69,7 @@ $html = '<body>
     <table class="table-bordered">
       <thead>
         <tr>
-          <th width="5%">No</th>
+          <th width="7%">No</th>
                <th>Produk/Jasa</th>
                <th>Pelanggan</th>
                <th width="45%">Deskripsi</th>
@@ -82,7 +82,7 @@ $html = '<body>
       $no = 1;
       foreach($print as $row) {
           $html .= '<tr>
-            <td>'.  $no++  . '</td>
+            <td align="center">'.  $no++  . '</td>
             <td>'.  $row->nama_produk  . '</td>
             <td>'.  $row->nama . '</td>
             <td>'.  $row->deskripsi . '</td>

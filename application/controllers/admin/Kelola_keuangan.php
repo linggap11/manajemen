@@ -19,11 +19,11 @@ class Kelola_keuangan extends CI_Controller {
 		    );
 		$data['js'] = array(
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
-		    'assets/plugins/datatables/dataTables.bootstrap.min.js'
+		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 			);
 
 
-		$data['data_kas'] = $this->total_saldo_kas();
+		$data['data_kas'] = $this->total_saldo_kas();	
 		$this->load->view('admin/layout/header', array('title' => 'Buku Kas', 'menu' => 'buku_kas', 'css' => $css));
 		$this->load->view('admin/kelola_keuangan/buku_kas', $data);
 	}
@@ -33,7 +33,7 @@ class Kelola_keuangan extends CI_Controller {
 		$keterangan = $this->input->post('keterangan');
 		$deskripsi = $this->input->post('deskripsi');
 		$nominal = $this->input->post('nominal');
-
+		
 		if ($keterangan == 'KREDIT') {
 			$data_kas = array(
 				'tanggal' => $tanggal,
@@ -71,14 +71,14 @@ class Kelola_keuangan extends CI_Controller {
 		}
 		$this->session->set_flashdata('sukses', 'Berhasil Menambahkan Kas.');
 		redirect('admin/Kelola_keuangan/buku_kas','refresh');
-
+		
 	}
 
 	public function tambah_hutang() {
 		$tanggal = $this->input->post('tanggal');
 		$deskripsi = $this->input->post('deskripsi');
 		$nominal = $this->input->post('nominal');
-
+		
 		$data_kas = array(
 			'tanggal' => $tanggal,
 			'deskripsi' => $deskripsi,
@@ -114,12 +114,12 @@ class Kelola_keuangan extends CI_Controller {
 		    );
 		$data['js'] = array(
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
-		    'assets/plugins/datatables/dataTables.bootstrap.min.js'
+		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 			);
 		$data['edit_kas'] = $this->db->where('id', $id)->get('buku_kas')->row();
 		$this->load->view('admin/layout/header', array('title' => 'Buku Kas', 'menu' => 'buku_kas', 'css' => $css));
 		$this->load->view('admin/kelola_keuangan/edit_kas', $data);
-
+		
 	}
 
 	public function simpan_edit() {
@@ -149,9 +149,9 @@ class Kelola_keuangan extends CI_Controller {
 		    );
 		$data['js'] = array(
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
-		    'assets/plugins/datatables/dataTables.bootstrap.min.js'
+		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 			);
-		$data['data_piutang'] = $this->total_saldo_piutang();
+		$data['data_piutang'] = $this->total_saldo_piutang();	
 		$data['profile'] = $this->model_pengaturan->get_profile();
 		$this->load->view('admin/layout/header', array('title' => 'Piutang', 'menu' => 'piutang', 'css' => $css));
 		$this->load->view('admin/kelola_keuangan/piutang', $data);
@@ -230,7 +230,7 @@ class Kelola_keuangan extends CI_Controller {
     // print_r($data);
     $this->load->view('admin/kelola_keuangan/print_invoice', $data);
 	}
-
+	
 	public function total_saldo_piutang() {
 		$data = $this->model_keuangan->tampil_piutang();
 		$kredit = 0; $debit = 0;
@@ -257,7 +257,7 @@ class Kelola_keuangan extends CI_Controller {
 			$row->saldo = $kredit - $debit;
 		}
 
-
+		
 
 		return $data;
 	}
@@ -268,9 +268,9 @@ class Kelola_keuangan extends CI_Controller {
 		    );
 		$data['js'] = array(
 		    'assets/plugins/datatables/jquery.dataTables.min.js',
-		    'assets/plugins/datatables/dataTables.bootstrap.min.js'
+		    'assets/plugins/datatables/dataTables.bootstrap.min.js' 
 			);
-		$data['data_hutang'] = $this->total_saldo_hutang();
+		$data['data_hutang'] = $this->total_saldo_hutang();	
 		$data['profile'] = $this->model_pengaturan->get_profile();
 		$this->load->view('admin/layout/header', array('title' => 'Buku Hutang', 'menu' => 'hutang', 'css' => $css));
 		$this->load->view('admin/kelola_keuangan/hutang', $data);
@@ -280,7 +280,7 @@ class Kelola_keuangan extends CI_Controller {
 		$data = $this->total_saldo_kas();
 		$temp = 0;
 		foreach ($data as $totalKas) {
-			$temp = $totalKas->total;
+			$temp = $totalKas->total;	
 		}
 		return $temp;
 	}
@@ -293,7 +293,7 @@ class Kelola_keuangan extends CI_Controller {
 		$jumlah_hutang = $this->input->post('jumlah_hutang');
 		$jumlah_bayar = $this->input->post('jumlah_bayar');
 		$sisa_bayar = $this->input->post('sisa');
-
+		
 		$data_hutang = $this->model_keuangan->get_kas_by_hutang($kas_id);
 		if ($sisa_bayar == 0) {
 			$status = 'LUNAS';
@@ -330,7 +330,7 @@ class Kelola_keuangan extends CI_Controller {
 	}
 
 
-
+	
 
 	public function test() {
 		$asli = 'PE19010801';
@@ -340,8 +340,8 @@ class Kelola_keuangan extends CI_Controller {
 		if (substr($asli, 0, 8) == substr($data, 0, 8)) {
 			echo 'sksk';
 		}
-
-
+		
+		
 	}
 
 }
