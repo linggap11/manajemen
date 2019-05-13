@@ -79,4 +79,42 @@ class Model_laporan extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function data_pengiriman($status, $tgl_awal, $tgl_akhir) {
+		$this->db->select('no_pengiriman, no_bukti, tgl_transaksi, pengiriman.berat, sales.nama AS sales, plat_nomor ,pelanggan.nama, pelanggan.alamat, produk.kode, produk.nama AS nama_produk, produk.deskripsi ,pengiriman.harga AS total, pengiriman.status, transaksi.status AS status_transaksi, pengiriman.biaya_tambahan');
+		$this->db->from('pengiriman');
+		$this->db->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id');
+		$this->db->join('produk', 'pengiriman.produk_id = produk.id');
+		$this->db->join('sales', 'pengiriman.sales_id = sales.id');
+		$this->db->join('transaksi', 'pengiriman.transaksi_id = transaksi.id');
+		if ($status == "BERHASIL" || $status == "INORDER" || $status == "BATAL") {
+			$this->db->where('pengiriman.status', $status);
+		}
+
+		if ($tgl_awal != null || $tgl_akhir != null) {
+			$this->db->where('pengiriman.tgl_transaksi >= ', $tgl_awal);
+			$this->db->where('pengiriman.tgl_transaksi <=', $tgl_akhir);
+		}
+		$this->db->order_by('pengiriman.tgl_transaksi', 'DESC');
+		return $this->db->get()->result();
+	}
+
+	public function data_pemesanan($status, $tgl_awal, $tgl_akhir) {
+		$this->db->select('no_pengiriman, no_bukti, tgl_transaksi, pengiriman.berat, sales.nama AS sales, plat_nomor ,pelanggan.nama, pelanggan.alamat, produk.kode, produk.nama AS nama_produk, produk.deskripsi ,pengiriman.harga AS total, pengiriman.status, transaksi.status AS status_transaksi, pengiriman.biaya_tambahan');
+		$this->db->from('pengiriman');
+		$this->db->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id');
+		$this->db->join('produk', 'pengiriman.produk_id = produk.id');
+		$this->db->join('sales', 'pengiriman.sales_id = sales.id');
+		$this->db->join('transaksi', 'pengiriman.transaksi_id = transaksi.id');
+		if ($status == "APPROVED" || $status == "PENDING" || $status == "BATAL") {
+			$this->db->where('transaksi.status', $status);
+		}
+
+		if ($tgl_awal != null || $tgl_akhir != null) {
+			$this->db->where('pengiriman.tgl_transaksi >= ', $tgl_awal);
+			$this->db->where('pengiriman.tgl_transaksi <=', $tgl_akhir);
+		}
+		$this->db->order_by('pengiriman.tgl_transaksi', 'DESC');
+		return $this->db->get()->result();
+	}
+
 }

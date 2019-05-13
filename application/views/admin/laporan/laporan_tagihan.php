@@ -42,12 +42,12 @@
                 </select>
               </div>
               <div class="col-md-3">
-                <input type="text" name="awal"  class="datepicker form-control input-sm" value="<?php echo $tgl_awal ?>" size="2" id="awal" placeholder="Tanggal Awal">
+                <input type="text" name="awal" autocomplete="off" class="datepicker form-control input-sm" value="<?php echo $tgl_awal ?>" size="2" id="awal" placeholder="Tanggal Awal">
               </div>
               <div class="col-md-3">
-                <input type="text" name="akhir"  class="datepicker form-control input-sm" value="<?php echo $tgl_akhir ?>" size="2" id="akhir" placeholder="Tanggal Akhir">
+                <input type="text" name="akhir" autocomplete="off" class="datepicker form-control input-sm" value="<?php echo $tgl_akhir ?>" size="2" id="akhir" placeholder="Tanggal Akhir">
               </div>
-                <button type="submit" class="btn btn-success" id="sorting"><strong>Apply</strong></button>
+                <button type="submit" class="btn btn-success"><strong>Apply</strong></button>
               <div>
               </div>
             </form>
@@ -57,7 +57,11 @@
 
         </div><!-- /.box-header -->
         <div class="box-body">
-
+          <?php if ($status == 'BELUM LUNAS'): ?>
+            <?php $status = 'BELUM_LUNAS' ?>
+          <?php endif; ?>
+          <br>
+          <a href="<?php echo base_url('admin/Laporan/print_laporan_tagihan/'.$status.'/'.$tgl_awal.'/'.$tgl_akhir.'') ?>" class="btn btn-primary" target="_blank"><i class="fa fa-print"></i> Print Laporan</a><br><br>
           <br><br>
           <table id="tabel_pengiriman_by_pelanggan" class="table table-bordered table-striped">
           <thead>

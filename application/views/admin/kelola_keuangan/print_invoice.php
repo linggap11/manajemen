@@ -77,16 +77,18 @@ $html = '<body>
         </td>
       </tr>
     </table>
-    <br>
+    <h1 style="text-align:center"> FAKTUR </h1>
     <table class="table-bordered">
       <thead>
-        <tr>
-         <th width="7%">No</th>
-         <th width="25%">Produk / Jasa</th>
-         <th width="12%">Qty (KG)</th>
-         <th >Harga</th>
-         <th >Total</th>
-        </tr>
+      <tr>
+       <th width="7%">No</th>
+       <th width="13%">Tanggal</th>
+       <th width="12%">No. Mobil</th>
+       <th>Produk / Jasa</th>
+       <th width="10%">Qty (KG)</th>
+       <th >Harga</th>
+       <th >Total</th>
+      </tr>
       </thead>
 
       <tbody>';
@@ -95,7 +97,9 @@ $html = '<body>
          foreach ($print as $row) {
           $html .=' <tr>
             <td align="center">' . $no++ . '</td>
-            <td>' . $row->produk. '</td>
+            <td align="center">' . $row->tgl_transaksi. '</td>
+            <td align="center">' . $row->plat_nomor. '</td>
+            <td>' . $row->nama_produk. ' ('.$row->produk_deskripsi.')</td>
             <td>' . $row->berat.'</td>
             <td>' . format_rupiah($row->harga) .'</td>
             <td>' . format_rupiah($row->total) . '</td>
@@ -108,7 +112,7 @@ $html = '<body>
       $html .= '</tbody>
       <tfoot>
       <tr>
-        <td style="text-align:right" colspan="4"><b>TOTAL</b></td>
+        <td style="text-align:right" colspan="6"><b>TOTAL</b></td>
         <td><b>' . format_rupiah($grand_total) .'</b></td>
       </tr>
 
@@ -116,6 +120,7 @@ $html = '<body>
   </tfoot>
     </table>
     <br>
+    <i>*Harap melakukan pembayaran ke rekening BCA 2780189005 An/ Usen Suryanto</i><br>
     <i>*Harap mengirim kembali bukti faktur melalui fax (022) 6623907 / WA 081394786706 / E-Mail usen_suryanto@yahoo.co.id </i>
     <table>
       <tr>
@@ -142,9 +147,10 @@ $html = '<body>
         <td></td>
         <td></td>
         <td style="text-align: center">
+          Bandung, '.tanggal_lokal(date('Y-m-d')).'
           <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br><br><br><br>
 
-          (................................................)
+          (Usen Suryanto)
           </div>
         </td>
       </tr>

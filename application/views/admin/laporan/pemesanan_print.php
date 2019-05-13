@@ -77,6 +77,6 @@
 
   $mpdf->CSSselectMedia='mpdf';
   $mpdf->WriteHTML($style . $html);
-  $mpdf->Output('Laporan_Pengiriman_' . getBulanIndo($data_bulan). '_' .$data_tahun . '.pdf', \Mpdf\Output\Destination::INLINE);
+  $mpdf->Output('Laporan_Pemesanan_'.$status.'_'.$tgl_awal.'_'.$tgl_akhir.'.pdf', \Mpdf\Output\Destination::INLINE);
 
 ?>

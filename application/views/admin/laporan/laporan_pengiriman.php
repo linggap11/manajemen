@@ -19,40 +19,51 @@
                 <div class="col-md-12">
                     <div class="box box-red">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?= $title ?> </h3>
-                            <div class="box-tools row" style="width: 400px;">
-                              <div class="col-md-3"> 
-                                <select id="select-status" name="select-status" class="form-control input-sm" style="border-radius: 3px;">
-                                    <option data-status="all" value="all">Status</option>
-                                    <option data-status="BERHASIL" value="BERHASIL">BERHASIL</option>
-                                    <option data-status="INORDER" value="INORDER">IN ORDER</option>
-                                    <option data-status="BATAL" value="BATAL">BATAL</option>
-                                </select>
-                              </div>
-                              <div class="col-md-4">
-                                <select id="select-bulan" name="select-bulan" class="form-control input-sm" style="border-radius: 3px;">
-                                    <option data-bulan="all" value="all">Bulan</option>
-                                    <?php foreach ($bulan as $bul) { ?>
-                                    <option value="<?= $bul->bulan ?>" data-bulan="<?php echo $bul->bulan?>"><?php echo getBulanIndo($bul->bulan)?></option>
-                                    <?php } ?>
-                                </select>
-                              </div>
-                              <div class="col-md-3">
-                                <select id="select-tahun" class="form-control input-sm" style="border-radius: 3px;">
-                                    <option data-bulan="all" value="all">Tahun</option>
-                                    <?php foreach ($tahun as $thn) { ?>
-                                    <option value="<?= $thn->tahun ?>" <?php echo ($bul->bulan == 'all' && $thn->tahun == $data_tahun) ? 'selected' : '' ; ?> data-bulan="all" data-tahun="<?php echo $thn->tahun?>"><?php echo $thn->tahun ?></option>
-                                    <?php } ?>
-                                </select>
-                              </div>
-                                <button type="button" class="btn btn-success" id="sorting"><strong>Apply</strong></button>
-                              <div>
-                              </div>
+                            <h3 class="box-title">  Laporan Pengiriman </h3>
+
+                            <div class="box-tools row" style="width: 600px;">
+                              <form class="" action="<?php echo base_url('admin/Laporan/laporan_pengiriman') ?>" method="post">
+                                <div class="col-md-3">
+                                  <select name="status" id="status" class="form-control input-sm" style="border-radius: 3px;">
+                                      <?php if ($status == 'BERHASIL'): ?>
+                                          <option value="ALL">STATUS</option>
+                                          <option value="BERHASIL" selected>BERHASIL</option>
+                                          <option value="INORDER">INORDER</option>
+                                          <option value="BATAL">BATAL</option>
+                                        <?php elseif ($status == 'INORDER'): ?>
+                                          <option value="ALL">STATUS</option>
+                                          <option value="BERHASIL">BERHASIL</option>
+                                          <option value="INORDER" selected>INORDER</option>
+                                          <option value="BATAL">BATAL</option>
+                                        <?php elseif ($status == 'BATAL'): ?>
+                                          <option value="ALL">STATUS</option>
+                                          <option value="BERHASIL">BERHASIL</option>
+                                          <option value="INORDER">INORDER</option>
+                                          <option value="BATAL" selected>BATAL</option>
+                                        <?php else: ?>
+                                          <option value="ALL" selected>STATUS</option>
+                                          <option value="BERHASIL">BERHASIL</option>
+                                          <option value="INORDER">INORDER</option>
+                                          <option value="BATAL">BATAL</option>
+                                      <?php endif; ?>
+
+                                  </select>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" name="awal" autocomplete="off" class="datepicker form-control input-sm" value="<?php echo $tgl_awal ?>" size="2" id="awal" placeholder="Tanggal Awal">
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" name="akhir" autocomplete="off" class="datepicker form-control input-sm" value="<?php echo $tgl_akhir ?>" size="2" id="akhir" placeholder="Tanggal Akhir">
+                                </div>
+                                  <button type="submit" class="btn btn-success" id="sorting"><strong>Apply</strong></button>
+                                <div>
+                                </div>
+                              </form>
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <br>
-                            <a href="<?php echo base_url('admin/Laporan/pengiriman_print/' . $data_bulan . '/' . $data_tahun. '/' . $data_status) ?>" class="btn btn-primary" target="_blank"><i class="fa fa-print"></i> Print Laporan</a><br><br>
+                            <a href="<?php echo base_url('admin/Laporan/pengiriman_print/'.$status.'/'.$tgl_awal.'/'.$tgl_akhir.'') ?>" class="btn btn-primary" target="_blank"><i class="fa fa-print"></i> Print Laporan</a><br><br>
                             <table id="table-laporan" class="table table-bordered">
                               <thead>
                               <tr>
@@ -168,6 +179,8 @@
 </div>
     <?php $footer_js = isset($js) ? $js : array() ; ?>
     <?php $this->load->view('admin/layout/footer', $footer_js); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>">
+    <script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 
     <script type="text/javascript">
   $(document).ready(function() {
@@ -181,13 +194,6 @@
        "bInfo": false,
     });
 
-    $('#sorting').click(function() {
-      var status = $('#select-status').val();
-      var bulan = $('#select-bulan').val();
-      var tahun = $('#select-tahun').val();
-      window.location.replace(BASE_URL + 'admin/Laporan/laporan_pengiriman/' + bulan + '/' + tahun + '/' + status);
-
-    });
     // $('#select-bulan').on('change', function(){
     //   if($(this).find(':selected').data('bulan') != ''){
     //     var bulan = $(this).find(':selected').data('bulan');
@@ -244,4 +250,13 @@
         for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
         return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
     }
+
+    $('.datepicker').datepicker({
+          autoclose: true,
+          format: "yyyy-mm-dd",
+          todayHighlight: true,
+          orientation: "top auto",
+          todayBtn: true,
+          todayHighlight: true,
+    });
 </script>

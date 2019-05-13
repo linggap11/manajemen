@@ -18,38 +18,32 @@ class Laporan extends CI_Controller {
 		$this->load->model('model_pengaturan');
 	}
 
-	public function laporan_pengiriman($bulan = 'all', $tahun = 'all', $status = 'all'){
-
-		$data['title'] = 'Daftar Pengiriman Bulan : '.$bulan.' Tahun  : '.$tahun.' Status : "'.$status.'"';
-
-		$data['data_bulan'] = $bulan ;
-		$data['data_tahun'] = $tahun ;
-		$data['data_status'] = $status ;
+	public function laporan_pengiriman(){
 
 		$data['js'] = $this->js ;
-
-		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status);
+		$status = $this->input->post('status');
+		$tgl_awal = $this->input->post('awal');
+		$tgl_akhir = $this->input->post('akhir');
+		$data['result'] = $this->model_laporan->data_pengiriman($status, $tgl_awal, $tgl_akhir);
+		$data['status'] = $status;
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
 		$data['data_sales'] = $this->model_laporan->tampil_sales();
-		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
-		$data['tahun'] = $this->model_laporan->getTahunPengiriman();
 		$this->load->view('admin/layout/header', array('title' => 'Laporan Pengiriman', 'menu' => 'laporan_pengiriman', 'css' => $this->css));
-
 		$this->load->view('admin/laporan/laporan_pengiriman', $data);
+
+
 	}
 
-	public function laporan_pemesanan($bulan = 'all', $tahun = 'all',  $status = 'all'){
-		$data['title'] = 'Daftar Pengiriman Bulan : '.$bulan.' Tahun  : '.$tahun.' Status : "'.$status.'"';
-
-		$data['data_bulan'] = $bulan ;
-		$data['data_tahun'] = $tahun ;
-		$data['data_status'] = $status ;
-
+	public function laporan_pemesanan(){
 		$data['js'] = $this->js ;
-
-		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status);
-		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
-		$data['tahun'] = $this->model_laporan->getTahunPengiriman();
-
+		$status = $this->input->post('status');
+		$tgl_awal = $this->input->post('awal');
+		$tgl_akhir = $this->input->post('akhir');
+		$data['result'] = $this->model_laporan->data_pemesanan($status, $tgl_awal, $tgl_akhir);
+		$data['status'] = $status;
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
 		$this->load->view('admin/layout/header', array('title' => 'Laporan Pemesanan', 'menu' => 'laporan_pemesanan', 'css' => $this->css));
 
 		$this->load->view('admin/laporan/laporan_pemesanan', $data);
@@ -68,41 +62,52 @@ class Laporan extends CI_Controller {
 		$this->load->view('admin/laporan/laporan_tagihan', $data);
 	}
 
-	public function pengiriman_print($bulan = 'all', $tahun = 'all',  $status = 'all') {
+	public function pengiriman_print($status = null, $tgl_awal = null, $tgl_akhir = null) {
 
-		$data['title'] = 'Laporan Pengiriman <br> Bulan : '.$bulan.' Tahun  : '.$tahun.' Status : "'.$status.'"';
-		$data['data_status'] = $status ;
-		$data['data_bulan'] = $bulan ;
-		$data['data_tahun'] = $tahun ;
-
-		$data['data_tahun'] = "";
 		$data['profile'] = $this->model_pengaturan->get_profile();
-		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status);
-		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
+		$data['result'] = $this->model_laporan->data_pengiriman($status, $tgl_awal, $tgl_akhir);
+		if ($status == null) {
+			$data['status'] = 'SEMUA';
+		} else {
+			$data['status'] = $status;
+		}
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
 
 		$this->load->view('admin/laporan/pengiriman_print', $data);
 
 	}
 
-	public function pemesanan_print($bulan = 'all', $tahun = 'all',  $status = 'all') {
+	public function pemesanan_print($status = null, $tgl_awal = null, $tgl_akhir = null) {
 
-		$data['title'] = 'Laporan Pengiriman <br> Bulan : '.$bulan.' Tahun  : '.$tahun.' Status : "'.$status.'"';
-		$data['data_status'] = $status ;
-		$data['data_tahun'] = $tahun ;
-		$data['data_bulan'] = $status ;
 
 		$data['profile'] = $this->model_pengaturan->get_profile();
-		$data['result'] = $this->model_laporan->show_laporan($bulan, $tahun, $status);
-		$data['bulan'] = $this->model_laporan->getNamaBulanPengiriman();
+		$data['result'] = $this->model_laporan->data_pemesanan($status, $tgl_awal, $tgl_akhir);
+		if ($status == null) {
+			$data['status'] = 'SEMUA';
+		} else {
+			$data['status'] = $status;
+		}
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
 
 		$this->load->view('admin/laporan/pemesanan_print', $data);
 
 	}
 
-	public function print_laporan_tagihan() {
+	public function print_laporan_tagihan($status = null, $tgl_awal = null, $tgl_akhir = null) {
 		$data['profile'] = $this->model_pengaturan->get_profile();
-		$data['result'] = $this->model_laporan->data_tagihan();
 
+
+		if ($status == 'BELUM_LUNAS') {
+			$data['status'] = 'BELUM LUNAS';
+			$status = 'BELUM LUNAS';
+		} else {
+			$data['status'] = $status;
+		}
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
+		$data['result'] = $this->model_laporan->data_tagihan($status, $tgl_awal, $tgl_akhir);
 
 		$this->load->view('admin/laporan/penagihan_print', $data);
 	}

@@ -51,7 +51,7 @@ table{
 if ($ppn != 0) {
   $pajak = 'PPN 10%';
 } else {
-  $pajak = 'PPN 0%';
+  $pajak = '';
 }
 
 $html = '<body width="100%">
@@ -75,7 +75,6 @@ $html = '<body width="100%">
           <p><strong>Alamat : </strong></p>
           <p>' . $print[0]->alamat . ' ('.$print[0]->kode_pos.') ' . $print[0]->no_telp .'</p>
           <h4><b>NO INVOICE #'.$print[0]->no_bukti.'</b></h4>
-            <p>Dari Tanggal: <b>'.$print[0]->tgl_transaksi.'</b></p>
             <p><b>'.$pajak .'</b></p>
         </td>
 
@@ -88,9 +87,10 @@ $html = '<body width="100%">
       <thead>
         <tr>
          <th width="7%">No</th>
-         <th width="15%">No. Mobil</th>
-         <th >Produk / Jasa</th>
-         <th width="12%">Qty (KG)</th>
+         <th width="13%">Tanggal</th>
+         <th width="12%">No. Mobil</th>
+         <th>Produk / Jasa</th>
+         <th width="10%">Qty (KG)</th>
          <th >Harga</th>
          <th >Total</th>
         </tr>
@@ -102,8 +102,9 @@ $html = '<body width="100%">
          foreach ($print as $row) {
           $html .=' <tr>
             <td align="center">' . $no++ . '</td>
+            <td align="center">' . $row->tgl_transaksi. '</td>
             <td align="center">' . $row->plat_nomor. '</td>
-            <td>' . $row->nama_produk. '</td>
+            <td>' . $row->nama_produk. ' ('.$row->produk_deskripsi.')</td>
             <td>' . $row->berat.'</td>
             <td>' . format_rupiah($row->harga) .'</td>
             <td>' . format_rupiah($row->total) . '</td>
@@ -114,19 +115,30 @@ $html = '<body width="100%">
 
       $html .= '</tbody>
       <tfoot>
-      <tr>
-        <td style="text-align:right" colspan="5"><b>PPN</b></td>
-        <td><b>' . format_rupiah($ppn) .'</b></td>
-      </tr>
-      <tr>
-        <td style="text-align:right" colspan="5"><b>TOTAL</b></td>
-        <td><b>' . format_rupiah($grand_total + $ppn) .'</b></td>
-      </tr>
-
+      ';
+      if ($ppn == 0) {
+        $html .= '
+        <tr>
+          <td style="text-align:right" colspan="6"><b>TOTAL</b></td>
+          <td><b>' . format_rupiah($grand_total) .'</b></td>
+        </tr>';
+      } else {
+        $html .= '
+        <tr>
+          <td style="text-align:right" colspan="6"><b>PPN</b></td>
+          <td><b>' . format_rupiah($ppn) .'</b></td>
+        </tr>
+        <tr>
+          <td style="text-align:right" colspan="6"><b>TOTAL</b></td>
+          <td><b>' . format_rupiah($grand_total + $ppn) .'</b></td>
+        </tr>';
+      }
+      $html .= '
       </tr>
   </tfoot>
     </table>
     <br>
+    <i>*Harap melakukan pembayaran ke rekening BCA 2780189005 An/ Usen Suryanto</i><br>
     <i>*Harap mengirim kembali bukti faktur melalui fax (022) 6623907 / WA 081394786706 / E-Mail usen_suryanto@yahoo.co.id </i>
     <table>
       <tr>
@@ -153,14 +165,15 @@ $html = '<body width="100%">
         <td></td>
         <td></td>
         <td style="text-align: center">
+          Bandung, '.tanggal_lokal(date('Y-m-d')).'
           <div style="text-align: center; ">Hormat Kami,<br><br><br><br><br><br><br><br><br>
 
-          (................................................)
+          (Usen Suryanto)
           </div>
         </td>
       </tr>
     </table>
-  </div><!-- end page -->';
+  </div>';
 
   $mpdf = new \Mpdf\Mpdf();
 

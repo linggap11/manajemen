@@ -53,6 +53,7 @@
   <tbody>';
 
   $no = 1;
+  $grand_total = 0;
   foreach($result as $row) {
       $html .= '<tr>
           <td align="center">'.  $no++  . '</td>
@@ -63,17 +64,23 @@
           <td>'.  format_rupiah($row->total)   . '</td>
 
       </tr>';
+      $grand_total += $row->total;
   }
 
   $html .= '
   </tbody>
-
+  <tfoot>
+    <tr>
+      <td style="text-align:right" colspan="5"><b>Grand Total</b></td>
+      <td colspan="1"><b>' . format_rupiah($grand_total) .'</b></td>
+    </tr>
+  </tfoot>
   </table>';
 
   $mpdf = new \Mpdf\Mpdf();
 
   $mpdf->CSSselectMedia='mpdf';
   $mpdf->WriteHTML($style . $html);
-  $mpdf->Output('Laporan_Penagihan_' . date('Y_m_d'). '.pdf', \Mpdf\Output\Destination::INLINE);
+  $mpdf->Output('Laporan_Penagihan_'.$status.'_'.$tgl_awal.'_'.$tgl_akhir.'.pdf', \Mpdf\Output\Destination::INLINE);
 
 ?>
