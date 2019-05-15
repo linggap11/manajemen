@@ -390,8 +390,10 @@ class Kelola_pengiriman extends CI_Controller {
 		$sj = $this->input->post('sj_edit');
 		$berat = $this->input->post('berat_edit');
 		$harga = $this->input->post('harga_edit');
+		$tanggal = $this->input->post('tanggal_edit');
 
 		$data_tagihan = array(
+			'tgl_transaksi' => $tanggal,
 			'berat' => $berat,
 			'harga' => $harga,
 			'total' => $berat * $harga,

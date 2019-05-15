@@ -94,7 +94,8 @@
                   type="button" class="btn btn-info btn-xs btn-detail"> <span class="fa fa-info-circle"></span> Detail</button>
                   <?php if ($row->tagihan == 'BELUM LUNAS'): ?>
                     <button
-                    data-no_surat="<?= $row->no_pengiriman ?>"
+                     data-tanggal="<?= $row->tgl_transaksi ?>"
+                     data-no_surat="<?= $row->no_pengiriman ?>"
                      data-no_bukti="<?= $row->no_bukti ?>"
                      data-pelanggan_id="<?= $row->pelanggan_id ?>"
                      data-nama_produk="<?= $row->nama_produk ?>"
@@ -184,6 +185,16 @@
               <div class="col-md-12">
                 <div class="col-md-6">
                   <h5><strong>Surat Jalan : <span id="sj"></span></strong></h5>
+                </div>
+                <div class="col-md-6">
+                  <label class="control-label"><strong>Tanggal Transaksi</strong></label>
+                  <div class="datepicker input-group date">
+                    <input style="text-align : center" type="text" readonly required class="form-control" name="tanggal_edit" id="tanggal_edit">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div>
+
                 </div>
               </div>
               <div class="col-md-12">
@@ -275,8 +286,12 @@
 
   </div>
 </div>
+<
 <?php $footer_js = isset($js) ? $js : array() ; ?>
+
 <?php $this->load->view('admin/layout/footer'); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>">
+<script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 
 <script>
   $(document).ready(function() {
@@ -338,9 +353,8 @@
   });
 
   $('.btn-edit').click(function(){
-
-
       var no_surat = $(this).data('no_surat');
+      var tanggal = $(this).data('tanggal');
       var no_invoice = $(this).data('no_bukti');
       var pelanggan_id = $(this).data('pelanggan_id');
       var nama_produk = $(this).data('nama_produk');
@@ -350,6 +364,7 @@
 
       $('#sj').html(no_surat);
       $('#sj_edit').val(no_surat);
+      $('#tanggal_edit').val(tanggal);
       $('#pelanggan_id').val(pelanggan_id);
       $('#no_invoice_edit').html(no_invoice);
       $('#produk_edit').val(nama_produk);
@@ -420,5 +435,14 @@
     function convertToAngka(rupiah) {
         return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
     }
+
+    $('.datepicker').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd",
+        todayHighlight: true,
+        orientation: "top auto",
+        todayBtn: true,
+        todayHighlight: true,
+    });
 
 </script>
