@@ -17,7 +17,7 @@ class Model_keuangan extends CI_Model {
 	}
 
 	public function tampil_piutang() {
-		$this->db->select('piutang.*, jumlah_piutang AS saldo, pelanggan.nama')->from('piutang')->join('invoice', 'invoice.no_invoice = piutang.no_invoice')->join('transaksi', 'transaksi.no_invoice = invoice.no_invoice')->join('pengiriman','pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')->group_by('piutang.id');
+		$this->db->select('piutang.*, jumlah_piutang AS saldo, pelanggan.nama, piutang.tanggal')->from('piutang')->join('invoice', 'invoice.no_invoice = piutang.no_invoice')->join('transaksi', 'transaksi.no_invoice = invoice.no_invoice')->join('pengiriman','pengiriman.transaksi_id = transaksi.id')->join('pelanggan', 'pengiriman.pelanggan_id = pelanggan.id')->group_by('piutang.id');
 		return $this->db->get()->result();
 	}
 

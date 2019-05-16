@@ -34,7 +34,7 @@
                                 <th>DEBIT</th>
                                 <th>KREDIT</th>
                                 <th>SALDO</th>
-                                <th>KETERANGAN</th>
+                                <th width="14%">KETERANGAN</th>
                                 <th width="10%">PEMBAYARAN</th>
                             </tr>
                             </thead>
@@ -56,7 +56,11 @@
                                             <?php $total_debit = $total_debit + $piutang->jumlah_bayar ?>
                                     <?php endif ?>
                                     <td><?= format_rupiah($piutang->saldo) ?></td>
-                                    <td><?= $piutang->keterangan ?></td>
+                                    <?php if ($piutang->keterangan == "LUNAS"): ?>
+                                      <td align="center"><strong><?= $piutang->keterangan ?> [<?= $piutang->tanggal ?>]</strong></td>
+                                    <?php else: ?>
+                                      <td align="center"><?= $piutang->keterangan ?></td>
+                                    <?php endif; ?>
                                     <td align="center">
                                         <button class="pembayaran btn btn-secondary btn-xs" data-id="<?= $piutang->no_piutang ?>" title="Pembayaran"><span class="fa fa-pencil-square-o"></span></button>
                                         <button class="detail btn btn-info btn-xs" data-id="<?= $piutang->no_piutang ?>" title="Detail Piutang">Detail</button>
